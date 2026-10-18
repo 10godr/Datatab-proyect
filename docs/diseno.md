@@ -360,3 +360,7 @@ El tema único pasó de oscuro a claro (fondo menta `#E8F5EC`, tarjetas blancas,
 
 ## Gráfico (18/10)
 Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el gráfico es circular; en cualquier otro caso, barras.
+
+## Cabecera y movimiento (18/10)
+- La cabecera es una tarjeta blanca flotante (sin línea inferior); las pestañas son píldoras.
+- Zona de carga: tarjeta grande con icono flotante, elevación al pasar el ratón y pulso al arrastrar. Entradas suaves y manchas verdes lentas de fondo. Todo se desactiva con `prefers-reduced-motion` (regla en `base.css`).

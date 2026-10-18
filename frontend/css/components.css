@@ -72,18 +72,20 @@
 /* ---------- Pestañas ---------- */
 
 .pestana {
-  min-height: var(--alto-control);
-  padding: var(--s-4) 0 calc(var(--s-4) - 2px);
+  min-height: calc(var(--alto-control) - var(--s-1));
+  padding: 0 var(--s-5);
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-radius: 999px;
   background: none;
   color: var(--text-2);
   font-size: var(--t-sm);
+  font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
-.pestana:hover { color: var(--text); }
-.pestana[aria-selected="true"] { color: var(--text); border-bottom-color: var(--signal); }
+.pestana:hover { background: var(--moss-900); color: var(--text); }
+.pestana[aria-selected="true"] { background: var(--signal); color: var(--signal-ink); }
 .pestana:focus-visible { outline-offset: 2px; }
 
 /* ---------- Campos ---------- */
@@ -238,11 +240,26 @@
   gap: var(--s-4);
   justify-items: center;
   width: 100%;
-  padding: var(--s-6) var(--s-5);
+  padding: var(--s-7) var(--s-5);
   background: var(--ink-1);
-  border: 1px dashed var(--line-control);
-  border-radius: var(--r-2);
+  border: 2px dashed var(--moss-500);
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgb(20 122 63 / 0.14);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
+.zona-carga:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgb(20 122 63 / 0.22); border-color: var(--signal); }
+.zona-carga__icono {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  background: var(--moss-700);
+  border-radius: 50%;
+  color: var(--signal);
+  animation: flotar 3.2s ease-in-out infinite;
+}
+.zona-carga__icono svg { width: 34px; height: 34px; }
+@keyframes flotar { 50% { transform: translateY(-8px); } }
 .zona-carga__texto { font-size: var(--t-md); }
 
 /* Arrastrar solo tiene sentido con ratón; en pantallas táctiles se habla de elegir */
@@ -254,7 +271,9 @@
 }
 
 /* Mientras se arrastra: borde sólido, fondo musgo y texto distinto (no depende solo del color) */
-.zona-carga[data-arrastrando="true"] { border-style: solid; border-color: var(--signal); background: var(--moss-900); }
+.zona-carga[data-arrastrando="true"] { border-style: solid; border-color: var(--signal); background: var(--moss-900); transform: scale(1.03); }
+.zona-carga[data-arrastrando="true"] .zona-carga__icono { animation: pulso 0.9s ease-out infinite; }
+@keyframes pulso { 0% { box-shadow: 0 0 0 0 rgb(20 122 63 / 0.45); } 100% { box-shadow: 0 0 0 22px rgb(20 122 63 / 0); } }
 .zona-carga[data-arrastrando="true"] .solo-puntero-fino,
 .zona-carga[data-arrastrando="true"] .solo-puntero-grueso { display: none; }
 .zona-carga[data-arrastrando="true"] .solo-arrastrando { display: inline; }
@@ -628,3 +647,31 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 }
 .formatos { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
 .formatos li { padding: var(--s-1) var(--s-3); background: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text-2); font-size: var(--t-xs); font-weight: 600; }
+
+/* ---------- Movimiento (se desactiva con prefers-reduced-motion, ver base.css) ---------- */
+@keyframes aparecer { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.carga__presentacion > *, .carga__accion > *, .vista-analisis .analisis, .vista-analisis .pestanas-barra, .seccion-datos {
+  animation: aparecer 0.55s ease both;
+}
+.carga__presentacion > :nth-child(2) { animation-delay: 0.08s; }
+.carga__presentacion > :nth-child(3) { animation-delay: 0.16s; }
+.carga__accion > :first-child { animation-delay: 0.24s; }
+.panel:not([hidden]) { animation: aparecer 0.35s ease both; }
+.vista-carga { position: relative; overflow-x: clip; }
+.vista-carga::before, .vista-carga::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: var(--moss-700);
+  opacity: 0.55;
+  filter: blur(60px);
+  animation: deriva 14s ease-in-out infinite alternate;
+}
+.vista-carga::before { top: 1rem; left: -8rem; }
+.vista-carga::after { bottom: 1rem; right: -8rem; background: #BDE6CB; animation-delay: -7s; }
+@keyframes deriva { to { transform: translate(4rem, 3rem) scale(1.15); } }
+.boton { transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
+.boton:active { transform: scale(0.97); }
