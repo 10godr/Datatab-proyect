@@ -1,0 +1,58 @@
+/* Fondo (18/10): carbón con matiz verde y líneas topográficas solo en la bienvenida. Variante 2 de docs/04-propuesta-fondos.
+   Este archivo va al final y sobrescribe los tokens y las capas anteriores. Para volver al tema claro basta quitar su <link>. */
+
+:root {
+  color-scheme: dark;
+  --ink-0: #101311; --ink-1: #161B18; --ink-2: #1D2420;
+  --line: #2A332E; --line-strong: #3A4640; --line-control: #5F6C66;
+  --text: #E9EEEA; --text-2: #AEB9B2; --text-3: #8A968F;
+  --moss-900: #13261C; --moss-700: #1E3B2C; --moss-500: #4E7F64; --moss-300: #8DB89E;
+  --signal: #63D68F; --signal-ink: #052012; --signal-hover: #7BE0A2;
+  --error: #EE8170; --warn: #DDB662;
+  --c-green: #63D68F; --c-rose: #E8A0B4; --c-white: #E6ECE8; --c-blue: #7FA9C4; --c-ochre: #D7A65E;
+  --c-violet: #A88BC4; --c-teal: #5FC4B8; --c-coral: #E89A82; --c-lime: #A9D36E; --c-gray: var(--text-3);
+  --velo: rgb(5 8 6 / 0.74);
+}
+
+/* Fondo liso: se retiran degradados, rejilla de puntos, manchas y tarjetas flotantes */
+body { background: var(--ink-0); }
+body::before { content: none; }
+.vista-carga::after, .deco { display: none !important; }
+
+/* Líneas topográficas: solo en la bienvenida, desvanecidas hacia el centro para que no pasen detrás del texto ni de la zona de carga */
+.vista-carga::before {
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: auto; height: auto;
+  border-radius: 0;
+  background: url("../assets/topografia.svg") center / cover no-repeat;
+  filter: none;
+  opacity: 1;
+  animation: none;
+  -webkit-mask-image: radial-gradient(ellipse 48% 60% at 50% 50%, transparent 58%, #000 100%);
+  mask-image: radial-gradient(ellipse 48% 60% at 50% 50%, transparent 58%, #000 100%);
+}
+@media (max-width: 640px) { .vista-carga::before { opacity: 0.55; } }
+
+/* Cabecera y pestañas: superficies lisas, sin cristal ni cinta */
+.cabecera__interior { background: var(--ink-1); -webkit-backdrop-filter: none; backdrop-filter: none; border: 1px solid var(--line); box-shadow: none; border-radius: 10px; }
+.cabecera__interior::after { content: none; }
+.marca__logo { background: var(--signal); box-shadow: none; }
+.pestanas { background: var(--ink-1); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.pestana:hover { background: var(--ink-2); }
+.pestana[aria-selected="true"] { background: var(--signal); box-shadow: none; }
+
+/* Botones, zona de carga y tarjetas sin brillos ni sombras de luz */
+.boton--primario:not(:disabled) { background: var(--signal); border-color: var(--signal); box-shadow: none; }
+.boton--primario:not(:disabled):hover { background: var(--signal-hover); border-color: var(--signal-hover); transform: none; }
+.controles { box-shadow: none; }
+.zona-carga { background: var(--ink-1); border: 1px dashed var(--line-control); border-radius: 12px; box-shadow: none; }
+.zona-carga:hover { transform: none; box-shadow: none; border-color: var(--signal); }
+.zona-carga__icono { animation: none; background: var(--moss-700); }
+.grafico { background: var(--ink-1); border: 1px solid var(--line); border-radius: 12px; box-shadow: none; }
+.grafico:hover { transform: none; box-shadow: none; }
+.seccion-datos { background: var(--ink-1); border: 1px solid var(--line); border-radius: 12px; }
+.seccion-datos .tabla--datos thead th { background: var(--ink-2); }
+.seccion-datos .tabla--datos tbody tr:nth-child(even) { background: var(--ink-2); }
+.etiqueta { background: var(--moss-900); color: var(--moss-300); }
+.formatos li { background: var(--ink-2); }
+.resultado--obsoleto { filter: saturate(0.6); }

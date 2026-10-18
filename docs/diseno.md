@@ -373,3 +373,6 @@ Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el 
 ## Gráfico y carga (18/10)
 - Gráfico en una tarjeta con degradado propio; cada barra tiene un color distinto (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`, en ese orden y repitiendo) y crece con retardo escalonado. Con `prefers-reduced-motion` no se anima.
 - Al elegir otra columna el resultado anterior se atenúa; al calcular se ve un cargador de cinco barras (mínimo 600 ms, `conPausaMinima` en `ui/panel.js`) y la tabla entra fila a fila.
+
+## Fondo carbón con líneas topográficas (18/10, variante 2 de 04-propuesta-fondos.md)
+Vuelve el tema oscuro, aplicado en un solo archivo, `frontend/css/fondo.css`, que va al final y sobrescribe los tokens y retira degradados, rejilla de puntos, manchas, tarjetas flotantes, cristal y cintas. Las líneas topográficas son `assets/topografia.svg` (26 KB, trazo de 1 px a 10 % de opacidad) y solo están en la pantalla de carga, desvanecidas hacia el centro. Para volver al tema claro basta quitar el `<link>` de `fondo.css` en `index.html`. Contrastes sobre `--ink-0`: texto 15,9:1, texto 2 9,2:1, texto 3 6,1:1, acento 10,3:1.
