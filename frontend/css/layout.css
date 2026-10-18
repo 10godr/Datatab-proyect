@@ -106,6 +106,8 @@ main { flex: 1 0 auto; }
 
 .panel { padding-block: var(--s-6) var(--s-9); }
 
+.columna-controles { display: grid; gap: var(--s-4); align-content: start; min-width: 0; }
+
 .analisis {
   display: grid;
   grid-template-columns: var(--ancho-controles) minmax(0, 1fr);
@@ -142,6 +144,9 @@ main { flex: 1 0 auto; }
 
 @media (max-width: 960px) {
   .analisis { grid-template-columns: minmax(0, 1fr); }
+  /* En una columna, «Cómo leerlo» va después del resultado */
+  .columna-controles { display: contents; }
+  .columna-controles > .lectura { order: 3; }
 }
 
 /* ---------- Teléfono ---------- */

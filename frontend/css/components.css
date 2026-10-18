@@ -526,10 +526,13 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 .lectura {
   display: grid;
   gap: var(--s-3);
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--line);
+  padding: var(--s-4) var(--s-5);
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--signal);
+  border-radius: var(--r-2);
 }
-.lectura__titulo { margin-top: calc(-1 * var(--s-2)); font-size: var(--t-md); letter-spacing: 0; }
+.lectura__titulo { font-size: var(--t-md); letter-spacing: 0; }
 .lectura p { color: var(--text-2); font-size: var(--t-sm); }
 .lectura p strong { color: var(--text); font-weight: 500; }
 

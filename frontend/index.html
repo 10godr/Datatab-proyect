@@ -135,7 +135,8 @@
         <!-- ---------- Frecuencias ---------- -->
         <div role="tabpanel" class="panel" id="panel-frecuencias" aria-labelledby="tab-frecuencias">
           <div class="analisis">
-            <form class="controles" id="frec-form" autocomplete="off" novalidate>
+            <div class="columna-controles">
+              <form class="controles" id="frec-form" autocomplete="off" novalidate>
               <h2 class="visualmente-oculto">Opciones de frecuencias</h2>
               <details class="plegable" id="frec-controles" open>
                 <summary class="plegable__resumen">
@@ -153,6 +154,14 @@
                 </div>
               </details>
             </form>
+
+              <div class="lectura" hidden id="frec-lectura">
+                  <h3 class="lectura__titulo">Cómo leerlo</h3>
+                  <p><strong>Qué muestra:</strong> <span id="frec-lectura-muestra"></span></p>
+                  <p><strong>Lectura:</strong> <span id="frec-lectura-lectura"></span></p>
+                  <p><strong>Límites:</strong> <span id="frec-lectura-limites"></span> Describe este archivo; no es una conclusión sobre otra población.</p>
+                </div>
+            </div>
 
             <div class="salida">
               <p class="visualmente-oculto" id="frec-anuncio" role="status"></p>
@@ -241,14 +250,6 @@
                     </div>
                   </details>
                 </div>
-
-                <div class="lectura" id="frec-lectura">
-                  <p class="etiqueta etiqueta--tipo">Descripción</p>
-                  <h3 class="lectura__titulo">Cómo leerlo</h3>
-                  <p><strong>Qué muestra:</strong> <span id="frec-lectura-muestra"></span></p>
-                  <p><strong>Lectura:</strong> <span id="frec-lectura-lectura"></span></p>
-                  <p><strong>Límites:</strong> <span id="frec-lectura-limites"></span> Describe este archivo; no es una conclusión sobre otra población.</p>
-                </div>
               </div>
             </div>
           </div>
@@ -257,7 +258,8 @@
         <!-- ---------- Cruce de variables ---------- -->
         <div role="tabpanel" class="panel" id="panel-cruce" aria-labelledby="tab-cruce" hidden>
           <div class="analisis">
-            <form class="controles" id="cruce-form" autocomplete="off" novalidate>
+            <div class="columna-controles">
+              <form class="controles" id="cruce-form" autocomplete="off" novalidate>
               <h2 class="visualmente-oculto">Opciones del cruce</h2>
               <details class="plegable" id="cruce-controles" open>
                 <summary class="plegable__resumen">
@@ -285,6 +287,14 @@
                 </div>
               </details>
             </form>
+
+              <div class="lectura" hidden id="cruce-lectura">
+                  <h3 class="lectura__titulo">Cómo leerlo</h3>
+                  <p><strong>Qué muestra:</strong> <span id="cruce-lectura-muestra"></span></p>
+                  <p><strong>Lectura:</strong> <span id="cruce-lectura-lectura"></span></p>
+                  <p><strong>Límites:</strong> <span id="cruce-lectura-limites"></span> Una asociación observada en estos datos no demuestra que una variable cause la otra.</p>
+                </div>
+            </div>
 
             <div class="salida">
               <p class="visualmente-oculto" id="cruce-anuncio" role="status"></p>
@@ -338,14 +348,6 @@
                       </tr>
                     </tfoot>
                   </table>
-                </div>
-
-                <div class="lectura" id="cruce-lectura">
-                  <p class="etiqueta etiqueta--tipo">Descripción</p>
-                  <h3 class="lectura__titulo">Cómo leerlo</h3>
-                  <p><strong>Qué muestra:</strong> <span id="cruce-lectura-muestra"></span></p>
-                  <p><strong>Lectura:</strong> <span id="cruce-lectura-lectura"></span></p>
-                  <p><strong>Límites:</strong> <span id="cruce-lectura-limites"></span> Una asociación observada en estos datos no demuestra que una variable cause la otra.</p>
                 </div>
               </div>
             </div>

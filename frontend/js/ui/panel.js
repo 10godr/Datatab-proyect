@@ -10,6 +10,8 @@ export function mostrarEstado(prefijo, activo) {
   for (const estado of ESTADOS) {
     document.getElementById(`${prefijo}-${estado}`).hidden = estado !== activo;
   }
+  // «Cómo leerlo» vive bajo los controles, fuera del resultado, y solo se ve con un resultado en pantalla
+  document.getElementById(`${prefijo}-lectura`).hidden = activo !== 'resultado';
 }
 
 /** Escribe mensaje y sugerencia de un error en su bloque ([data-campo]). */
