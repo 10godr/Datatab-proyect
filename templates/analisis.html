@@ -3,463 +3,600 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataTab - Análisis</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <title>DataTab — Análisis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- DM Sans (cuerpo) + DM Serif Display (títulos) — mismas fuentes que en el index -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-
   <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
           colors: {
-            primary: "#2E7D32",
-            "primary-light": "#388E3C",
-            "background-light": "#F1F8E9",
-            "background-dark": "#0f1a10",
-            "card-light": "#FFFFFF",
-            "card-dark": "#1a2e1b",
+            primary: "#16a34a",
+            "primary-dark": "#15803d",
+            bg: "#e8f5e9",
+            "bg-dark": "#0a0f0b",
+            surface: "#ffffff",
+            "surface-dark": "#111814",
+            border: "#a5d6a7",
+            "border-dark": "#1a2e1e",
           },
         },
       },
     };
   </script>
-
   <style>
-    body        { font-family: 'DM Sans', sans-serif; }
-    .font-display { font-family: 'DM Serif Display', serif; }
-    .ios-blur   { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-
-    /* Scrollbar sutil */
+    * { font-family: 'Manrope', sans-serif; }
+    .display { font-family: 'Inter', sans-serif; font-weight: 800; }
+    .blur-bg { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb { background: #3a3a3a; }
-
-    /* Spinner */
-    .spinner { border: 3px solid #e5e7eb; border-top-color: #2E7D32; border-radius: 50%; width: 26px; height: 26px; animation: spin 0.75s linear infinite; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #374151; }
+    .spin { border: 2.5px solid #dcfce7; border-top-color: #16a34a; border-radius: 50%; width: 22px; height: 22px; animation: spin .7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Tags de rangos */
-    .rango-tag {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(46,125,50,0.12); color: #2E7D32;
-      border: 1px solid rgba(46,125,50,0.2);
-      border-radius: 999px; padding: 3px 11px;
-      font-size: 12px; font-weight: 600;
-    }
-    .dark .rango-tag { background: rgba(46,125,50,0.2); border-color: rgba(46,125,50,0.3); color: #66bb6a; }
-
-    /* Filas tabla vista de datos más visibles */
-    .data-row td { color: #334155; font-size: 13px; font-weight: 450; }
+    .tag { display:inline-flex; align-items:center; gap:4px; background:rgba(22,163,74,.1); color:#16a34a; border:1px solid rgba(22,163,74,.2); border-radius:999px; padding:2px 10px; font-size:11px; font-weight:700; }
+    .dark .tag { background:rgba(22,163,74,.15); color:#4ade80; border-color:rgba(74,222,128,.2); }
+    .tab-btn { padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 10px; transition: all .2s; color: #64748b; }
+    .tab-btn.active { background: #16a34a; color: white; box-shadow: 0 2px 8px rgba(22,163,74,.3); }
+    .tab-btn:not(.active):hover { background: rgba(22,163,74,.08); color: #16a34a; }
+    .fade { animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+    .data-row td { font-size: 13px; font-weight: 500; color: #334155; }
     .dark .data-row td { color: #cbd5e1; }
-    .data-row:hover { background: rgba(46,125,50,0.04); }
-    .dark .data-row:hover { background: rgba(46,125,50,0.08); }
+    .data-row:hover td { background: rgba(22,163,74,.04); }
+    .dark .data-row:hover td { background: rgba(22,163,74,.07); }
+    /* Modal */
+    #toast { transition: all .3s ease; }
   </style>
 </head>
+<body class="bg-bg dark:bg-bg-dark text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
 
-<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen transition-colors duration-300">
+  <!-- TOAST -->
+  <div id="toast" class="fixed top-5 right-5 z-[100] hidden max-w-sm">
+    <div id="toastInner" class="flex items-start gap-3 px-4 py-3 rounded-xl shadow-xl border text-sm font-medium">
+      <span id="toastIcon" class="material-symbols-outlined text-xl mt-0.5"></span>
+      <p id="toastMsg"></p>
+    </div>
+  </div>
 
   <!-- HEADER -->
-  <header class="sticky top-0 z-50 ios-blur bg-white/80 dark:bg-black/60 border-b border-slate-200 dark:border-slate-800 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-primary text-2xl">bar_chart</span>
-      <span class="font-display text-xl text-primary">DataTab</span>
+  <header class="sticky top-0 z-50 blur-bg bg-white/80 dark:bg-black/70 border-b border-border dark:border-border-dark px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
+        <span class="material-symbols-outlined text-white text-[18px]">bar_chart</span>
+      </div>
+      <span class="display text-xl text-primary">DataTab</span>
     </div>
-    <div class="flex items-center gap-5">
-      <a href="/" class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">Inicio</a>
-      <button class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-              onclick="document.documentElement.classList.toggle('dark'); if(miChartInstance) analizar()">
+    <div class="flex items-center gap-4">
+      <a href="/" class="text-sm font-semibold text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-base">arrow_back</span> Inicio
+      </a>
+      <button onclick="toggleDark()"
+        class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
         <span class="material-symbols-outlined text-[18px] dark:hidden text-slate-500">light_mode</span>
         <span class="material-symbols-outlined text-[18px] hidden dark:block text-slate-400">dark_mode</span>
       </button>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-6">
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-5">
 
-    <!-- FILA SUPERIOR -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+    <!-- STAT CARDS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 fade">
+      <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark p-4 shadow-sm">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">Archivo</p>
+        <p class="font-bold text-slate-700 dark:text-slate-200 text-sm truncate">{{ filename }}</p>
+      </div>
+      <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark p-4 shadow-sm">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">Total filas</p>
+        <p class="display text-2xl text-primary">{{ total_filas }}</p>
+      </div>
+      <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark p-4 shadow-sm">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">Columnas</p>
+        <p class="display text-2xl text-primary">{{ total_cols }}</p>
+      </div>
+      <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark p-4 shadow-sm">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">Estado</p>
+        <p class="text-sm font-bold text-emerald-500 flex items-center gap-1">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full inline-block animate-pulse"></span> Listo
+        </p>
+      </div>
+    </div>
 
-      <!-- ── HERRAMIENTAS ── -->
-      <div class="bg-card-light dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 flex flex-col gap-5">
+    <!-- TABS -->
+    <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-2 flex gap-1 w-fit">
+      <button class="tab-btn active" onclick="switchTab('frecuencias', this)">
+        <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-base">table_chart</span>Frecuencias</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('cruzada', this)">
+        <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-base">grid_on</span>Tabla Cruzada</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('datos', this)">
+        <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-base">dataset</span>Vista de Datos</span>
+      </button>
+    </div>
 
-        <h2 class="font-display text-2xl text-slate-800 dark:text-white">Herramientas de Análisis</h2>
+    <!-- ══════════ TAB: FRECUENCIAS ══════════ -->
+    <div id="tab-frecuencias" class="fade">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-        <!-- Selector columna -->
-        <div>
-          <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide text-[11px]">Seleccionar Columna</label>
-          <div class="relative">
-            <select id="columnaSelect"
-              class="w-full bg-background-light dark:bg-slate-800 border border-green-200 dark:border-green-900/60 rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all text-sm font-medium text-slate-700 dark:text-slate-200">
-              <option value="">Elige una columna...</option>
-              {% for col in columnas %}
-              <option value="{{ col }}">{{ col }}</option>
-              {% endfor %}
-            </select>
-            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xl">expand_more</span>
+        <!-- Panel izquierdo: Herramientas -->
+        <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6 space-y-5">
+          <h2 class="display text-2xl text-slate-800 dark:text-white">Análisis</h2>
+
+          <!-- Selector columna -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Columna</label>
+            <div class="relative">
+              <select id="columnaSelect"
+                class="w-full bg-bg dark:bg-slate-800 border border-green-200 dark:border-green-900/50 rounded-xl py-3 px-4 pr-10 appearance-none text-sm font-semibold text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                <option value="">Elige una columna...</option>
+                {% for col in columnas %}
+                <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xl">expand_more</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Sección rangos — SOLO aparece si columna numérica (controlado desde JS) -->
-        <div id="seccionRangos" class="hidden">
-          <div class="border-t border-slate-100 dark:border-slate-800 pt-5">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-[11px] font-bold text-primary uppercase tracking-widest">Definir Rangos</h3>
-              <span class="text-[10px] text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">opcional</span>
-            </div>
-
-            <!-- Instrucción clara -->
-            <div class="bg-primary/5 dark:bg-primary/10 border border-primary/15 rounded-xl p-3 mb-3">
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Escribe un rango en el campo y presiona <strong>+</strong> para agregarlo.<br>
-                <span class="text-slate-400">Ejemplos válidos:</span>
-                <span class="font-mono text-primary font-semibold">&lt;30</span> ·
-                <span class="font-mono text-primary font-semibold">30-39</span> ·
-                <span class="font-mono text-primary font-semibold">40+</span> ·
-                <span class="font-mono text-primary font-semibold">&gt;=60</span>
-              </p>
-            </div>
-
-            <!-- Tags de rangos activos -->
-            <div id="rangosActivos" class="flex flex-wrap gap-2 mb-3 min-h-[28px]"></div>
-
-            <!-- Input + botón agregar -->
-            <div class="flex gap-2">
-              <input id="rangoInput" type="text" placeholder="ej: 30-39"
-                class="flex-1 bg-background-light dark:bg-slate-800 border border-green-200 dark:border-green-900/60 rounded-lg text-sm font-medium p-2.5 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none placeholder-slate-300 dark:placeholder-slate-600"
-                onkeydown="if(event.key==='Enter'){event.preventDefault();agregarRango()}">
-              <button onclick="agregarRango()"
-                class="px-3.5 py-2 bg-primary text-white rounded-lg text-sm font-semibold flex items-center gap-1 hover:bg-primary-light transition-colors shadow-sm">
-                <span class="material-symbols-outlined text-base">add</span>
+          <!-- Rangos (solo numérico) -->
+          <div id="seccionRangos" class="hidden space-y-3">
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-4">
+              <div class="flex items-center justify-between mb-2">
+                <label class="text-[11px] font-bold uppercase tracking-widest text-primary">Rangos Numéricos</label>
+                <span class="text-[10px] text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">opcional</span>
+              </div>
+              <div class="bg-primary/5 dark:bg-primary/10 border border-primary/15 rounded-xl p-3 mb-3">
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Escribe un rango y presiona <strong>+</strong> para agregarlo.<br>
+                  <span class="text-slate-400 text-[11px]">Ej:</span>
+                  <code class="text-primary font-bold text-[11px]">&lt;30</code> ·
+                  <code class="text-primary font-bold text-[11px]">30-39</code> ·
+                  <code class="text-primary font-bold text-[11px]">40+</code>
+                </p>
+              </div>
+              <div id="rangosActivos" class="flex flex-wrap gap-1.5 min-h-[24px] mb-2"></div>
+              <div class="flex gap-2">
+                <input id="rangoInput" type="text" placeholder="ej: 30-39"
+                  class="flex-1 bg-bg dark:bg-slate-800 border border-green-200 dark:border-green-900/50 rounded-lg text-sm font-semibold p-2.5 outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary placeholder-slate-300 dark:placeholder-slate-600"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();addRango()}">
+                <button onclick="addRango()" class="px-3.5 bg-primary hover:bg-primary-dark text-white rounded-lg font-bold transition-colors shadow-sm shadow-primary/20">
+                  <span class="material-symbols-outlined text-base">add</span>
+                </button>
+              </div>
+              <button onclick="clearRangos()" class="mt-2 text-xs text-slate-400 hover:text-red-400 transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">delete</span> Limpiar rangos
               </button>
             </div>
-
-            <button onclick="limpiarRangos()" class="mt-2 text-xs text-slate-400 hover:text-red-400 transition-colors flex items-center gap-1">
-              <span class="material-symbols-outlined text-sm">delete</span> Limpiar todos los rangos
-            </button>
           </div>
+
+          <!-- Botones -->
+          <button id="btnAnalizar" onclick="analizar()" disabled
+            class="w-full py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md shadow-primary/20">
+            <span class="material-symbols-outlined text-lg">analytics</span> Analizar
+          </button>
+          <a href="/" class="w-full py-2.5 border border-primary/25 text-primary hover:bg-primary/5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all">
+            <span class="material-symbols-outlined text-lg">refresh</span> Nuevo archivo
+          </a>
         </div>
 
-        <!-- Botón Analizar -->
-        <button id="btnAnalizar" onclick="analizar()"
-          class="w-full py-3 px-4 bg-primary text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-primary-light transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-primary/20"
-          disabled>
-          <span class="material-symbols-outlined text-lg">analytics</span>
-          Analizar
-        </button>
+        <!-- Panel central: Tabla frecuencias -->
+        <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6">
+          <h2 class="display text-2xl text-slate-800 dark:text-white mb-1">Tabla de Frecuencias</h2>
+          <p id="subtituloFreq" class="text-xs text-slate-400 font-medium mb-5">Selecciona una columna para comenzar.</p>
 
-        <!-- Cargar otro archivo -->
-        <a href="/"
-          class="w-full py-2.5 px-4 border border-primary/25 text-primary rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-primary/5 transition-all text-sm">
-          <span class="material-symbols-outlined text-lg">refresh</span>
-          Cargar otro archivo
-        </a>
-
-        <!-- Info archivo -->
-        <div class="bg-slate-50 dark:bg-slate-800/40 rounded-xl p-3.5 border border-slate-100 dark:border-slate-700/50">
-          <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Archivo cargado</p>
-          <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{{ filename }}</p>
-          <p class="text-xs text-slate-400 mt-1">{{ total_filas }} filas · {{ columnas|length }} columnas</p>
-        </div>
-      </div>
-
-      <!-- ── TABLA DE FRECUENCIAS ── -->
-      <div class="bg-card-light dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6">
-        <h2 class="font-display text-2xl text-slate-800 dark:text-white mb-1">Panel de Análisis</h2>
-        <p id="subtituloPanel" class="text-xs text-slate-400 mb-5 font-medium">Selecciona una columna para comenzar el análisis.</p>
-
-        <!-- Estado vacío -->
-        <div id="estadoVacio" class="flex flex-col items-center justify-center h-52 text-center">
-          <span class="material-symbols-outlined text-5xl text-slate-200 dark:text-slate-700 mb-3">table_chart</span>
-          <p class="text-slate-400 text-sm font-medium">Los resultados aparecerán aquí.</p>
-        </div>
-
-        <!-- Loading -->
-        <div id="loadingPanel" class="hidden flex-col items-center justify-center h-52">
-          <div class="spinner mb-3"></div>
-          <p class="text-slate-400 text-sm font-medium">Calculando frecuencias...</p>
-        </div>
-
-        <!-- Tabla -->
-        <div id="tablaResultados" class="hidden">
-          <div class="overflow-x-auto">
+          <div id="freqVacio" class="flex flex-col items-center justify-center h-52 text-center">
+            <span class="material-symbols-outlined text-5xl text-slate-200 dark:text-slate-700 mb-3">table_chart</span>
+            <p class="text-slate-400 text-sm font-medium">Los resultados aparecerán aquí.</p>
+          </div>
+          <div id="freqLoading" class="hidden items-center justify-center h-52">
+            <div class="text-center"><div class="spin mx-auto mb-3"></div><p class="text-slate-400 text-sm">Calculando...</p></div>
+          </div>
+          <div id="freqTabla" class="hidden overflow-x-auto">
             <table class="w-full text-left text-sm">
               <thead>
                 <tr class="border-b border-slate-100 dark:border-slate-800">
-                  <th class="py-2.5 font-bold text-[11px] uppercase tracking-widest text-slate-400">Valor</th>
-                  <th class="py-2.5 font-bold text-[11px] uppercase tracking-widest text-slate-400 text-center">Frecuencia</th>
-                  <th class="py-2.5 font-bold text-[11px] uppercase tracking-widest text-slate-400 text-right">Porcentaje</th>
+                  <th class="py-2.5 text-[11px] font-bold uppercase tracking-widest text-slate-400">Valor</th>
+                  <th class="py-2.5 text-[11px] font-bold uppercase tracking-widest text-slate-400 text-center">Frec.</th>
+                  <th class="py-2.5 text-[11px] font-bold uppercase tracking-widest text-slate-400 text-right">%</th>
                 </tr>
               </thead>
-              <tbody id="tablaBody" class="divide-y divide-slate-50 dark:divide-slate-800/60"></tbody>
+              <tbody id="freqBody" class="divide-y divide-slate-50 dark:divide-slate-800/60"></tbody>
               <tfoot>
                 <tr class="border-t-2 border-slate-200 dark:border-slate-700">
-                  <td class="py-3 font-bold text-sm text-slate-700 dark:text-slate-200">Total</td>
-                  <td id="totalFrecuencia" class="py-3 font-bold text-sm text-slate-700 dark:text-slate-200 text-center"></td>
-                  <td class="py-3 font-bold text-sm text-primary text-right">100%</td>
+                  <td class="py-3 font-bold text-sm text-slate-700 dark:text-white">Total</td>
+                  <td id="freqTotal" class="py-3 font-bold text-sm text-center text-slate-700 dark:text-white"></td>
+                  <td class="py-3 font-bold text-sm text-right text-primary">100%</td>
                 </tr>
               </tfoot>
             </table>
           </div>
         </div>
-      </div>
 
-      <!-- ── GRÁFICO ── -->
-      <div class="bg-card-light dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6">
-        <h2 class="font-display text-2xl text-slate-800 dark:text-white mb-1">Gráfico de Barras</h2>
-        <p class="text-xs text-slate-400 mb-5 font-medium">Pasa el mouse sobre una barra para ver detalles.</p>
-
-        <div id="graficoVacio" class="flex flex-col items-center justify-center h-52 text-center">
-          <span class="material-symbols-outlined text-5xl text-slate-200 dark:text-slate-700 mb-3">bar_chart</span>
-          <p class="text-slate-400 text-sm font-medium">El gráfico aparecerá aquí.</p>
-        </div>
-
-        <div id="graficoContenedor" class="hidden">
-          <canvas id="miGrafico"></canvas>
+        <!-- Panel derecho: Gráficos -->
+        <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="display text-2xl text-slate-800 dark:text-white">Gráfico</h2>
+            <div id="chartTabs" class="hidden gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+              <button onclick="switchChart('bar')" id="btnBar" class="chart-tab-active px-3 py-1 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-700 text-slate-700 dark:text-white shadow-sm">Barras</button>
+              <button onclick="switchChart('pie')" id="btnPie" class="px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-600">Pastel</button>
+            </div>
+          </div>
+          <div id="chartVacio" class="flex flex-col items-center justify-center h-52 text-center">
+            <span class="material-symbols-outlined text-5xl text-slate-200 dark:text-slate-700 mb-3">pie_chart</span>
+            <p class="text-slate-400 text-sm font-medium">El gráfico aparecerá aquí.</p>
+          </div>
+          <div id="chartBox" class="hidden overflow-y-auto" style="max-height: 420px;">
+            <canvas id="miGrafico"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ── VISTA DE DATOS ── -->
-    <div class="bg-card-light dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6">
-      <div class="flex items-center justify-between mb-5">
-        <div>
-          <h2 class="font-display text-2xl text-slate-800 dark:text-white">Vista de Datos</h2>
-          <p class="text-xs text-slate-400 mt-0.5 font-medium">Mostrando todas las filas de tu archivo.</p>
-        </div>
-        <span class="text-[11px] px-3 py-1.5 bg-primary/10 dark:bg-primary/20 text-primary rounded-full font-bold uppercase tracking-wider">
-          {{ total_filas }} FILAS
-        </span>
-      </div>
+    <!-- ══════════ TAB: TABLA CRUZADA ══════════ -->
+    <div id="tab-cruzada" class="hidden fade">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
 
-      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
-        <table class="w-full text-left">
-          <thead class="bg-slate-50 dark:bg-slate-800/60">
-            <tr>
-              {% for col in preview_cols %}
-              <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 whitespace-nowrap border-b border-slate-200 dark:border-slate-700">{{ col }}</th>
+        <!-- Controles -->
+        <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6 space-y-5">
+          <h2 class="display text-2xl text-slate-800 dark:text-white">Cruce de Variables</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">Selecciona dos columnas para ver la relación entre ellas.</p>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Variable Fila</label>
+            <div class="relative">
+              <select id="cruzFilaSelect"
+                class="w-full bg-bg dark:bg-slate-800 border border-green-200 dark:border-green-900/50 rounded-xl py-3 px-4 pr-10 appearance-none text-sm font-semibold text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                <option value="">Elige columna fila...</option>
+                {% for col in columnas %}<option value="{{ col }}">{{ col }}</option>{% endfor %}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xl">expand_more</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Variable Columna</label>
+            <div class="relative">
+              <select id="cruzColSelect"
+                class="w-full bg-bg dark:bg-slate-800 border border-green-200 dark:border-green-900/50 rounded-xl py-3 px-4 pr-10 appearance-none text-sm font-semibold text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                <option value="">Elige columna columna...</option>
+                {% for col in columnas %}<option value="{{ col }}">{{ col }}</option>{% endfor %}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xl">expand_more</span>
+            </div>
+          </div>
+
+          <button id="btnCruzada" onclick="analizarCruzada()" disabled
+            class="w-full py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md shadow-primary/20">
+            <span class="material-symbols-outlined text-lg">grid_on</span> Generar tabla
+          </button>
+
+          <div class="bg-primary/5 border border-primary/15 rounded-xl p-3">
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              <strong class="text-primary">Útil para:</strong> Sexo vs Diagnóstico, Edad vs Complicaciones, Tratamiento vs Resultado...
+            </p>
+          </div>
+        </div>
+
+        <!-- Resultado tabla cruzada -->
+        <div class="lg:col-span-3 bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6">
+          <h2 class="display text-2xl text-slate-800 dark:text-white mb-1">Resultado</h2>
+          <p id="subtituloCruz" class="text-xs text-slate-400 font-medium mb-5">Selecciona dos columnas para generar el cruce.</p>
+
+          <div id="cruzVacio" class="flex flex-col items-center justify-center h-52 text-center">
+            <span class="material-symbols-outlined text-5xl text-slate-200 dark:text-slate-700 mb-3">grid_on</span>
+            <p class="text-slate-400 text-sm font-medium">El cruce de variables aparecerá aquí.</p>
+          </div>
+          <div id="cruzLoading" class="hidden items-center justify-center h-52">
+            <div class="text-center"><div class="spin mx-auto mb-3"></div><p class="text-slate-400 text-sm">Calculando cruce...</p></div>
+          </div>
+          <div id="cruzTabla" class="hidden overflow-x-auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ TAB: VISTA DE DATOS ══════════ -->
+    <div id="tab-datos" class="hidden fade">
+      <div class="bg-surface dark:bg-surface-dark rounded-2xl border border-border dark:border-border-dark shadow-sm p-6">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="display text-2xl text-slate-800 dark:text-white">Vista de Datos</h2>
+            <p class="text-xs text-slate-400 mt-0.5 font-medium">Mostrando las primeras 100 filas de tu archivo.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] px-3 py-1.5 bg-primary/10 text-primary rounded-full font-bold">
+              {{ total_filas }} filas
+            </span>
+            <span class="text-[11px] px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full font-bold">
+              {{ total_cols }} cols
+            </span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 dark:bg-slate-800/70">
+              <tr>
+                {% for col in preview_cols %}
+                <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 whitespace-nowrap border-b border-slate-200 dark:border-slate-700">{{ col }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60">
+              {% for row in preview_rows %}
+              <tr class="data-row">
+                {% for cell in row %}
+                <td class="px-4 py-3 whitespace-nowrap max-w-[200px] overflow-hidden text-ellipsis">{{ cell }}</td>
+                {% endfor %}
+              </tr>
               {% endfor %}
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60">
-            {% for row in preview_rows %}
-            <tr class="data-row transition-colors">
-              {% for cell in row %}
-              <td class="px-4 py-3 whitespace-nowrap max-w-[220px] overflow-hidden text-ellipsis">{{ cell }}</td>
-              {% endfor %}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
   </main>
 
-  <footer class="mt-8 px-6 py-6 border-t border-slate-100 dark:border-slate-800 text-center space-y-1">
-    <p class="text-xs text-slate-400">© 2026 DataTab v2.0</p>
-    <p class="text-[11px] text-slate-400">Creado por <span class="text-slate-600 dark:text-slate-300 font-semibold">Diego Rodríguez</span></p>
+  <footer class="mt-8 py-5 border-t border-border dark:border-border-dark text-center">
+    <p class="text-xs text-slate-400">© 2025 DataTab v3.0 · Creado por <span class="font-semibold text-slate-500 dark:text-slate-300">Diego Rodríguez</span></p>
   </footer>
 
   <!-- ══════════════════════════════════
        JAVASCRIPT
   ══════════════════════════════════ -->
   <script>
-    let miChartInstance = null;
-    let rangosDefinidos = [];
-    let ultimaEsNumerica = false;
+    // ── ESTADO ──────────────────────────
+    let chartInstance = null;
+    let currentChartType = 'bar';
+    let lastData = null;
+    let rangos = [];
 
-    const columnaSelect = document.getElementById('columnaSelect');
-    const btnAnalizar   = document.getElementById('btnAnalizar');
-    const seccionRangos = document.getElementById('seccionRangos');
+    // ── DARK MODE ───────────────────────
+    function toggleDark() {
+      document.documentElement.classList.toggle('dark');
+      if (chartInstance && lastData) renderChart(lastData);
+    }
 
-    // Al cambiar columna: habilitar botón, ocultar rangos hasta saber si es numérica
-    columnaSelect.addEventListener('change', () => {
-      const val = columnaSelect.value;
-      btnAnalizar.disabled = !val;
-      // Ocultar rangos hasta que analicemos y sepamos si es numérica
-      seccionRangos.classList.add('hidden');
-      rangosDefinidos = [];
-      renderizarTags();
-      // Limpiar resultados anteriores
-      document.getElementById('estadoVacio').classList.remove('hidden');
-      document.getElementById('tablaResultados').classList.add('hidden');
-      document.getElementById('graficoVacio').classList.remove('hidden');
-      document.getElementById('graficoContenedor').classList.add('hidden');
-      document.getElementById('subtituloPanel').textContent = 'Selecciona una columna para comenzar el análisis.';
+    // ── TABS ────────────────────────────
+    function switchTab(name, btn) {
+      ['frecuencias','cruzada','datos'].forEach(t => {
+        document.getElementById('tab-'+t).classList.add('hidden');
+      });
+      document.getElementById('tab-'+name).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ── SELECTS ─────────────────────────
+    const selCol = document.getElementById('columnaSelect');
+    const btnAnalizar = document.getElementById('btnAnalizar');
+
+    selCol.addEventListener('change', () => {
+      btnAnalizar.disabled = !selCol.value;
+      document.getElementById('seccionRangos').classList.add('hidden');
+      rangos = []; renderTags();
+      resetFreqPanel();
     });
 
-    // ── RANGOS ──
-    function agregarRango() {
-      const input = document.getElementById('rangoInput');
-      const val = input.value.trim();
-      if (!val || rangosDefinidos.includes(val)) { input.value = ''; return; }
-      rangosDefinidos.push(val);
-      renderizarTags();
-      input.value = '';
-      input.focus();
+    const cruzFila = document.getElementById('cruzFilaSelect');
+    const cruzCol  = document.getElementById('cruzColSelect');
+    const btnCruz  = document.getElementById('btnCruzada');
+    [cruzFila, cruzCol].forEach(s => s.addEventListener('change', () => {
+      btnCruz.disabled = !cruzFila.value || !cruzCol.value;
+    }));
+
+    // ── RANGOS ──────────────────────────
+    function addRango() {
+      const inp = document.getElementById('rangoInput');
+      const v = inp.value.trim();
+      if (!v || rangos.includes(v)) { inp.value=''; return; }
+      rangos.push(v); renderTags(); inp.value=''; inp.focus();
+    }
+    function removeRango(i) { rangos.splice(i,1); renderTags(); }
+    function clearRangos() { rangos=[]; renderTags(); }
+    function renderTags() {
+      const c = document.getElementById('rangosActivos');
+      c.innerHTML = rangos.map((r,i) =>
+        `<span class="tag">${r}<button onclick="removeRango(${i})" class="ml-1 opacity-60 hover:opacity-100 font-bold">×</button></span>`
+      ).join('');
     }
 
-    function eliminarRango(idx) {
-      rangosDefinidos.splice(idx, 1);
-      renderizarTags();
+    // ── RESET PANELS ────────────────────
+    function resetFreqPanel() {
+      document.getElementById('freqVacio').classList.remove('hidden');
+      document.getElementById('freqTabla').classList.add('hidden');
+      document.getElementById('freqLoading').classList.add('hidden');
+      document.getElementById('freqLoading').classList.remove('flex');
+      document.getElementById('chartVacio').classList.remove('hidden');
+      document.getElementById('chartBox').classList.add('hidden');
+      document.getElementById('chartTabs').classList.add('hidden');
+      document.getElementById('subtituloFreq').textContent = 'Selecciona una columna para comenzar.';
     }
 
-    function limpiarRangos() {
-      rangosDefinidos = [];
-      renderizarTags();
+    // ── TOAST ───────────────────────────
+    function showToast(msg, type='error') {
+      const toast = document.getElementById('toast');
+      const inner = document.getElementById('toastInner');
+      const icon  = document.getElementById('toastIcon');
+      const text  = document.getElementById('toastMsg');
+
+      text.textContent = msg;
+      if (type === 'error') {
+        inner.className = 'flex items-start gap-3 px-4 py-3 rounded-xl shadow-xl border text-sm font-medium bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400';
+        icon.textContent = 'error'; icon.className = 'material-symbols-outlined text-xl mt-0.5 text-red-500';
+      } else {
+        inner.className = 'flex items-start gap-3 px-4 py-3 rounded-xl shadow-xl border text-sm font-medium bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400';
+        icon.textContent = 'check_circle'; icon.className = 'material-symbols-outlined text-xl mt-0.5 text-emerald-500';
+      }
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 4000);
     }
 
-    function renderizarTags() {
-      const contenedor = document.getElementById('rangosActivos');
-      contenedor.innerHTML = '';
-      rangosDefinidos.forEach((r, i) => {
-        const tag = document.createElement('span');
-        tag.className = 'rango-tag';
-        tag.innerHTML = `${r}<button onclick="eliminarRango(${i})" class="ml-1 opacity-60 hover:opacity-100 font-bold leading-none text-base">×</button>`;
-        contenedor.appendChild(tag);
-      });
-    }
-
-    // ── ANALIZAR ──
+    // ── ANALIZAR FRECUENCIAS ────────────
     async function analizar() {
-      const columna = columnaSelect.value;
+      const columna = selCol.value;
       if (!columna) return;
 
-      document.getElementById('estadoVacio').classList.add('hidden');
-      document.getElementById('tablaResultados').classList.add('hidden');
-      document.getElementById('loadingPanel').classList.remove('hidden');
-      document.getElementById('loadingPanel').classList.add('flex');
-      document.getElementById('graficoVacio').classList.add('hidden');
-      document.getElementById('graficoContenedor').classList.add('hidden');
+      document.getElementById('freqVacio').classList.add('hidden');
+      document.getElementById('freqTabla').classList.add('hidden');
+      document.getElementById('freqLoading').classList.remove('hidden');
+      document.getElementById('freqLoading').classList.add('flex');
+      document.getElementById('chartVacio').classList.add('hidden');
+      document.getElementById('chartBox').classList.add('hidden');
 
       try {
-        const resp = await fetch('/api/analizar', {
+        const res = await fetch('/api/analizar', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ columna, rangos: rangosDefinidos })
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ columna, rangos })
         });
+        const data = await res.json();
+        if (data.error) { showToast(data.error); resetFreqPanel(); return; }
 
-        const datos = await resp.json();
+        lastData = data;
+        document.getElementById('seccionRangos').classList.toggle('hidden', !data.es_numerica);
+        document.getElementById('subtituloFreq').innerHTML =
+          `Columna: <strong class="text-primary">${data.columna}</strong> &nbsp;·&nbsp; ${data.total} registros`;
 
-        if (datos.error) {
-          alert('Error: ' + datos.error);
-          document.getElementById('loadingPanel').classList.add('hidden');
-          document.getElementById('estadoVacio').classList.remove('hidden');
-          return;
-        }
-
-        // Mostrar / ocultar sección de rangos según tipo
-        ultimaEsNumerica = datos.es_numerica;
-        seccionRangos.classList.toggle('hidden', !datos.es_numerica);
-
-        // Subtítulo
-        document.getElementById('subtituloPanel').innerHTML =
-          `Columna: <strong class="text-primary font-semibold">${datos.columna}</strong> &nbsp;·&nbsp; ${datos.total} registros`;
-
-        // Renderizar tabla
-        const tbody = document.getElementById('tablaBody');
-        tbody.innerHTML = '';
-        const maxFrec = Math.max(...datos.frecuencias.map(f => f.frecuencia));
-
-        datos.frecuencias.forEach(row => {
-          const barPct = maxFrec > 0 ? (row.frecuencia / maxFrec * 100).toFixed(0) : 0;
-          const tr = document.createElement('tr');
-          tr.className = 'transition-colors';
-          tr.innerHTML = `
+        // Tabla
+        const max = Math.max(...data.frecuencias.map(f => f.frecuencia));
+        document.getElementById('freqBody').innerHTML = data.frecuencias.map(row => {
+          const pct = max > 0 ? (row.frecuencia / max * 100).toFixed(0) : 0;
+          return `<tr>
             <td class="py-3 font-semibold text-slate-700 dark:text-slate-200">${row.valor}</td>
             <td class="py-3 text-center">
               <div class="flex items-center justify-center gap-2">
-                <div class="w-16 bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 hidden sm:block">
-                  <div class="bg-primary h-1.5 rounded-full" style="width:${barPct}%"></div>
+                <div class="w-14 bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 hidden sm:block">
+                  <div class="bg-primary h-1.5 rounded-full" style="width:${pct}%"></div>
                 </div>
-                <span class="font-semibold text-slate-700 dark:text-slate-200">${row.frecuencia}</span>
+                <span class="font-bold text-slate-700 dark:text-slate-200">${row.frecuencia}</span>
               </div>
             </td>
             <td class="py-3 text-right font-bold text-primary">${row.porcentaje}%</td>
-          `;
-          tbody.appendChild(tr);
-        });
+          </tr>`;
+        }).join('');
+        document.getElementById('freqTotal').textContent = data.total;
 
-        document.getElementById('totalFrecuencia').textContent = datos.total;
-        document.getElementById('loadingPanel').classList.add('hidden');
-        document.getElementById('loadingPanel').classList.remove('flex');
-        document.getElementById('tablaResultados').classList.remove('hidden');
+        document.getElementById('freqLoading').classList.add('hidden');
+        document.getElementById('freqLoading').classList.remove('flex');
+        document.getElementById('freqTabla').classList.remove('hidden');
 
-        // Gráfico
-        renderizarGrafico(datos);
+        renderChart(data);
+        document.getElementById('chartTabs').classList.remove('hidden');
+        document.getElementById('chartTabs').classList.add('flex');
+        showToast('Análisis completado', 'success');
 
-      } catch (err) {
-        console.error(err);
-        document.getElementById('loadingPanel').classList.add('hidden');
-        document.getElementById('estadoVacio').classList.remove('hidden');
-        alert('Error de conexión con el servidor.');
+      } catch(e) {
+        showToast('Error de conexión con el servidor.');
+        resetFreqPanel();
       }
     }
 
-    // ── GRÁFICO ──
-    function renderizarGrafico(datos) {
-      document.getElementById('graficoVacio').classList.add('hidden');
-      document.getElementById('graficoContenedor').classList.remove('hidden');
+    // ── GRÁFICO ─────────────────────────
+    function switchChart(type) {
+      currentChartType = type;
+      document.getElementById('btnBar').className = type==='bar'
+        ? 'px-3 py-1 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-white shadow-sm transition-all'
+        : 'px-3 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-600 transition-all';
+      document.getElementById('btnPie').className = type==='pie'
+        ? 'px-3 py-1 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-white shadow-sm transition-all'
+        : 'px-3 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-600 transition-all';
+      if (lastData) renderChart(lastData);
+    }
 
-      const labels = datos.frecuencias.map(f => f.valor);
-      const values = datos.frecuencias.map(f => f.frecuencia);
-      const pcts   = datos.frecuencias.map(f => f.porcentaje);
+    function renderChart(data) {
+      document.getElementById('chartVacio').classList.add('hidden');
+      document.getElementById('chartBox').classList.remove('hidden');
 
-      const isDark    = document.documentElement.classList.contains('dark');
-      const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
-      const tickColor = isDark ? '#94a3b8' : '#64748b';
+      const isDark  = document.documentElement.classList.contains('dark');
+      const labels  = data.frecuencias.map(f => f.valor);
+      const values  = data.frecuencias.map(f => f.frecuencia);
+      const pcts    = data.frecuencias.map(f => f.porcentaje);
+      const n       = labels.length;
 
-      if (miChartInstance) miChartInstance.destroy();
+      // Con muchas categorías el pastel no tiene sentido — forzamos barras
+      const isBar = currentChartType === 'bar' || n > 8;
+      if (n > 8) {
+        // Desactivar visualmente el botón pastel
+        document.getElementById('btnPie').disabled = true;
+        document.getElementById('btnPie').classList.add('opacity-30', 'cursor-not-allowed');
+      } else {
+        document.getElementById('btnPie').disabled = false;
+        document.getElementById('btnPie').classList.remove('opacity-30', 'cursor-not-allowed');
+      }
 
-      const ctx = document.getElementById('miGrafico').getContext('2d');
-      miChartInstance = new Chart(ctx, {
-        type: 'bar',
+      const COLORS = ['#16a34a','#22c55e','#4ade80','#86efac','#15803d','#166534','#a7f3d0','#bbf7d0','#6ee7b7','#34d399'];
+      const gridColor    = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
+      const tickColor    = isDark ? '#94a3b8' : '#64748b';
+      const tooltipBg    = isDark ? '#1e293b' : '#fff';
+      const tooltipBorder = isDark ? '#334155' : '#e2e8f0';
+      const tooltipTitle  = isDark ? '#f1f5f9' : '#0f172a';
+      const tooltipBody   = isDark ? '#94a3b8' : '#475569';
+
+      // Altura dinámica: más categorías → más alto
+      const canvasEl = document.getElementById('miGrafico');
+      const chartBox = document.getElementById('chartBox');
+      const dynamicHeight = isBar ? Math.max(220, n * 28) : 260;
+      chartBox.style.height = dynamicHeight + 'px';
+      canvasEl.style.height = dynamicHeight + 'px';
+
+      // Labels largos: acortar a 20 chars en el eje, tooltip muestra completo
+      const shortLabels = labels.map(l => l.length > 20 ? l.slice(0, 18) + '…' : l);
+
+      if (chartInstance) chartInstance.destroy();
+      const ctx = canvasEl.getContext('2d');
+
+      chartInstance = new Chart(ctx, {
+        type: isBar ? 'bar' : 'pie',
         data: {
-          labels,
+          labels: isBar ? shortLabels : labels,
           datasets: [{
             label: 'Frecuencia',
             data: values,
-            backgroundColor: isDark ? 'rgba(56,142,60,0.7)' : 'rgba(46,125,50,0.75)',
-            hoverBackgroundColor: '#2E7D32',
-            borderRadius: 7,
+            backgroundColor: isBar ? 'rgba(22,163,74,0.78)' : COLORS,
+            hoverBackgroundColor: isBar ? '#16a34a' : COLORS.map(c => c + 'dd'),
+            borderRadius: isBar ? 6 : 0,
             borderSkipped: false,
+            borderWidth: isBar ? 0 : 2,
+            borderColor: isBar ? undefined : (isDark ? '#111814' : '#fff'),
           }]
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: isBar && n > 5 ? 'y' : 'x', // horizontal si hay muchas categorías
           plugins: {
-            legend: { display: false },
+            legend: {
+              display: !isBar,
+              labels: { color: tickColor, font: { family: 'Manrope', size: 11, weight: '600' }, padding: 12, boxWidth: 12 }
+            },
             tooltip: {
-              backgroundColor: isDark ? '#1e293b' : '#fff',
-              borderColor: isDark ? '#334155' : '#e2e8f0',
+              backgroundColor: tooltipBg,
+              borderColor: tooltipBorder,
               borderWidth: 1,
-              titleColor: isDark ? '#f1f5f9' : '#0f172a',
-              bodyColor: isDark ? '#94a3b8' : '#475569',
-              titleFont: { family: 'DM Sans', weight: '700', size: 13 },
-              bodyFont: { family: 'DM Sans', size: 12 },
+              titleColor: tooltipTitle,
+              bodyColor: tooltipBody,
+              titleFont: { family: 'Manrope', weight: '800', size: 12 },
+              bodyFont:  { family: 'Manrope', size: 11 },
               padding: 10,
               callbacks: {
-                label: (ctx) => {
-                  const idx = ctx.dataIndex;
-                  return `  Frecuencia: ${values[idx]}   (${pcts[idx]}%)`;
-                }
+                title: ctx => labels[ctx[0].dataIndex], // título completo en tooltip
+                label: ctx => `  ${values[ctx.dataIndex]} registros  (${pcts[ctx.dataIndex]}%)`
               }
             }
           },
-          scales: {
+          scales: isBar ? {
             x: {
               grid: { color: gridColor },
               ticks: {
                 color: tickColor,
-                font: { family: 'DM Sans', size: 12, weight: '600' }
+                font: { family: 'Manrope', size: 11, weight: '600' },
+                maxRotation: n > 5 ? 0 : 45,
               }
             },
             y: {
@@ -467,15 +604,84 @@
               grid: { color: gridColor },
               ticks: {
                 color: tickColor,
-                font: { family: 'DM Sans', size: 12, weight: '600' },
-                stepSize: 1
+                font: { family: 'Manrope', size: 11, weight: '600' },
+                stepSize: 1,
               }
             }
-          }
+          } : {},
         }
       });
     }
-  </script>
 
+    // ── TABLA CRUZADA ───────────────────
+    async function analizarCruzada() {
+      const col_fila    = cruzFila.value;
+      const col_columna = cruzCol.value;
+      if (!col_fila || !col_columna) return;
+
+      document.getElementById('cruzVacio').classList.add('hidden');
+      document.getElementById('cruzTabla').classList.add('hidden');
+      document.getElementById('cruzLoading').classList.remove('hidden');
+      document.getElementById('cruzLoading').classList.add('flex');
+
+      try {
+        const res = await fetch('/api/tabla-cruzada', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ col_fila, col_columna })
+        });
+        const data = await res.json();
+
+        if (data.error) { showToast(data.error); document.getElementById('cruzLoading').classList.add('hidden'); document.getElementById('cruzVacio').classList.remove('hidden'); return; }
+
+        document.getElementById('subtituloCruz').innerHTML =
+          `<strong class="text-primary">${data.col_fila}</strong> &nbsp;×&nbsp; <strong class="text-primary">${data.col_columna}</strong> &nbsp;·&nbsp; ${data.total} registros`;
+
+        // Construir tabla
+        let html = `<table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 dark:bg-slate-800/60">
+            <tr>
+              <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-slate-700">${data.col_fila}</th>
+              ${data.columnas.map(c => `<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-primary border-b border-slate-200 dark:border-slate-700 text-center">${c}</th>`).join('')}
+              <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 dark:border-slate-700 text-center">Total</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60">`;
+
+        data.filas.forEach(fila => {
+          html += `<tr class="data-row">
+            <td class="px-4 py-3 font-semibold">${fila.etiqueta}</td>
+            ${fila.celdas.map(c => `
+              <td class="px-4 py-3 text-center">
+                <span class="font-bold text-slate-700 dark:text-slate-200">${c.frecuencia}</span>
+                <span class="text-xs text-slate-400 ml-1">(${c.porcentaje}%)</span>
+              </td>`).join('')}
+            <td class="px-4 py-3 text-center font-bold text-primary">${fila.total_fila}</td>
+          </tr>`;
+        });
+
+        html += `</tbody>
+          <tfoot>
+            <tr class="border-t-2 border-slate-200 dark:border-slate-700">
+              <td class="px-4 py-3 font-bold text-sm text-slate-700 dark:text-white">Total</td>
+              ${data.columnas.map(c => `<td class="px-4 py-3 text-center font-bold text-sm text-slate-700 dark:text-white">${data.totales_col[c]}</td>`).join('')}
+              <td class="px-4 py-3 text-center font-bold text-sm text-primary">${data.total}</td>
+            </tr>
+          </tfoot>
+        </table>`;
+
+        document.getElementById('cruzLoading').classList.add('hidden');
+        document.getElementById('cruzLoading').classList.remove('flex');
+        document.getElementById('cruzTabla').innerHTML = html;
+        document.getElementById('cruzTabla').classList.remove('hidden');
+        showToast('Tabla cruzada generada', 'success');
+
+      } catch(e) {
+        showToast('Error de conexión con el servidor.');
+        document.getElementById('cruzLoading').classList.add('hidden');
+        document.getElementById('cruzVacio').classList.remove('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
