@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0A0C0B">
+  <meta name="description" content="DataTab tabula datos de Excel o CSV en español: frecuencias, rangos numéricos y cruce de dos variables.">
+  <title>DataTab · Tabula tus datos</title>
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+  <a class="enlace-salto" href="#contenido">Saltar al contenido</a>
+  <p class="visualmente-oculto" id="anuncio-general" role="status"></p>
+
+  <header class="cabecera" id="cabecera">
+    <div class="contenedor cabecera__interior">
+      <p class="marca">
+        <svg class="marca__logo" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><rect x="4" y="14.5" width="17" height="3"/><rect x="24" y="7" width="3.5" height="18"/></svg>
+        <span class="marca__nombre">datatab</span>
+      </p>
+      <div class="archivo-actual" id="archivo-barra" hidden>
+        <p class="archivo-actual__datos">
+          <span class="archivo-actual__nombre" id="archivo-nombre"></span>
+          <span class="archivo-actual__medidas">· <span class="num" id="archivo-filas"></span> <span id="archivo-filas-unidad">filas</span> · <span class="num" id="archivo-columnas"></span> <span id="archivo-columnas-unidad">columnas</span></span>
+        </p>
+        <button type="button" class="boton boton--tenue archivo-actual__cerrar" id="btn-cerrar-archivo">Cerrar archivo</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <noscript>
+      <div class="contenedor sin-javascript">
+        <p class="mensaje" data-nivel="error"><strong class="mensaje__titulo">DataTab necesita JavaScript</strong> Actívalo en tu navegador y recarga la página para poder usar la herramienta.</p>
+      </div>
+    </noscript>
+
+    <!-- ============ VISTA 1: CARGA ============ -->
+    <div id="vista-carga" class="vista-carga">
+      <div class="contenedor">
+        <div class="carga">
+          <div class="carga__presentacion">
+            <h1 id="carga-titulo" tabindex="-1">Tabula los datos de tu archivo</h1>
+            <p class="entradilla">Cuenta cuántas veces aparece cada valor de una columna, agrupa números en rangos como 30-39 y cruza dos variables en una tabla. Sin fórmulas.</p>
+            <ul class="limites" role="list" aria-label="Límites del archivo">
+              <li>Formatos: <span data-config="formatos">.xlsx, .xls y .csv</span></li>
+              <li>Tamaño: hasta <span class="num" data-config="max-mb">5</span> MB</li>
+              <li>Se lee la primera hoja; los nombres de columna van en la primera fila.</li>
+            </ul>
+          </div>
+
+          <div class="carga__accion">
+            <div class="zona-carga" id="zona-carga">
+              <p class="zona-carga__texto">
+                <span class="solo-puntero-fino">Arrastra aquí tu archivo o elígelo desde tu equipo.</span>
+                <span class="solo-puntero-grueso">Elige el archivo desde tu dispositivo.</span>
+                <span class="solo-arrastrando">Suelta el archivo para cargarlo.</span>
+              </p>
+              <input class="visualmente-oculto entrada-archivo" type="file" id="archivo-input" name="archivo" accept=".xlsx,.xls,.csv">
+              <label class="boton boton--primario" for="archivo-input">Elegir archivo</label>
+              <p class="pista">Tu archivo se usa solo mientras trabajas: se elimina al cerrarlo o tras <span class="num" data-config="minutos-inactividad">30</span> minutos sin uso.</p>
+            </div>
+
+            <div id="carga-estado" role="status">
+              <p class="carga__leyendo" id="carga-leyendo" hidden>
+                <span class="progreso" aria-hidden="true"></span>
+                Leyendo el archivo…
+              </p>
+            </div>
+
+            <div id="carga-aviso" role="status">
+              <p class="mensaje aviso" data-nivel="atencion" id="carga-aviso-contenido" hidden>
+                <strong class="aviso__nivel">Atención</strong>
+                <span data-campo="mensaje"></span>
+              </p>
+            </div>
+
+            <div id="carga-error" role="alert">
+              <div class="mensaje" data-nivel="error" id="carga-error-contenido" hidden>
+                <p class="mensaje__titulo">No se pudo cargar el archivo</p>
+                <p data-campo="mensaje"></p>
+                <p class="mensaje__sugerencia" data-campo="sugerencia"></p>
+              </div>
+            </div>
+
+            <button type="button" class="boton boton--tenue" id="btn-ejemplo" hidden>Probar con datos de ejemplo</button>
+          </div>
+        </div>
+
+        <section class="capacidades" aria-labelledby="capacidades-titulo">
+          <h2 class="visualmente-oculto" id="capacidades-titulo">Qué puedes hacer</h2>
+          <ul class="capacidades__lista" role="list">
+            <li>
+              <h3>Frecuencias</h3>
+              <p>Cuántas veces aparece cada valor de una columna y qué porcentaje representa.</p>
+            </li>
+            <li>
+              <h3>Rangos numéricos</h3>
+              <p>Agrupa edades u otras cifras en tramos: <code>30-39</code>, <code>&lt;30</code>, <code>&gt;=60</code>, <code>40+</code>.</p>
+            </li>
+            <li>
+              <h3>Cruce de variables</h3>
+              <p>Cuenta los casos de cada combinación de dos columnas, por ejemplo edad por sexo.</p>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 2: ANÁLISIS ============ -->
+    <div id="vista-analisis" class="vista-analisis" hidden>
+      <h1 class="visualmente-oculto">Análisis de tu archivo</h1>
+
+      <div class="pestanas-barra">
+        <div class="contenedor">
+          <div class="pestanas" role="tablist" aria-label="Tipo de análisis">
+            <button type="button" role="tab" class="pestana" id="tab-frecuencias" aria-selected="true" aria-controls="panel-frecuencias">Frecuencias</button>
+            <button type="button" role="tab" class="pestana" id="tab-cruce" aria-selected="false" aria-controls="panel-cruce" tabindex="-1">Cruce de variables</button>
+            <button type="button" role="tab" class="pestana" id="tab-datos" aria-selected="false" aria-controls="panel-datos" tabindex="-1">Ver datos</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="contenedor">
+        <ul class="avisos avisos--archivo" id="archivo-avisos" role="list" aria-label="Avisos sobre el archivo" hidden></ul>
+
+        <!-- ---------- Frecuencias ---------- -->
+        <div role="tabpanel" class="panel" id="panel-frecuencias" aria-labelledby="tab-frecuencias">
+          <div class="analisis">
+            <form class="controles" id="frec-form" autocomplete="off" novalidate>
+              <h2 class="visualmente-oculto">Opciones de frecuencias</h2>
+              <details class="plegable" id="frec-controles" open>
+                <summary class="plegable__resumen">
+                  <span class="plegable__titulo">Columna y rangos</span>
+                  <span class="plegable__apoyo" id="frec-controles-resumen"></span>
+                </summary>
+                <div class="controles__cuerpo">
+                  <div class="campo">
+                    <label for="frec-columna">Columna a contar</label>
+                    <select class="select" id="frec-columna" name="columna" aria-describedby="frec-columna-pista"></select>
+                    <p class="pista" id="frec-columna-pista"></p>
+                  </div>
+                  <div class="campo" data-montaje-rangos="frec"></div>
+                  <button type="submit" class="boton boton--primario" id="frec-calcular">Calcular frecuencias</button>
+                </div>
+              </details>
+            </form>
+
+            <div class="salida">
+              <p class="visualmente-oculto" id="frec-anuncio" role="status"></p>
+
+              <div class="estado" id="frec-vacio">
+                <h2 class="estado__titulo">Aún no hay resultado</h2>
+                <p>Elige una columna y pulsa «Calcular frecuencias». Aquí verás cuántas veces aparece cada valor, con su porcentaje y un gráfico.</p>
+              </div>
+
+              <div class="estado" id="frec-cargando" hidden>
+                <p class="estado__carga"><span class="progreso" aria-hidden="true"></span>Calculando las frecuencias…</p>
+              </div>
+
+              <div class="mensaje" data-nivel="error" id="frec-error" tabindex="-1" hidden>
+                <p class="mensaje__titulo">No se pudieron calcular las frecuencias</p>
+                <p data-campo="mensaje"></p>
+                <p class="mensaje__sugerencia" data-campo="sugerencia"></p>
+              </div>
+
+              <div class="estado" id="frec-sin-datos" tabindex="-1" hidden>
+                <h2 class="estado__titulo">No hay datos suficientes</h2>
+                <p>La columna <strong data-campo="columna"></strong> no tiene valores que contar. Elige otra columna.</p>
+              </div>
+
+              <div class="resultado" id="frec-resultado" hidden>
+                <div class="resultado__cabecera">
+                  <p class="etiqueta etiqueta--tipo">Resultado calculado</p>
+                  <h2 class="resultado__titulo" id="frec-titulo" tabindex="-1"></h2>
+                  <p class="pista">n = <span class="num" id="frec-n"></span><span id="frec-excluidas"></span></p>
+                </div>
+
+                <ul class="avisos" id="frec-avisos" role="list" aria-label="Avisos sobre este resultado" hidden></ul>
+
+                <div class="resultado__rejilla">
+                  <div class="tabla-scroll">
+                    <!-- Los roles ARIA se repiten a propósito: en teléfono la tabla se muestra como lista (display:grid) y algunos lectores pierden la semántica de tabla sin ellos. -->
+                    <table class="tabla tabla--frecuencias" id="frec-tabla" role="table">
+                      <caption id="frec-caption"></caption>
+                      <thead role="rowgroup">
+                        <tr role="row">
+                          <th scope="col" role="columnheader" id="frec-encabezado-valor">Valor o rango</th>
+                          <th scope="col" role="columnheader" class="n">Frecuencia</th>
+                          <th scope="col" role="columnheader" class="n">%</th>
+                        </tr>
+                      </thead>
+                      <tbody role="rowgroup" id="frec-cuerpo"></tbody>
+                      <tfoot role="rowgroup">
+                        <tr role="row">
+                          <th scope="row" role="rowheader" id="frec-pie-etiqueta">Total</th>
+                          <td role="cell" class="n" id="frec-pie-frecuencia"></td>
+                          <td role="cell" class="n" id="frec-pie-porcentaje"></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <details class="grafico-plegable" id="frec-grafico-detalles" open>
+                    <summary class="plegable__resumen"><span class="plegable__titulo">Ver gráfico</span></summary>
+                    <div class="grafico-bloque">
+                      <fieldset class="segmentado" id="frec-grafico-tipo">
+                                <legend class="visualmente-oculto">Tipo de gráfico</legend>
+                        <div class="segmentado__opciones">
+                          <label class="segmentado__opcion">
+                            <input class="segmentado__radio" type="radio" name="frec-tipo-grafico" value="barras" checked>
+                            <span>Barras</span>
+                          </label>
+                          <label class="segmentado__opcion">
+                            <input class="segmentado__radio" type="radio" name="frec-tipo-grafico" value="circular" aria-describedby="frec-circular-pista">
+                            <span>Circular</span>
+                          </label>
+                        </div>
+                        <p class="pista segmentado__pista" id="frec-circular-pista">El gráfico circular solo está disponible con 6 categorías o menos.</p>
+                      </fieldset>
+
+                      <figure class="grafico" id="frec-grafico">
+                        <figcaption id="frec-grafico-titulo"></figcaption>
+                        <div class="grafico__lienzo">
+                          <canvas id="frec-lienzo" role="img" aria-label="Gráfico con los mismos datos que la tabla">Gráfico con los mismos datos que la tabla.</canvas>
+                        </div>
+                      </figure>
+
+                      <div class="estado estado--compacto" id="frec-grafico-muchas" hidden>
+                        <p class="estado__titulo">No se dibuja el gráfico</p>
+                        <p>La columna tiene <span class="num" data-campo="cantidad"></span> valores distintos y un gráfico con tantos no se podría leer. La tabla los muestra todos. Si la columna es numérica, agrúpalos en rangos (por ejemplo 30-39) y el gráfico aparecerá.</p>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="lectura" id="frec-lectura">
+                  <p class="etiqueta etiqueta--tipo">Descripción</p>
+                  <h3 class="lectura__titulo">Cómo leerlo</h3>
+                  <p><strong>Qué muestra:</strong> <span id="frec-lectura-muestra"></span></p>
+                  <p><strong>Lectura:</strong> <span id="frec-lectura-lectura"></span></p>
+                  <p><strong>Límites:</strong> <span id="frec-lectura-limites"></span> Describe este archivo; no es una conclusión sobre otra población.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Cruce de variables ---------- -->
+        <div role="tabpanel" class="panel" id="panel-cruce" aria-labelledby="tab-cruce" hidden>
+          <div class="analisis">
+            <form class="controles" id="cruce-form" autocomplete="off" novalidate>
+              <h2 class="visualmente-oculto">Opciones del cruce</h2>
+              <details class="plegable" id="cruce-controles" open>
+                <summary class="plegable__resumen">
+                  <span class="plegable__titulo">Variables y rangos</span>
+                  <span class="plegable__apoyo" id="cruce-controles-resumen"></span>
+                </summary>
+                <div class="controles__cuerpo">
+                  <div class="controles__grupo">
+                    <div class="campo">
+                      <label for="cruce-fila-columna">Variable en filas</label>
+                      <select class="select" id="cruce-fila-columna" name="fila" aria-describedby="cruce-fila-pista"></select>
+                      <p class="pista" id="cruce-fila-pista"></p>
+                    </div>
+                    <div class="campo" data-montaje-rangos="cruce-fila" data-contexto="de la variable en filas"></div>
+                  </div>
+                  <div class="controles__grupo">
+                    <div class="campo">
+                      <label for="cruce-columna-columna">Variable en columnas</label>
+                      <select class="select" id="cruce-columna-columna" name="columna" aria-describedby="cruce-columna-pista"></select>
+                      <p class="pista" id="cruce-columna-pista"></p>
+                    </div>
+                    <div class="campo" data-montaje-rangos="cruce-columna" data-contexto="de la variable en columnas"></div>
+                  </div>
+                  <button type="submit" class="boton boton--primario" id="cruce-generar">Generar tabla</button>
+                </div>
+              </details>
+            </form>
+
+            <div class="salida">
+              <p class="visualmente-oculto" id="cruce-anuncio" role="status"></p>
+
+              <div class="estado" id="cruce-vacio">
+                <h2 class="estado__titulo">Aún no hay resultado</h2>
+                <p>Elige la variable de las filas y la de las columnas, y pulsa «Generar tabla». Verás cuántos casos hay en cada combinación y el porcentaje de cada fila.</p>
+              </div>
+
+              <div class="estado" id="cruce-cargando" hidden>
+                <p class="estado__carga"><span class="progreso" aria-hidden="true"></span>Generando la tabla…</p>
+              </div>
+
+              <div class="mensaje" data-nivel="error" id="cruce-error" tabindex="-1" hidden>
+                <p class="mensaje__titulo">No se pudo generar la tabla</p>
+                <p data-campo="mensaje"></p>
+                <p class="mensaje__sugerencia" data-campo="sugerencia"></p>
+              </div>
+
+              <div class="estado" id="cruce-sin-datos" tabindex="-1" hidden>
+                <h2 class="estado__titulo">No hay datos suficientes</h2>
+                <p>Ninguna fila tiene valor en las dos variables a la vez. Elige otra pareja de variables.</p>
+              </div>
+
+              <div class="resultado" id="cruce-resultado" hidden>
+                <div class="resultado__cabecera">
+                  <p class="etiqueta etiqueta--tipo">Resultado calculado</p>
+                  <h2 class="resultado__titulo" id="cruce-titulo" tabindex="-1"></h2>
+                  <p class="pista">n = <span class="num" id="cruce-n"></span><span id="cruce-excluidas"></span></p>
+                </div>
+
+                <ul class="avisos" id="cruce-avisos" role="list" aria-label="Avisos sobre este resultado" hidden></ul>
+
+                <p class="pista" id="cruce-desliza" hidden>Desplaza la tabla hacia los lados para ver el resto de las columnas.</p>
+                <div class="tabla-scroll" tabindex="0" role="region" aria-labelledby="cruce-caption">
+                  <table class="tabla tabla--cruce" id="cruce-tabla">
+                    <caption id="cruce-caption"></caption>
+                    <thead>
+                      <tr>
+                        <th scope="col" rowspan="2" class="tabla__esquina" id="cruce-variable-fila"></th>
+                        <th scope="colgroup" colspan="1" class="tabla__grupo" id="cruce-variable-columna"></th>
+                        <th scope="col" rowspan="2" class="n">Total</th>
+                      </tr>
+                      <tr id="cruce-encabezado"></tr>
+                    </thead>
+                    <tbody id="cruce-cuerpo"></tbody>
+                    <tfoot>
+                      <tr id="cruce-pie">
+                        <th scope="row">Total</th>
+                        <td class="n" id="cruce-total-general"></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div class="lectura" id="cruce-lectura">
+                  <p class="etiqueta etiqueta--tipo">Descripción</p>
+                  <h3 class="lectura__titulo">Cómo leerlo</h3>
+                  <p><strong>Qué muestra:</strong> <span id="cruce-lectura-muestra"></span></p>
+                  <p><strong>Lectura:</strong> <span id="cruce-lectura-lectura"></span></p>
+                  <p><strong>Límites:</strong> <span id="cruce-lectura-limites"></span> Una asociación observada en estos datos no demuestra que una variable cause la otra.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Ver datos ---------- -->
+        <div role="tabpanel" class="panel" id="panel-datos" aria-labelledby="tab-datos" hidden>
+          <div class="datos">
+            <h2 class="visualmente-oculto">Datos del archivo</h2>
+            <p class="visualmente-oculto" id="datos-anuncio" role="status"></p>
+
+            <div class="mensaje" data-nivel="error" id="datos-error" tabindex="-1" hidden>
+              <p class="mensaje__titulo">No se pudieron mostrar los datos</p>
+              <p data-campo="mensaje"></p>
+              <p class="mensaje__sugerencia" data-campo="sugerencia"></p>
+            </div>
+
+            <div class="estado" id="datos-cargando" hidden>
+              <p class="estado__carga"><span class="progreso" aria-hidden="true"></span>Cargando las filas…</p>
+            </div>
+
+            <div class="datos__contenido" id="datos-contenido">
+              <div class="paginacion">
+                <p class="paginacion__rango" id="datos-rango">Mostrando <span class="num" id="datos-desde"></span>–<span class="num" id="datos-hasta"></span> de <span class="num" id="datos-total"></span></p>
+                <div class="paginacion__botones" role="group" aria-label="Cambiar de página">
+                  <button type="button" class="boton" id="datos-anterior">Anterior</button>
+                  <button type="button" class="boton" id="datos-siguiente">Siguiente</button>
+                </div>
+              </div>
+
+              <p class="pista" id="datos-desliza" hidden>Desplaza la tabla hacia los lados para ver el resto de las columnas.</p>
+              <div class="tabla-scroll tabla-scroll--datos" tabindex="0" role="region" aria-labelledby="datos-caption">
+                <table class="tabla tabla--datos" id="datos-tabla">
+                  <caption class="visualmente-oculto" id="datos-caption">Filas del archivo, de 50 en 50</caption>
+                  <thead>
+                    <tr id="datos-encabezado">
+                      <th scope="col" class="n">Fila</th>
+                    </tr>
+                  </thead>
+                  <tbody id="datos-cuerpo"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>DataTab describe lo que hay en tu archivo. No interpreta los resultados ni da conclusiones médicas.</p>
+    </div>
+  </footer>
+
+  <!-- ============ DIÁLOGO: CERRAR ARCHIVO ============ -->
+  <dialog class="dialogo" id="dialogo-cerrar" aria-labelledby="dialogo-cerrar-titulo" aria-describedby="dialogo-cerrar-texto">
+    <form method="dialog" class="dialogo__contenido">
+      <h2 class="dialogo__titulo" id="dialogo-cerrar-titulo">¿Cerrar el archivo?</h2>
+      <p id="dialogo-cerrar-texto">Se eliminará «<strong id="dialogo-cerrar-nombre"></strong>» de DataTab y se perderán los resultados de esta pantalla. Para seguir trabajando tendrás que cargarlo otra vez.</p>
+      <div class="dialogo__acciones">
+        <button type="submit" class="boton" value="cancelar" id="dialogo-cerrar-cancelar" autofocus>Seguir trabajando</button>
+        <button type="submit" class="boton boton--peligro" value="cerrar" id="dialogo-cerrar-confirmar">Cerrar archivo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ============ PLANTILLAS (JavaScript las clona; nada de HTML en cadenas) ============ -->
+
+  <!-- Rangos opcionales: una pieza para frecuencias y para cada eje del cruce.
+       PREFIJO se sustituye en id, for y aria-describedby por el valor de data-montaje-rangos. -->
+  <template id="tpl-rangos">
+    <fieldset class="rangos" data-rangos>
+      <legend class="campo__titulo">Agrupar en rangos <span class="visualmente-oculto" data-rangos-contexto></span></legend>
+      <p class="pista" id="PREFIJO-rangos-ayuda">Opcional. Escribe un rango como <code>30-39</code>, <code>&lt;30</code>, <code>&gt;=60</code> o <code>40+</code>. Los extremos se incluyen.</p>
+      <p class="pista rangos__solo-numericas" data-rangos-aviso-tipo hidden>Los rangos solo están disponibles en columnas numéricas.</p>
+      <ul class="rangos__lista" role="list" aria-label="Rangos añadidos" data-rangos-lista></ul>
+      <div class="rangos__nuevo">
+        <input class="entrada" type="text" id="PREFIJO-rangos-entrada" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ej.: 60-69" aria-label="Nuevo rango" aria-describedby="PREFIJO-rangos-ayuda PREFIJO-rangos-mensaje" data-rangos-entrada>
+        <button type="button" class="boton" data-rangos-anadir>Añadir</button>
+      </div>
+      <p class="mensaje mensaje--linea" id="PREFIJO-rangos-mensaje" aria-live="polite" data-rangos-mensaje></p>
+    </fieldset>
+  </template>
+
+  <template id="tpl-rango-item">
+    <li class="rango-item">
+      <span class="num" data-campo="rango"></span>
+      <button type="button" class="boton-texto" data-accion="quitar">Quitar</button>
+    </li>
+  </template>
+
+  <!-- Aviso de la API (nivel: info | atencion). data-nivel y el texto de data-campo="nivel" los pone JS. -->
+  <template id="tpl-aviso">
+    <li class="mensaje aviso" data-nivel="info">
+      <strong class="aviso__nivel" data-campo="nivel">Nota</strong>
+      <span data-campo="mensaje"></span>
+    </li>
+  </template>
+
+  <!-- Frecuencias: una fila por valor o rango. data-tipo = valor | rango | fuera_de_rango | sin_valor_numerico.
+       JS fija --ancho (por ejemplo 60%) en el <tr> para la barra de teléfono. -->
+  <template id="tpl-frec-fila">
+    <tr role="row" data-tipo="valor">
+      <th scope="row" role="rowheader" data-campo="etiqueta"></th>
+      <td role="cell" class="n" data-campo="frecuencia"></td>
+      <td role="cell" class="n" data-campo="porcentaje"></td>
+    </tr>
+  </template>
+
+  <!-- Convención: si una plantilla tiene un solo texto variable, la raíz (th o td) recibe el texto directamente;
+       si tiene varios, se rellenan los descendientes marcados con data-campo. -->
+
+  <!-- Cruce: cabecera de columna, fila, celda (frecuencia y % de la fila). -->
+  <template id="tpl-cruce-columna">
+    <th scope="col" class="n"></th>
+  </template>
+
+  <template id="tpl-cruce-fila">
+    <tr>
+      <th scope="row" data-campo="etiqueta"></th>
+      <td class="n" data-campo="total"></td>
+    </tr>
+  </template>
+
+  <template id="tpl-cruce-celda">
+    <td class="n"><span data-campo="frecuencia"></span><span class="tenue"> · <span data-campo="porcentaje"></span> %</span></td>
+  </template>
+
+  <!-- Ver datos -->
+  <template id="tpl-datos-columna">
+    <th scope="col"></th>
+  </template>
+
+  <template id="tpl-datos-fila">
+    <tr>
+      <th scope="row" class="n" data-campo="numero"></th>
+    </tr>
+  </template>
+
+  <template id="tpl-datos-celda">
+    <td></td>
+  </template>
+
+  <script src="vendor/chart.umd.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

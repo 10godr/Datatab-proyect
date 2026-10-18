@@ -1,0 +1,66 @@
+/* Solo para papel o PDF. No es un modo claro de la interfaz: deja únicamente el resultado de la pestaña abierta,
+   en blanco y negro. El gráfico (canvas con colores del tema oscuro) no se imprime; la tabla trae los mismos datos. */
+
+@page { margin: 16mm; }
+
+@media print {
+  #cruce-desliza,
+  #datos-desliza {
+    display: none !important;
+  }
+
+  :root { color-scheme: light; }
+
+  *, *::before, *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body { background: #fff !important; font-size: 11pt; line-height: 1.4; }
+  body { display: block; min-height: 0; }
+
+  /* Fuera lo que solo sirve en pantalla */
+  .enlace-salto,
+  .marca,
+  #btn-cerrar-archivo,
+  .pestanas-barra,
+  .controles,
+  .grafico-plegable,
+  .paginacion__botones,
+  .pie,
+  .dialogo,
+  .progreso,
+  .salida .estado:not(.estado--compacto),
+  #carga-estado,
+  noscript { display: none !important; }
+
+  /* Se conserva el nombre del archivo, filas y columnas */
+  .cabecera { border-bottom: 1px solid #000; }
+  .cabecera__interior { display: block; min-height: 0; padding-block: 0 4mm; }
+  .archivo-actual__datos { justify-self: start; font-size: 10pt; }
+
+  .contenedor { max-width: none; padding-inline: 0; }
+  .panel { padding-block: 6mm 0; }
+  .analisis, .resultado__rejilla { display: block; }
+  .salida { display: block; container-type: normal; }
+  .resultado { gap: 6mm; }
+
+  .etiqueta, .etiqueta--tipo { color: #000 !important; }
+  .pista, .tenue, .lectura p, .mensaje, .tabla caption { color: #000 !important; }
+  .mensaje { border-left: 2px solid #000; }
+
+  /* Tablas legibles, sin cortes dentro de una fila */
+  .tabla-scroll, .tabla-scroll--datos { max-height: none; overflow: visible; border: 0; }
+  .tabla, .tabla--cruce, .tabla--datos { width: 100%; min-width: 0; font-size: 10pt; }
+  .tabla th, .tabla td { border-bottom: 1px solid #777; }
+  .tabla tfoot :is(th, td) { border-top: 1px solid #000; }
+  .tabla thead { display: table-header-group; }
+  .tabla tfoot { display: table-row-group; }
+  .tabla tr, .lectura, .mensaje, .avisos li { break-inside: avoid; }
+  .tabla :is(thead th, tbody th, tfoot th, .tabla__esquina) { position: static !important; }
+  .tabla--datos { font-size: 8pt; }
+  .tabla--datos td { min-width: 0; max-width: none; overflow-wrap: break-word; }
+  .lectura { border-top: 1px solid #000; }
+}

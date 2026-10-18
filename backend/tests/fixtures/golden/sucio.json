@@ -1,0 +1,348 @@
+{
+ "version_v3": "v3-antes-del-rediseno",
+ "pandas": "3.0.5",
+ "dataset": {
+  "nombre": "sucio",
+  "descripcion": "Espacios, mayúsculas, un 'N/D' en una columna numérica, fechas y booleanos.",
+  "columnas": ["Sexo", "Edad", "Fecha", "Activo"],
+  "fechas": ["Fecha"],
+  "filas": [
+   ["Femenino ", 80, "2024-03-06T00:00:00", false],
+   ["Masculino", 84, "2024-03-01T00:00:00", true],
+   ["Masculino", 62, "2024-03-07T00:00:00", true],
+   ["Femenino", "N/D", "2024-03-07T00:00:00", true],
+   ["masculino", 70, "2024-03-06T00:00:00", false],
+   ["Femenino ", 24, "2024-03-04T00:00:00", false],
+   ["Femenino", 24, "2024-03-04T00:00:00", true],
+   ["Femenino", 75, "2024-03-04T00:00:00", true],
+   ["Masculino", 44, "2024-03-07T00:00:00", true],
+   ["Masculino", 44, "2024-03-05T00:00:00", true],
+   ["Masculino", 48, "2024-03-04T00:00:00", false],
+   ["Femenino", 9, "2024-03-04T00:00:00", true],
+   ["masculino", 57, "2024-03-06T00:00:00", false],
+   [null, 69, "2024-03-01T00:00:00", false],
+   ["Masculino", 60, "2024-03-05T00:00:00", false],
+   ["Masculino", 60, "2024-03-07T00:00:00", true],
+   [null, 39, "2024-03-06T00:00:00", true],
+   ["masculino", "N/D", "2024-03-04T00:00:00", false],
+   ["Femenino", 72, "2024-03-06T00:00:00", false],
+   [" Femenino", 69, "2024-03-07T00:00:00", true],
+   ["Femenino ", 32, "2024-03-07T00:00:00", false],
+   ["Masculino  ", 10, "2024-03-06T00:00:00", true],
+   ["Masculino", 84, "2024-03-02T00:00:00", true],
+   ["Masculino", 8, "2024-03-01T00:00:00", false],
+   ["Femenino", 59, "2024-03-06T00:00:00", true],
+   ["Masculino", 66, "2024-03-07T00:00:00", true],
+   ["Femenino", 14, "2024-03-04T00:00:00", true],
+   ["  ", 62, "2024-03-03T00:00:00", true],
+   ["Femenino", 20, "2024-03-01T00:00:00", false],
+   [" Femenino", null, "2024-03-06T00:00:00", false],
+   ["  ", 9, "2024-03-05T00:00:00", false],
+   ["Masculino", 8, "2024-03-05T00:00:00", true],
+   ["Femenino", 30, "2024-03-06T00:00:00", false],
+   ["Femenino", 15, "2024-03-07T00:00:00", false],
+   ["Masculino  ", 86, "2024-03-01T00:00:00", false],
+   ["Masculino", 23, "2024-03-07T00:00:00", true],
+   ["Femenino", 14, "2024-03-03T00:00:00", false],
+   ["Femenino", 10, "2024-03-03T00:00:00", false],
+   ["Masculino", 65, "2024-03-06T00:00:00", false],
+   ["Masculino", 71, "2024-03-05T00:00:00", false]
+  ]
+ },
+ "casos": {
+  "sexo": {
+   "columna": "Sexo",
+   "total": 38,
+   "es_numerica": false,
+   "frecuencias": [
+    {
+     "valor": "Masculino",
+     "frecuencia": 14,
+     "porcentaje": 36.84
+    },
+    {
+     "valor": "Femenino",
+     "frecuencia": 12,
+     "porcentaje": 31.58
+    },
+    {
+     "valor": "Femenino ",
+     "frecuencia": 3,
+     "porcentaje": 7.89
+    },
+    {
+     "valor": "masculino",
+     "frecuencia": 3,
+     "porcentaje": 7.89
+    },
+    {
+     "valor": " Femenino",
+     "frecuencia": 2,
+     "porcentaje": 5.26
+    },
+    {
+     "valor": "Masculino  ",
+     "frecuencia": 2,
+     "porcentaje": 5.26
+    },
+    {
+     "valor": "  ",
+     "frecuencia": 2,
+     "porcentaje": 5.26
+    }
+   ]
+  },
+  "edad_sin_rangos": {
+   "columna": "Edad",
+   "total": 39,
+   "es_numerica": false,
+   "frecuencias": [
+    {
+     "valor": "84",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "62",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "N/D",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "24",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "44",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "9",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "69",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "60",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "10",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "8",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "14",
+     "frecuencia": 2,
+     "porcentaje": 5.13
+    },
+    {
+     "valor": "80",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "70",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "75",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "48",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "57",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "39",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "72",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "32",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "59",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "66",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "20",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "30",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "15",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "86",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "23",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "65",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    },
+    {
+     "valor": "71",
+     "frecuencia": 1,
+     "porcentaje": 2.56
+    }
+   ]
+  },
+  "edad_es_numerica_para_v3": false,
+  "edad_rangos": ["<18", "18-39", "40-64", "65+"],
+  "edad_con_rangos_solo_numeros": {
+   "columna": "Edad",
+   "total": 37,
+   "es_numerica": true,
+   "frecuencias": [
+    {
+     "valor": "<18",
+     "frecuencia": 9,
+     "porcentaje": 24.32
+    },
+    {
+     "valor": "18-39",
+     "frecuencia": 7,
+     "porcentaje": 18.92
+    },
+    {
+     "valor": "40-64",
+     "frecuencia": 9,
+     "porcentaje": 24.32
+    },
+    {
+     "valor": "65+",
+     "frecuencia": 12,
+     "porcentaje": 32.43
+    }
+   ]
+  },
+  "fecha": {
+   "columna": "Fecha",
+   "total": 40,
+   "es_numerica": false,
+   "frecuencias": [
+    {
+     "valor": "2024-03-06 00:00:00",
+     "frecuencia": 10,
+     "porcentaje": 25.0
+    },
+    {
+     "valor": "2024-03-07 00:00:00",
+     "frecuencia": 9,
+     "porcentaje": 22.5
+    },
+    {
+     "valor": "2024-03-04 00:00:00",
+     "frecuencia": 7,
+     "porcentaje": 17.5
+    },
+    {
+     "valor": "2024-03-01 00:00:00",
+     "frecuencia": 5,
+     "porcentaje": 12.5
+    },
+    {
+     "valor": "2024-03-05 00:00:00",
+     "frecuencia": 5,
+     "porcentaje": 12.5
+    },
+    {
+     "valor": "2024-03-03 00:00:00",
+     "frecuencia": 3,
+     "porcentaje": 7.5
+    },
+    {
+     "valor": "2024-03-02 00:00:00",
+     "frecuencia": 1,
+     "porcentaje": 2.5
+    }
+   ]
+  },
+  "activo": {
+   "columna": "Activo",
+   "total": 40,
+   "es_numerica": true,
+   "frecuencias": [
+    {
+     "valor": "False",
+     "frecuencia": 21,
+     "porcentaje": 52.5
+    },
+    {
+     "valor": "True",
+     "frecuencia": 19,
+     "porcentaje": 47.5
+    }
+   ]
+  },
+  "rango_que_v3_no_entiende": {
+   "columna": "Edad",
+   "total": 37,
+   "es_numerica": true,
+   "frecuencias": [
+    {
+     "valor": "<18",
+     "frecuencia": 9,
+     "porcentaje": 24.32
+    },
+    {
+     "valor": "mayores de 60",
+     "frecuencia": 0,
+     "porcentaje": 0.0
+    }
+   ]
+  }
+ }
+}

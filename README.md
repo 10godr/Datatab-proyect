@@ -1,123 +1,32 @@
-# 📊 DataTab
+# DataTab
 
-Pruebaaaa
+Herramienta para tabular y analizar datos de un Excel/CSV: frecuencias, rangos y tablas cruzadas de 2 variables. Proyecto personal.
 
-**Plataforma web de análisis estadístico para investigación médica y académica.**
+- Formatos: `.xlsx`, `.xls`, `.csv` (máx. 5 MB, una hoja).
+- Privacidad: el archivo vive solo en la memoria del servidor y se borra tras 30 min sin uso. No se guarda en disco ni se envía a servicios externos.
+- Interpretar los resultados es responsabilidad de quien los usa; DataTab no saca conclusiones médicas.
 
-DataTab transforma archivos Excel y CSV en resultados estadísticos claros: tablas de frecuencia, gráficos interactivos y cruces de variables, sin necesidad de conocimientos avanzados de programación.
+## Ejecutar en Windows (PowerShell)
 
----
-
-## ✨ Funcionalidades
-
-- 📁 **Carga de archivos** — Soporte para `.xlsx`, `.xls` y `.csv` (hasta 5MB)
-- 📊 **Tablas de frecuencia** — Frecuencias absolutas y porcentajes automáticos
-- 🔢 **Rangos personalizados** — Agrupación numérica: `<30`, `30-39`, `40+`, `>=60`
-- 🥧 **Gráficos interactivos** — Barras y pastel con tooltips detallados
-- 🔀 **Tabla cruzada** — Cruce de dos variables (Ej: Sexo × Diagnóstico)
-- 👁️ **Vista de datos** — Previsualización completa del archivo cargado
-- 🌙 **Modo oscuro** — Diseño adaptable claro/oscuro
-- 📱 **Responsive** — Funciona en celular, tablet y computadora
-
----
-
-## 🛠️ Tecnologías
-
-| Capa | Tecnología |
-|------|-----------|
-| Backend | Python 3.10+ · FastAPI · Uvicorn |
-| Análisis | Pandas · OpenPyXL |
-| Frontend | HTML5 · TailwindCSS · JavaScript |
-| Gráficos | Chart.js |
-| Tipografía | Manrope · DM Serif Display |
-
----
-
-## 🚀 Instalación
-
-### 1. Clona el repositorio
-```bash
-git clone https://github.com/10godr/datatab-website.git
-cd datatab-website
-```
-
-### 2. Instala las dependencias
-```bash
+```powershell
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+python -m app
 ```
 
-### 3. Ejecuta el servidor
-```bash
-python main.py
+Abre http://127.0.0.1:8000. Variables opcionales: ver `.env.example`.
+
+## Pruebas
+
+```powershell
+cd backend; pip install -r requirements-dev.txt; python -m pytest
+cd ..\frontend; node --test tests/
 ```
 
-### 4. Abre en el navegador
-```
-http://localhost:8000
-```
+## Estructura
 
----
-
-## 📁 Estructura del Proyecto
-
-```
-datatab/
-│
-├── main.py                    ← Punto de entrada (limpio y simple)
-├── requirements.txt
-│
-├── app/
-│   ├── routes/
-│   │   ├── upload.py          ← Rutas de carga de archivos
-│   │   └── analysis.py        ← Rutas de análisis y API
-│   │
-│   ├── services/
-│   │   ├── excel_service.py   ← Lectura y previsualización de archivos
-│   │   └── stats_service.py   ← Cálculos estadísticos (frecuencias, cruces)
-│   │
-│   └── utils/
-│       ├── file_handler.py    ← Manejo seguro de archivos (UUID)
-│       └── validators.py      ← Validación de formatos y tamaño
-│
-├── templates/
-│   ├── index.html             ← Página de inicio
-│   └── analisis.html          ← Dashboard de análisis
-│
-└── uploads/                   ← Archivos subidos (generados automáticamente)
-```
-
----
-
-## 🖥️ Uso
-
-1. **Sube** tu archivo Excel o CSV desde la página de inicio
-2. **Selecciona** la columna que deseas analizar
-3. (Opcional) **Define rangos** para variables numéricas
-4. Presiona **Analizar** y obtén la tabla de frecuencias + gráfico
-5. Usa la pestaña **Tabla Cruzada** para comparar dos variables
-
----
-
-## 🔮 Mejoras Futuras
-
-- [ ] Exportar resultados a Excel y PDF
-- [ ] Soporte para múltiples hojas en un mismo Excel
-- [ ] Histograma automático para variables numéricas
-- [ ] Estadísticas descriptivas (media, mediana, desviación estándar)
-- [ ] Publicación en la nube (Railway / Render)
-- [ ] Autenticación de usuarios
-- [ ] Historial de análisis
-
----
-
-## 👨‍💻 Autor
-
-**Diego Rodríguez**  
-Estudiante de Ingeniería de Software  
-[GitHub](https://github.com/10godr)
-
----
-
-## 📄 Licencia
-
-MIT License — libre para uso personal y académico.
+- `backend/` FastAPI + pandas (API JSON, contrato en `docs/api.md`).
+- `frontend/` HTML + CSS + JS sin build (diseño en `docs/diseno.md`).
+- `datos-de-prueba/` archivos ficticios; los reales van en `datos-de-prueba/privados/` (ignorada por git).

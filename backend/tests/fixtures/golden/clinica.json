@@ -1,0 +1,4535 @@
+{
+ "version_v3": "v3-antes-del-rediseno",
+ "pandas": "3.0.5",
+ "dataset": {
+  "nombre": "clinica",
+  "descripcion": "240 pacientes ficticios: Edad y Peso con vacíos, texto con empate, enteros sin vacíos.",
+  "columnas": ["Id", "Edad", "Sexo", "Servicio", "Peso", "Hijos", "Diagnostico"],
+  "filas": [
+   [1, 65, "Masculino", "Consulta externa", 87.9, 5, "Diabetes"],
+   [2, 64, "Masculino", "Consulta externa", 100.8, 6, "HTA"],
+   [3, 54, "Masculino", "Consulta externa", 83.5, 1, "Asma"],
+   [4, 20, "Masculino", "Hospitalización", 71.6, 2, "Migraña"],
+   [5, 62, "Femenino", "Hospitalización", 63.4, 4, "Asma"],
+   [6, 30, "Masculino", "Hospitalización", 77.0, 2, "Asma"],
+   [7, 55, "Femenino", "Pediatría", 73.0, 5, "HTA"],
+   [8, 70, "Masculino", "Consulta externa", 88.5, 4, "Asma"],
+   [9, 42, "Masculino", "Urgencias", 52.8, 1, "HTA"],
+   [10, 54, "Femenino", "Consulta externa", 108.2, 2, "Diabetes"],
+   [11, 94, "Femenino", "Consulta externa", 81.8, 1, "Diabetes"],
+   [12, 41, "Masculino", "Consulta externa", 58.2, 2, "HTA"],
+   [13, 61, "Masculino", "Cirugía", 52.8, 2, "HTA"],
+   [14, 23, "Masculino", "Urgencias", 59.3, 5, "EPOC"],
+   [15, 42, "Femenino", "Hospitalización", 64.1, 0, "HTA"],
+   [16, 58, "Masculino", "Urgencias", 82.0, 1, "HTA"],
+   [17, 70, "Masculino", "Consulta externa", 75.1, 2, "Diabetes"],
+   [18, 28, "Masculino", "Hospitalización", 61.7, 5, "Asma"],
+   [19, 85, "Femenino", "Hospitalización", 69.7, 0, "Otro"],
+   [20, 86, "Femenino", "Pediatría", 82.9, 2, "Migraña"],
+   [21, 72, "Femenino", "Consulta externa", 74.5, 4, "EPOC"],
+   [22, 31, "Femenino", "Cirugía", 70.9, 3, "EPOC"],
+   [23, 5, "Femenino", "Pediatría", 84.0, 2, "Asma"],
+   [24, 33, "Femenino", "Consulta externa", 52.4, 5, "Diabetes"],
+   [25, 36, "Femenino", "Cirugía", 98.8, 5, "Migraña"],
+   [26, 31, "Masculino", "Cirugía", 79.2, 6, "Migraña"],
+   [27, 95, "Masculino", "Urgencias", 84.1, 3, "Asma"],
+   [28, 70, "Masculino", "Urgencias", 59.6, 2, "Migraña"],
+   [29, 34, "Masculino", "Consulta externa", 59.7, 5, "Otro"],
+   [30, 42, "Femenino", "Urgencias", 78.2, 0, "HTA"],
+   [31, 87, "Femenino", "Cirugía", 84.4, 1, "Otro"],
+   [32, 61, "Masculino", "Urgencias", 56.5, 3, "Migraña"],
+   [33, 47, "Masculino", "Consulta externa", 81.7, 0, "Otro"],
+   [34, 63, "Masculino", "Cirugía", null, 1, "Migraña"],
+   [35, null, "Femenino", "Consulta externa", 77.3, 0, "Migraña"],
+   [36, 64, "Masculino", "Hospitalización", 61.3, 6, "EPOC"],
+   [37, 60, "Masculino", "Urgencias", 71.7, 2, "Asma"],
+   [38, 32, "Masculino", "Consulta externa", 63.9, 3, "EPOC"],
+   [39, 69, "Masculino", "Pediatría", 62.4, 1, "Asma"],
+   [40, 40, "Femenino", "Consulta externa", 73.6, 1, "Diabetes"],
+   [41, 60, "Femenino", "Consulta externa", 73.2, 4, "HTA"],
+   [42, 46, "Femenino", "Urgencias", 84.5, 0, "EPOC"],
+   [43, 45, "Femenino", "Urgencias", 84.8, 1, "Diabetes"],
+   [44, 64, "Masculino", "Hospitalización", 101.3, 1, "Diabetes"],
+   [45, 44, "Masculino", "Urgencias", 49.4, 0, "EPOC"],
+   [46, 50, "Femenino", "Pediatría", 79.3, 1, "Diabetes"],
+   [47, 54, "Masculino", "Urgencias", 85.7, 3, "Diabetes"],
+   [48, 69, "Femenino", "Urgencias", 69.3, 0, "Migraña"],
+   [49, 19, "Femenino", "Pediatría", 66.5, 4, "Diabetes"],
+   [50, 65, "Masculino", "Consulta externa", 68.1, 4, "HTA"],
+   [51, 54, "Femenino", "Cirugía", null, 1, "Asma"],
+   [52, 66, "Femenino", "Hospitalización", 67.4, 5, "EPOC"],
+   [53, 81, "Femenino", "Hospitalización", 98.1, 3, "HTA"],
+   [54, 10, "Masculino", "Consulta externa", 55.6, 3, "HTA"],
+   [55, 53, "Masculino", "Hospitalización", 101.9, 6, "Asma"],
+   [56, 81, "Masculino", "Hospitalización", 57.6, 1, "Diabetes"],
+   [57, null, "Masculino", "Urgencias", 80.2, 2, "Migraña"],
+   [58, 17, "Masculino", "Pediatría", 79.7, 6, "HTA"],
+   [59, 53, "Femenino", "Hospitalización", 64.0, 3, "HTA"],
+   [60, 27, "Masculino", "Consulta externa", 89.8, 4, "EPOC"],
+   [61, 12, "Masculino", "Pediatría", 103.5, 6, "Diabetes"],
+   [62, 67, "Masculino", "Urgencias", 80.4, 5, "Diabetes"],
+   [63, 55, "Masculino", "Cirugía", 71.3, 6, "Asma"],
+   [64, 36, "Femenino", "Urgencias", 106.2, 4, "HTA"],
+   [65, 79, "Femenino", "Hospitalización", 77.4, 5, "HTA"],
+   [66, 62, "Masculino", "Hospitalización", 96.9, 6, "Diabetes"],
+   [67, 87, "Femenino", "Cirugía", 94.6, 0, "HTA"],
+   [68, 31, "Femenino", "Pediatría", 63.2, 4, "HTA"],
+   [69, 1, "Femenino", "Cirugía", 84.0, 0, "Migraña"],
+   [70, 76, "Masculino", "Urgencias", 96.8, 5, "Asma"],
+   [71, 40, "Masculino", "Urgencias", 63.5, 3, "HTA"],
+   [72, 61, "Femenino", "Urgencias", 79.9, 6, "HTA"],
+   [73, 35, "Femenino", "Cirugía", 68.1, 6, "Diabetes"],
+   [74, 59, "Masculino", "Urgencias", 77.4, 2, "Otro"],
+   [75, 39, "Femenino", "Pediatría", 48.2, 4, "HTA"],
+   [76, 28, "Femenino", "Urgencias", 69.9, 3, "Diabetes"],
+   [77, 8, "Femenino", "Hospitalización", 57.7, 6, "Migraña"],
+   [78, 35, "Femenino", "Hospitalización", 70.4, 0, "Diabetes"],
+   [79, 57, "Femenino", "Urgencias", 80.1, 6, "Asma"],
+   [80, 19, "Masculino", "Urgencias", 78.4, 0, "EPOC"],
+   [81, 27, "Masculino", "Consulta externa", 65.0, 2, "Migraña"],
+   [82, 49, "Femenino", "Consulta externa", 68.0, 6, "HTA"],
+   [83, 5, "Masculino", "Hospitalización", 78.1, 0, "HTA"],
+   [84, 31, "Femenino", "Hospitalización", 63.7, 1, "Asma"],
+   [85, 62, "Masculino", "Urgencias", null, 2, "Otro"],
+   [86, 89, "Femenino", "Urgencias", 77.0, 0, "Asma"],
+   [87, 45, "Femenino", "Consulta externa", 85.4, 1, "Migraña"],
+   [88, 72, "Femenino", "Consulta externa", 62.8, 6, "Asma"],
+   [89, 38, "Masculino", "Cirugía", 74.8, 2, "HTA"],
+   [90, 50, "Femenino", "Cirugía", 55.3, 3, "Otro"],
+   [91, 62, "Femenino", "Pediatría", 78.2, 5, "HTA"],
+   [92, 15, "Femenino", "Pediatría", 57.9, 1, "Asma"],
+   [93, 46, "Masculino", "Urgencias", 76.3, 4, "Diabetes"],
+   [94, 60, "Femenino", "Pediatría", 78.0, 2, "Diabetes"],
+   [95, 70, "Masculino", "Urgencias", 66.8, 1, "Otro"],
+   [96, 62, "Femenino", "Urgencias", 83.0, 4, "Diabetes"],
+   [97, 21, "Masculino", "Urgencias", 41.5, 0, "Diabetes"],
+   [98, 56, "Femenino", "Consulta externa", 41.4, 3, "Asma"],
+   [99, 63, "Masculino", "Consulta externa", 60.2, 6, "Migraña"],
+   [100, 46, "Femenino", "Cirugía", 66.2, 4, "HTA"],
+   [101, 38, "Femenino", "Cirugía", 73.0, 3, "Diabetes"],
+   [102, 30, "Masculino", "Urgencias", 84.2, 1, "Diabetes"],
+   [103, 28, "Masculino", "Cirugía", 87.1, 4, "HTA"],
+   [104, 44, "Masculino", "Consulta externa", 69.2, 5, "HTA"],
+   [105, 2, "Masculino", "Consulta externa", 79.6, 5, "Asma"],
+   [106, 39, "Femenino", "Consulta externa", 63.3, 4, "Diabetes"],
+   [107, 12, "Masculino", "Cirugía", 78.2, 2, "HTA"],
+   [108, 6, "Masculino", "Urgencias", 73.7, 3, "Otro"],
+   [109, 38, "Femenino", "Consulta externa", null, 4, "HTA"],
+   [110, 43, "Masculino", "Urgencias", 87.0, 3, "HTA"],
+   [111, 28, "Masculino", "Cirugía", 54.3, 3, "HTA"],
+   [112, 52, "Femenino", "Cirugía", 80.4, 6, "HTA"],
+   [113, 48, "Femenino", "Cirugía", 82.2, 4, "Diabetes"],
+   [114, 44, "Masculino", "Urgencias", 90.6, 4, "Diabetes"],
+   [115, 36, "Femenino", "Cirugía", 67.7, 4, "HTA"],
+   [116, 73, "Femenino", "Urgencias", 113.8, 2, "HTA"],
+   [117, 47, "Femenino", "Urgencias", 72.1, 2, "Diabetes"],
+   [118, 34, "Femenino", "Consulta externa", 54.2, 5, "EPOC"],
+   [119, 55, "Masculino", "Hospitalización", 84.7, 5, "Diabetes"],
+   [120, 42, "Femenino", "Urgencias", 66.0, 5, "HTA"],
+   [121, null, "Masculino", "Urgencias", 58.7, 4, "EPOC"],
+   [122, 60, "Masculino", "Cirugía", 81.9, 2, "Otro"],
+   [123, 27, "Masculino", "Urgencias", 88.6, 0, "Diabetes"],
+   [124, 12, "Masculino", "Consulta externa", 61.1, 5, "Migraña"],
+   [125, 42, "Femenino", "Urgencias", 60.9, 0, "Migraña"],
+   [126, 67, "Femenino", "Hospitalización", 101.6, 4, "HTA"],
+   [127, 70, "Femenino", "Cirugía", 63.1, 1, "Diabetes"],
+   [128, 64, "Masculino", "Consulta externa", 64.9, 3, "HTA"],
+   [129, 43, "Masculino", "Pediatría", 52.2, 0, "Diabetes"],
+   [130, 11, "Masculino", "Pediatría", 74.7, 0, "Asma"],
+   [131, 32, "Femenino", "Pediatría", 94.1, 2, "Asma"],
+   [132, 37, "Femenino", "Urgencias", 87.8, 4, "Asma"],
+   [133, 60, "Masculino", "Urgencias", 72.3, 1, "EPOC"],
+   [134, 46, "Masculino", "Consulta externa", 75.2, 6, "Asma"],
+   [135, 67, "Femenino", "Pediatría", 66.7, 6, "EPOC"],
+   [136, 83, "Femenino", "Urgencias", 83.8, 2, "EPOC"],
+   [137, 76, "Masculino", "Hospitalización", 69.8, 1, "HTA"],
+   [138, 68, "Masculino", "Urgencias", 76.8, 4, "HTA"],
+   [139, 50, "Femenino", "Consulta externa", 65.0, 5, "EPOC"],
+   [140, 61, "Femenino", "Hospitalización", 84.7, 2, "Otro"],
+   [141, 42, "Masculino", "Urgencias", 84.4, 3, "Asma"],
+   [142, 35, "Femenino", "Consulta externa", 78.4, 1, "Asma"],
+   [143, 21, "Masculino", "Urgencias", 79.9, 4, "Diabetes"],
+   [144, 37, "Femenino", "Pediatría", 44.0, 6, "HTA"],
+   [145, 16, "Femenino", "Pediatría", 69.3, 6, "Asma"],
+   [146, 13, "Masculino", "Urgencias", 76.1, 3, "HTA"],
+   [147, 64, "Masculino", "Pediatría", 70.1, 1, "HTA"],
+   [148, 34, "Femenino", "Consulta externa", 52.5, 4, "Asma"],
+   [149, 29, "Femenino", "Urgencias", 67.4, 4, "Asma"],
+   [150, 53, "Femenino", "Cirugía", 57.4, 2, "Asma"],
+   [151, 95, "Femenino", "Pediatría", 110.9, 0, "HTA"],
+   [152, 59, "Masculino", "Consulta externa", 76.7, 6, "HTA"],
+   [153, 62, "Femenino", "Urgencias", 69.4, 0, "EPOC"],
+   [154, 73, "Femenino", "Consulta externa", 56.7, 2, "HTA"],
+   [155, 54, "Masculino", "Cirugía", 75.1, 4, "Otro"],
+   [156, 26, "Femenino", "Hospitalización", 80.6, 1, "Otro"],
+   [157, 67, "Masculino", "Consulta externa", 105.2, 6, "Diabetes"],
+   [158, 37, "Femenino", "Consulta externa", 95.4, 0, "HTA"],
+   [159, 45, "Masculino", "Consulta externa", null, 2, "Diabetes"],
+   [160, 80, "Femenino", "Cirugía", 63.5, 6, "HTA"],
+   [161, 37, "Masculino", "Cirugía", 83.8, 0, "EPOC"],
+   [162, 76, "Femenino", "Urgencias", 51.0, 5, "Migraña"],
+   [163, null, "Masculino", "Consulta externa", 44.6, 0, "Otro"],
+   [164, 56, "Masculino", "Cirugía", 69.4, 4, "EPOC"],
+   [165, 33, "Masculino", "Cirugía", 59.2, 3, "Asma"],
+   [166, 66, "Masculino", "Urgencias", 83.2, 5, "Otro"],
+   [167, 71, "Femenino", "Consulta externa", 73.3, 5, "Asma"],
+   [168, 45, "Masculino", "Hospitalización", 62.5, 2, "Diabetes"],
+   [169, 37, "Femenino", "Consulta externa", 85.2, 1, "Asma"],
+   [170, 79, "Masculino", "Urgencias", 70.8, 0, "Diabetes"],
+   [171, 53, "Femenino", "Urgencias", 61.6, 3, "Migraña"],
+   [172, 71, "Masculino", "Consulta externa", 91.1, 0, "HTA"],
+   [173, 44, "Femenino", "Urgencias", 49.0, 1, "HTA"],
+   [174, 72, "Masculino", "Hospitalización", 84.3, 6, "Diabetes"],
+   [175, 52, "Femenino", "Urgencias", 67.3, 0, "HTA"],
+   [176, 19, "Masculino", "Urgencias", 77.3, 2, "HTA"],
+   [177, 75, "Masculino", "Urgencias", 68.2, 1, "Migraña"],
+   [178, 34, "Femenino", "Urgencias", 68.7, 6, "HTA"],
+   [179, 66, "Masculino", "Hospitalización", 87.2, 2, "EPOC"],
+   [180, 74, "Masculino", "Consulta externa", 80.9, 3, "HTA"],
+   [181, 72, "Femenino", "Urgencias", 83.5, 6, "Asma"],
+   [182, 88, "Femenino", "Cirugía", 78.3, 2, "Migraña"],
+   [183, 25, "Femenino", "Consulta externa", 89.1, 3, "HTA"],
+   [184, 33, "Femenino", "Urgencias", 57.5, 1, "HTA"],
+   [185, 76, "Masculino", "Urgencias", 69.9, 5, "Asma"],
+   [186, 64, "Masculino", "Cirugía", 79.2, 3, "HTA"],
+   [187, 40, "Masculino", "Urgencias", 45.4, 2, "Diabetes"],
+   [188, 26, "Masculino", "Pediatría", 81.4, 4, "HTA"],
+   [189, 42, "Femenino", "Urgencias", 53.1, 0, "HTA"],
+   [190, 6, "Femenino", "Hospitalización", 55.0, 1, "Diabetes"],
+   [191, 40, "Femenino", "Urgencias", 71.8, 5, "HTA"],
+   [192, 1, "Femenino", "Urgencias", 59.8, 5, "HTA"],
+   [193, 85, "Femenino", "Urgencias", 80.5, 3, "HTA"],
+   [194, 17, "Masculino", "Urgencias", 68.2, 6, "Asma"],
+   [195, null, "Masculino", "Cirugía", 108.0, 0, "Diabetes"],
+   [196, 21, "Femenino", "Consulta externa", 69.1, 5, "HTA"],
+   [197, 50, "Femenino", "Pediatría", 53.8, 6, "Migraña"],
+   [198, 52, "Masculino", "Consulta externa", 83.9, 0, "Diabetes"],
+   [199, 71, "Masculino", "Cirugía", 56.0, 6, "HTA"],
+   [200, 56, "Femenino", "Cirugía", 51.6, 4, "Asma"],
+   [201, 79, "Masculino", "Consulta externa", 83.1, 6, "Asma"],
+   [202, 36, "Femenino", "Urgencias", 65.0, 3, "Diabetes"],
+   [203, 31, "Femenino", "Urgencias", 26.5, 1, "Asma"],
+   [204, 94, "Masculino", "Urgencias", 40.0, 4, "HTA"],
+   [205, 43, "Femenino", "Consulta externa", 65.3, 6, "Diabetes"],
+   [206, 1, "Femenino", "Pediatría", 73.3, 4, "Asma"],
+   [207, 90, "Femenino", "Consulta externa", 79.5, 5, "Asma"],
+   [208, null, "Masculino", "Cirugía", 70.6, 2, "Asma"],
+   [209, 68, "Femenino", "Cirugía", 72.9, 2, "EPOC"],
+   [210, 31, "Masculino", "Urgencias", 56.0, 4, "Diabetes"],
+   [211, 66, "Femenino", "Urgencias", 66.5, 6, "Otro"],
+   [212, 9, "Masculino", "Urgencias", 61.5, 0, "Otro"],
+   [213, 52, "Femenino", "Consulta externa", 61.3, 2, "HTA"],
+   [214, 42, "Masculino", "Consulta externa", 67.3, 1, "EPOC"],
+   [215, 32, "Femenino", "Urgencias", 74.7, 5, "HTA"],
+   [216, 95, "Femenino", "Urgencias", 93.7, 6, "HTA"],
+   [217, 50, "Femenino", "Hospitalización", 74.1, 0, "EPOC"],
+   [218, 29, "Femenino", "Consulta externa", 74.8, 4, "Migraña"],
+   [219, 49, "Femenino", "Pediatría", 64.8, 2, "Diabetes"],
+   [220, 38, "Masculino", "Pediatría", 70.4, 0, "EPOC"],
+   [221, 64, "Femenino", "Pediatría", 70.8, 2, "HTA"],
+   [222, 50, "Masculino", "Urgencias", 74.5, 4, "EPOC"],
+   [223, 72, "Femenino", "Urgencias", 62.5, 2, "Diabetes"],
+   [224, 57, "Masculino", "Cirugía", 79.0, 1, "HTA"],
+   [225, 47, "Femenino", "Hospitalización", 40.3, 3, "Diabetes"],
+   [226, 52, "Femenino", "Pediatría", 65.7, 5, "Otro"],
+   [227, 52, "Masculino", "Pediatría", 93.6, 3, "HTA"],
+   [228, 24, "Masculino", "Consulta externa", 77.9, 5, "HTA"],
+   [229, 65, "Femenino", "Urgencias", 61.2, 3, "Migraña"],
+   [230, 66, "Femenino", "Urgencias", 56.4, 0, "HTA"],
+   [231, 43, "Femenino", "Cirugía", 68.2, 2, "Asma"],
+   [232, 18, "Femenino", "Urgencias", 59.5, 5, "Otro"],
+   [233, 39, "Masculino", "Consulta externa", 92.2, 4, "Diabetes"],
+   [234, 54, "Masculino", "Cirugía", 80.9, 3, "Diabetes"],
+   [235, 1, "Femenino", "Cirugía", 70.2, 1, "Diabetes"],
+   [236, 30, "Femenino", "Pediatría", 74.1, 2, "Migraña"],
+   [237, null, "Femenino", "Consulta externa", 49.4, 2, "Otro"],
+   [238, 35, "Femenino", "Consulta externa", 78.6, 5, "Asma"],
+   [239, 28, "Femenino", "Consulta externa", 92.3, 3, "Diabetes"],
+   [240, 23, "Femenino", "Urgencias", 81.6, 3, "EPOC"]
+  ]
+ },
+ "frecuencias": [
+  {
+   "columna": "Sexo",
+   "rangos": null,
+   "v3": {
+    "columna": "Sexo",
+    "total": 240,
+    "es_numerica": false,
+    "frecuencias": [
+     {
+      "valor": "Femenino",
+      "frecuencia": 127,
+      "porcentaje": 52.92
+     },
+     {
+      "valor": "Masculino",
+      "frecuencia": 113,
+      "porcentaje": 47.08
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Servicio",
+   "rangos": null,
+   "v3": {
+    "columna": "Servicio",
+    "total": 240,
+    "es_numerica": false,
+    "frecuencias": [
+     {
+      "valor": "Urgencias",
+      "frecuencia": 80,
+      "porcentaje": 33.33
+     },
+     {
+      "valor": "Consulta externa",
+      "frecuencia": 60,
+      "porcentaje": 25.0
+     },
+     {
+      "valor": "Cirugía",
+      "frecuencia": 40,
+      "porcentaje": 16.67
+     },
+     {
+      "valor": "Hospitalización",
+      "frecuencia": 30,
+      "porcentaje": 12.5
+     },
+     {
+      "valor": "Pediatría",
+      "frecuencia": 30,
+      "porcentaje": 12.5
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Diagnostico",
+   "rangos": null,
+   "v3": {
+    "columna": "Diagnostico",
+    "total": 240,
+    "es_numerica": false,
+    "frecuencias": [
+     {
+      "valor": "HTA",
+      "frecuencia": 73,
+      "porcentaje": 30.42
+     },
+     {
+      "valor": "Diabetes",
+      "frecuencia": 52,
+      "porcentaje": 21.67
+     },
+     {
+      "valor": "Asma",
+      "frecuencia": 44,
+      "porcentaje": 18.33
+     },
+     {
+      "valor": "EPOC",
+      "frecuencia": 26,
+      "porcentaje": 10.83
+     },
+     {
+      "valor": "Migraña",
+      "frecuencia": 25,
+      "porcentaje": 10.42
+     },
+     {
+      "valor": "Otro",
+      "frecuencia": 20,
+      "porcentaje": 8.33
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Hijos",
+   "rangos": null,
+   "v3": {
+    "columna": "Hijos",
+    "total": 240,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "2",
+      "frecuencia": 40,
+      "porcentaje": 16.67
+     },
+     {
+      "valor": "4",
+      "frecuencia": 36,
+      "porcentaje": 15.0
+     },
+     {
+      "valor": "0",
+      "frecuencia": 34,
+      "porcentaje": 14.17
+     },
+     {
+      "valor": "6",
+      "frecuencia": 33,
+      "porcentaje": 13.75
+     },
+     {
+      "valor": "1",
+      "frecuencia": 33,
+      "porcentaje": 13.75
+     },
+     {
+      "valor": "5",
+      "frecuencia": 32,
+      "porcentaje": 13.33
+     },
+     {
+      "valor": "3",
+      "frecuencia": 32,
+      "porcentaje": 13.33
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": null,
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "42.0",
+      "frecuencia": 8,
+      "porcentaje": 3.43
+     },
+     {
+      "valor": "64.0",
+      "frecuencia": 7,
+      "porcentaje": 3.0
+     },
+     {
+      "valor": "54.0",
+      "frecuencia": 6,
+      "porcentaje": 2.58
+     },
+     {
+      "valor": "62.0",
+      "frecuencia": 6,
+      "porcentaje": 2.58
+     },
+     {
+      "valor": "31.0",
+      "frecuencia": 6,
+      "porcentaje": 2.58
+     },
+     {
+      "valor": "50.0",
+      "frecuencia": 6,
+      "porcentaje": 2.58
+     },
+     {
+      "valor": "52.0",
+      "frecuencia": 6,
+      "porcentaje": 2.58
+     },
+     {
+      "valor": "70.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "28.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "72.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "60.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "66.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "37.0",
+      "frecuencia": 5,
+      "porcentaje": 2.15
+     },
+     {
+      "valor": "61.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "36.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "34.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "40.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "46.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "45.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "44.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "53.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "67.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "1.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "76.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "35.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "38.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "43.0",
+      "frecuencia": 4,
+      "porcentaje": 1.72
+     },
+     {
+      "valor": "65.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "30.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "55.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "33.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "95.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "47.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "32.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "19.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "27.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "12.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "79.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "39.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "21.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "56.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "71.0",
+      "frecuencia": 3,
+      "porcentaje": 1.29
+     },
+     {
+      "valor": "94.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "23.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "85.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "5.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "87.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "63.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "69.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "81.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "17.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "59.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "57.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "49.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "6.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "73.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "68.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "29.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "26.0",
+      "frecuencia": 2,
+      "porcentaje": 0.86
+     },
+     {
+      "valor": "20.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "41.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "58.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "86.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "10.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "8.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "89.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "15.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "2.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "48.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "11.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "83.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "16.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "13.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "80.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "75.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "74.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "88.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "25.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "90.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "9.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "24.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "18.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Peso",
+   "rangos": null,
+   "v3": {
+    "columna": "Peso",
+    "total": 235,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "78.2",
+      "frecuencia": 3,
+      "porcentaje": 1.28
+     },
+     {
+      "valor": "65.0",
+      "frecuencia": 3,
+      "porcentaje": 1.28
+     },
+     {
+      "valor": "68.2",
+      "frecuencia": 3,
+      "porcentaje": 1.28
+     },
+     {
+      "valor": "83.5",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "77.0",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "73.0",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "52.8",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "75.1",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "74.5",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "84.0",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "79.2",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "84.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "77.3",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "61.3",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "49.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "69.3",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "66.5",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "68.1",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "67.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "80.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "77.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "63.5",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "79.9",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "69.9",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "70.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "78.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "74.8",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "84.7",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "74.7",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "83.8",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "69.4",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "73.3",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "62.5",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "70.8",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "67.3",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "80.9",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "56.0",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "74.1",
+      "frecuencia": 2,
+      "porcentaje": 0.85
+     },
+     {
+      "valor": "87.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "100.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "71.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "88.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "108.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "81.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "58.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "64.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "82.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "61.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "69.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "82.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "70.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "52.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "98.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "84.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "56.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "81.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "71.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "62.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "73.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "73.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "84.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "84.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "101.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "79.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "85.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "98.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "55.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "101.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "57.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "80.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "79.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "64.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "89.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "103.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "71.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "106.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "96.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "94.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "96.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "48.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "57.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "80.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "68.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "78.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "85.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "62.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "55.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "57.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "76.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "78.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "66.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "83.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "41.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "41.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "60.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "66.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "84.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "87.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "69.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "79.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "73.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "87.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "54.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "82.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "90.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "67.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "113.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "72.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "54.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "66.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "58.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "81.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "88.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "61.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "60.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "101.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "63.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "64.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "52.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "94.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "87.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "72.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "75.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "66.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "69.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "76.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "44.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "76.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "70.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "52.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "57.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "110.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "76.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "56.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "80.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "105.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "95.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "51.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "44.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "83.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "85.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "61.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "91.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "49.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "84.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "68.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "87.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "78.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "89.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "57.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "45.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "81.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "53.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "55.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "71.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "80.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "108.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "69.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "53.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "83.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "51.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "83.1",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "26.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "40.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "65.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "79.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "70.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "72.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "61.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "93.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "64.8",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "79.0",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "40.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "65.7",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "93.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "77.9",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "61.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "56.4",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "59.5",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "92.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "70.2",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "78.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "92.3",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     },
+     {
+      "valor": "81.6",
+      "frecuencia": 1,
+      "porcentaje": 0.43
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": ["<18", "18-39", "40-64", "65+"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "<18",
+      "frecuencia": 21,
+      "porcentaje": 9.01
+     },
+     {
+      "valor": "18-39",
+      "frecuencia": 63,
+      "porcentaje": 27.04
+     },
+     {
+      "valor": "40-64",
+      "frecuencia": 92,
+      "porcentaje": 39.48
+     },
+     {
+      "valor": "65+",
+      "frecuencia": 57,
+      "porcentaje": 24.46
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": ["<30", ">=60"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "<30",
+      "frecuencia": 45,
+      "porcentaje": 19.31
+     },
+     {
+      "valor": ">=60",
+      "frecuencia": 81,
+      "porcentaje": 34.76
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": ["<=40"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "<=40",
+      "frecuencia": 0,
+      "porcentaje": 0.0
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": ["30-39", "40+", ">80"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "30-39",
+      "frecuencia": 39,
+      "porcentaje": 16.74
+     },
+     {
+      "valor": "40+",
+      "frecuencia": 149,
+      "porcentaje": 63.95
+     },
+     {
+      "valor": ">80",
+      "frecuencia": 16,
+      "porcentaje": 6.87
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": ["＜30", "30–39", "≥60"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "＜30",
+      "frecuencia": 45,
+      "porcentaje": 19.31
+     },
+     {
+      "valor": "30–39",
+      "frecuencia": 39,
+      "porcentaje": 16.74
+     },
+     {
+      "valor": "≥60",
+      "frecuencia": 81,
+      "porcentaje": 34.76
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": [">=65", "<65"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": ">=65",
+      "frecuencia": 57,
+      "porcentaje": 24.46
+     },
+     {
+      "valor": "<65",
+      "frecuencia": 176,
+      "porcentaje": 75.54
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Edad",
+   "rangos": [" 18 - 39 ", ">18"],
+   "v3": {
+    "columna": "Edad",
+    "total": 233,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "18 - 39",
+      "frecuencia": 63,
+      "porcentaje": 27.04
+     },
+     {
+      "valor": ">18",
+      "frecuencia": 211,
+      "porcentaje": 90.56
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Peso",
+   "rangos": ["<50", "50-69.5", "70-89.5", "90+"],
+   "v3": {
+    "columna": "Peso",
+    "total": 235,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "<50",
+      "frecuencia": 12,
+      "porcentaje": 5.11
+     },
+     {
+      "valor": "50-69.5",
+      "frecuencia": 86,
+      "porcentaje": 36.6
+     },
+     {
+      "valor": "70-89.5",
+      "frecuencia": 108,
+      "porcentaje": 45.96
+     },
+     {
+      "valor": "90+",
+      "frecuencia": 24,
+      "porcentaje": 10.21
+     }
+    ]
+   }
+  },
+  {
+   "columna": "Hijos",
+   "rangos": ["<1", "1-2", "3+"],
+   "v3": {
+    "columna": "Hijos",
+    "total": 240,
+    "es_numerica": true,
+    "frecuencias": [
+     {
+      "valor": "<1",
+      "frecuencia": 34,
+      "porcentaje": 14.17
+     },
+     {
+      "valor": "1-2",
+      "frecuencia": 73,
+      "porcentaje": 30.42
+     },
+     {
+      "valor": "3+",
+      "frecuencia": 133,
+      "porcentaje": 55.42
+     }
+    ]
+   }
+  }
+ ],
+ "cruces": [
+  {
+   "fila": "Sexo",
+   "columna": "Servicio",
+   "v3": {
+    "col_fila": "Sexo",
+    "col_columna": "Servicio",
+    "total": 240,
+    "columnas": ["Cirugía", "Consulta externa", "Hospitalización", "Pediatría", "Urgencias"],
+    "filas": [
+     {
+      "etiqueta": "Femenino",
+      "total_fila": 127,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 21,
+        "porcentaje": 16.5
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 30,
+        "porcentaje": 23.6
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 16,
+        "porcentaje": 12.6
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 21,
+        "porcentaje": 16.5
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 39,
+        "porcentaje": 30.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "Masculino",
+      "total_fila": 113,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 19,
+        "porcentaje": 16.8
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 30,
+        "porcentaje": 26.5
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 14,
+        "porcentaje": 12.4
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 9,
+        "porcentaje": 8.0
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 41,
+        "porcentaje": 36.3
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "Cirugía": 40,
+     "Consulta externa": 60,
+     "Hospitalización": 30,
+     "Pediatría": 30,
+     "Urgencias": 80
+    }
+   }
+  },
+  {
+   "fila": "Servicio",
+   "columna": "Sexo",
+   "v3": {
+    "col_fila": "Servicio",
+    "col_columna": "Sexo",
+    "total": 240,
+    "columnas": ["Femenino", "Masculino"],
+    "filas": [
+     {
+      "etiqueta": "Cirugía",
+      "total_fila": 40,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 21,
+        "porcentaje": 52.5
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 19,
+        "porcentaje": 47.5
+       }
+      ]
+     },
+     {
+      "etiqueta": "Consulta externa",
+      "total_fila": 60,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 30,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 30,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Hospitalización",
+      "total_fila": 30,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 16,
+        "porcentaje": 53.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 14,
+        "porcentaje": 46.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "Pediatría",
+      "total_fila": 30,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 21,
+        "porcentaje": 70.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 9,
+        "porcentaje": 30.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Urgencias",
+      "total_fila": 80,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 39,
+        "porcentaje": 48.8
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 41,
+        "porcentaje": 51.2
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "Femenino": 127,
+     "Masculino": 113
+    }
+   }
+  },
+  {
+   "fila": "Edad",
+   "columna": "Sexo",
+   "v3": {
+    "col_fila": "Edad",
+    "col_columna": "Sexo",
+    "total": 233,
+    "columnas": ["Femenino", "Masculino"],
+    "filas": [
+     {
+      "etiqueta": "1.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "2.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "5.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "6.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "8.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "9.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "10.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "11.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "12.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "13.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "15.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "16.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "17.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "18.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "19.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "20.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "21.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "23.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "24.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "25.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "26.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "27.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "28.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 40.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 60.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "29.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "30.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "31.0",
+      "total_fila": 6,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "32.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "33.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "34.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 3,
+        "porcentaje": 75.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 25.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "35.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "36.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "37.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 80.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 20.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "38.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "39.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "40.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "41.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "42.0",
+      "total_fila": 8,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 5,
+        "porcentaje": 62.5
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 37.5
+       }
+      ]
+     },
+     {
+      "etiqueta": "43.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "44.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 25.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 75.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "45.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "46.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "47.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "48.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "49.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "50.0",
+      "total_fila": 6,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 5,
+        "porcentaje": 83.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 16.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "52.0",
+      "total_fila": 6,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "53.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 3,
+        "porcentaje": 75.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 25.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "54.0",
+      "total_fila": 6,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 4,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "55.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "56.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "57.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "58.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "59.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "60.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 40.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 60.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "61.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "62.0",
+      "total_fila": 6,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 33.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "63.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "64.0",
+      "total_fila": 7,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 14.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 6,
+        "porcentaje": 85.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "65.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "66.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 3,
+        "porcentaje": 60.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 40.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "67.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "68.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "69.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "70.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 20.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 4,
+        "porcentaje": 80.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "71.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "72.0",
+      "total_fila": 5,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 4,
+        "porcentaje": 80.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 20.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "73.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "74.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "75.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "76.0",
+      "total_fila": 4,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 25.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 3,
+        "porcentaje": 75.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "79.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "80.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "81.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "83.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "85.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "86.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "87.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "88.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "89.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "90.0",
+      "total_fila": 1,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 100.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 0,
+        "porcentaje": 0.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "94.0",
+      "total_fila": 2,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "95.0",
+      "total_fila": 3,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 2,
+        "porcentaje": 66.7
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 1,
+        "porcentaje": 33.3
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "Femenino": 125,
+     "Masculino": 108
+    }
+   }
+  },
+  {
+   "fila": "Diagnostico",
+   "columna": "Servicio",
+   "v3": {
+    "col_fila": "Diagnostico",
+    "col_columna": "Servicio",
+    "total": 240,
+    "columnas": ["Cirugía", "Consulta externa", "Hospitalización", "Pediatría", "Urgencias"],
+    "filas": [
+     {
+      "etiqueta": "Asma",
+      "total_fila": 44,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 7,
+        "porcentaje": 15.9
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 13,
+        "porcentaje": 29.5
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 5,
+        "porcentaje": 11.4
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 7,
+        "porcentaje": 15.9
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 12,
+        "porcentaje": 27.3
+       }
+      ]
+     },
+     {
+      "etiqueta": "Diabetes",
+      "total_fila": 52,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 7,
+        "porcentaje": 13.5
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 13,
+        "porcentaje": 25.0
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 9,
+        "porcentaje": 17.3
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 6,
+        "porcentaje": 11.5
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 17,
+        "porcentaje": 32.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "EPOC",
+      "total_fila": 26,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 4,
+        "porcentaje": 15.4
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 6,
+        "porcentaje": 23.1
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 4,
+        "porcentaje": 15.4
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 2,
+        "porcentaje": 7.7
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 10,
+        "porcentaje": 38.5
+       }
+      ]
+     },
+     {
+      "etiqueta": "HTA",
+      "total_fila": 73,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 13,
+        "porcentaje": 17.8
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 18,
+        "porcentaje": 24.7
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 7,
+        "porcentaje": 9.6
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 11,
+        "porcentaje": 15.1
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 24,
+        "porcentaje": 32.9
+       }
+      ]
+     },
+     {
+      "etiqueta": "Migraña",
+      "total_fila": 25,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 5,
+        "porcentaje": 20.0
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 6,
+        "porcentaje": 24.0
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 2,
+        "porcentaje": 8.0
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 3,
+        "porcentaje": 12.0
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 9,
+        "porcentaje": 36.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Otro",
+      "total_fila": 20,
+      "celdas": [
+       {
+        "columna": "Cirugía",
+        "frecuencia": 4,
+        "porcentaje": 20.0
+       },
+       {
+        "columna": "Consulta externa",
+        "frecuencia": 4,
+        "porcentaje": 20.0
+       },
+       {
+        "columna": "Hospitalización",
+        "frecuencia": 3,
+        "porcentaje": 15.0
+       },
+       {
+        "columna": "Pediatría",
+        "frecuencia": 1,
+        "porcentaje": 5.0
+       },
+       {
+        "columna": "Urgencias",
+        "frecuencia": 8,
+        "porcentaje": 40.0
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "Cirugía": 40,
+     "Consulta externa": 60,
+     "Hospitalización": 30,
+     "Pediatría": 30,
+     "Urgencias": 80
+    }
+   }
+  },
+  {
+   "fila": "Hijos",
+   "columna": "Sexo",
+   "v3": {
+    "col_fila": "Hijos",
+    "col_columna": "Sexo",
+    "total": 240,
+    "columnas": ["Femenino", "Masculino"],
+    "filas": [
+     {
+      "etiqueta": "0",
+      "total_fila": 34,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 18,
+        "porcentaje": 52.9
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 16,
+        "porcentaje": 47.1
+       }
+      ]
+     },
+     {
+      "etiqueta": "1",
+      "total_fila": 33,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 18,
+        "porcentaje": 54.5
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 15,
+        "porcentaje": 45.5
+       }
+      ]
+     },
+     {
+      "etiqueta": "2",
+      "total_fila": 40,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 20,
+        "porcentaje": 50.0
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 20,
+        "porcentaje": 50.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "3",
+      "total_fila": 32,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 15,
+        "porcentaje": 46.9
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 17,
+        "porcentaje": 53.1
+       }
+      ]
+     },
+     {
+      "etiqueta": "4",
+      "total_fila": 36,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 20,
+        "porcentaje": 55.6
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 16,
+        "porcentaje": 44.4
+       }
+      ]
+     },
+     {
+      "etiqueta": "5",
+      "total_fila": 32,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 19,
+        "porcentaje": 59.4
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 13,
+        "porcentaje": 40.6
+       }
+      ]
+     },
+     {
+      "etiqueta": "6",
+      "total_fila": 33,
+      "celdas": [
+       {
+        "columna": "Femenino",
+        "frecuencia": 17,
+        "porcentaje": 51.5
+       },
+       {
+        "columna": "Masculino",
+        "frecuencia": 16,
+        "porcentaje": 48.5
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "Femenino": 127,
+     "Masculino": 113
+    }
+   }
+  },
+  {
+   "fila": "Servicio",
+   "columna": "Hijos",
+   "v3": {
+    "col_fila": "Servicio",
+    "col_columna": "Hijos",
+    "total": 240,
+    "columnas": ["0", "1", "2", "3", "4", "5", "6"],
+    "filas": [
+     {
+      "etiqueta": "Cirugía",
+      "total_fila": 40,
+      "celdas": [
+       {
+        "columna": "0",
+        "frecuencia": 4,
+        "porcentaje": 10.0
+       },
+       {
+        "columna": "1",
+        "frecuencia": 6,
+        "porcentaje": 15.0
+       },
+       {
+        "columna": "2",
+        "frecuencia": 9,
+        "porcentaje": 22.5
+       },
+       {
+        "columna": "3",
+        "frecuencia": 7,
+        "porcentaje": 17.5
+       },
+       {
+        "columna": "4",
+        "frecuencia": 7,
+        "porcentaje": 17.5
+       },
+       {
+        "columna": "5",
+        "frecuencia": 1,
+        "porcentaje": 2.5
+       },
+       {
+        "columna": "6",
+        "frecuencia": 6,
+        "porcentaje": 15.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Consulta externa",
+      "total_fila": 60,
+      "celdas": [
+       {
+        "columna": "0",
+        "frecuencia": 6,
+        "porcentaje": 10.0
+       },
+       {
+        "columna": "1",
+        "frecuencia": 7,
+        "porcentaje": 11.7
+       },
+       {
+        "columna": "2",
+        "frecuencia": 8,
+        "porcentaje": 13.3
+       },
+       {
+        "columna": "3",
+        "frecuencia": 7,
+        "porcentaje": 11.7
+       },
+       {
+        "columna": "4",
+        "frecuencia": 10,
+        "porcentaje": 16.7
+       },
+       {
+        "columna": "5",
+        "frecuencia": 13,
+        "porcentaje": 21.7
+       },
+       {
+        "columna": "6",
+        "frecuencia": 9,
+        "porcentaje": 15.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Hospitalización",
+      "total_fila": 30,
+      "celdas": [
+       {
+        "columna": "0",
+        "frecuencia": 5,
+        "porcentaje": 16.7
+       },
+       {
+        "columna": "1",
+        "frecuencia": 6,
+        "porcentaje": 20.0
+       },
+       {
+        "columna": "2",
+        "frecuencia": 5,
+        "porcentaje": 16.7
+       },
+       {
+        "columna": "3",
+        "frecuencia": 3,
+        "porcentaje": 10.0
+       },
+       {
+        "columna": "4",
+        "frecuencia": 2,
+        "porcentaje": 6.7
+       },
+       {
+        "columna": "5",
+        "frecuencia": 4,
+        "porcentaje": 13.3
+       },
+       {
+        "columna": "6",
+        "frecuencia": 5,
+        "porcentaje": 16.7
+       }
+      ]
+     },
+     {
+      "etiqueta": "Pediatría",
+      "total_fila": 30,
+      "celdas": [
+       {
+        "columna": "0",
+        "frecuencia": 4,
+        "porcentaje": 13.3
+       },
+       {
+        "columna": "1",
+        "frecuencia": 4,
+        "porcentaje": 13.3
+       },
+       {
+        "columna": "2",
+        "frecuencia": 7,
+        "porcentaje": 23.3
+       },
+       {
+        "columna": "3",
+        "frecuencia": 1,
+        "porcentaje": 3.3
+       },
+       {
+        "columna": "4",
+        "frecuencia": 5,
+        "porcentaje": 16.7
+       },
+       {
+        "columna": "5",
+        "frecuencia": 3,
+        "porcentaje": 10.0
+       },
+       {
+        "columna": "6",
+        "frecuencia": 6,
+        "porcentaje": 20.0
+       }
+      ]
+     },
+     {
+      "etiqueta": "Urgencias",
+      "total_fila": 80,
+      "celdas": [
+       {
+        "columna": "0",
+        "frecuencia": 15,
+        "porcentaje": 18.8
+       },
+       {
+        "columna": "1",
+        "frecuencia": 10,
+        "porcentaje": 12.5
+       },
+       {
+        "columna": "2",
+        "frecuencia": 11,
+        "porcentaje": 13.8
+       },
+       {
+        "columna": "3",
+        "frecuencia": 14,
+        "porcentaje": 17.5
+       },
+       {
+        "columna": "4",
+        "frecuencia": 12,
+        "porcentaje": 15.0
+       },
+       {
+        "columna": "5",
+        "frecuencia": 11,
+        "porcentaje": 13.8
+       },
+       {
+        "columna": "6",
+        "frecuencia": 7,
+        "porcentaje": 8.8
+       }
+      ]
+     }
+    ],
+    "totales_col": {
+     "0": 34,
+     "1": 33,
+     "2": 40,
+     "3": 32,
+     "4": 36,
+     "5": 32,
+     "6": 33
+    }
+   }
+  }
+ ],
+ "cruces_con_rangos": [
+  {
+   "eje_con_rangos": "fila",
+   "columna_numerica": "Edad",
+   "rangos": ["<18", "18-39", "40-64", "65+"],
+   "otra_columna": "Sexo",
+   "v3_por_categoria": {
+    "Femenino": {
+     "columna": "Edad",
+     "total": 125,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 9,
+       "porcentaje": 7.2
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 38,
+       "porcentaje": 30.4
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 46,
+       "porcentaje": 36.8
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 32,
+       "porcentaje": 25.6
+      }
+     ]
+    },
+    "Masculino": {
+     "columna": "Edad",
+     "total": 108,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 12,
+       "porcentaje": 11.11
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 25,
+       "porcentaje": 23.15
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 46,
+       "porcentaje": 42.59
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 25,
+       "porcentaje": 23.15
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eje_con_rangos": "columna",
+   "columna_numerica": "Edad",
+   "rangos": ["<30", "30-59", "60+"],
+   "otra_columna": "Sexo",
+   "v3_por_categoria": {
+    "Femenino": {
+     "columna": "Edad",
+     "total": 125,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<30",
+       "frecuencia": 19,
+       "porcentaje": 15.2
+      },
+      {
+       "valor": "30-59",
+       "frecuencia": 65,
+       "porcentaje": 52.0
+      },
+      {
+       "valor": "60+",
+       "frecuencia": 41,
+       "porcentaje": 32.8
+      }
+     ]
+    },
+    "Masculino": {
+     "columna": "Edad",
+     "total": 108,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<30",
+       "frecuencia": 26,
+       "porcentaje": 24.07
+      },
+      {
+       "valor": "30-59",
+       "frecuencia": 42,
+       "porcentaje": 38.89
+      },
+      {
+       "valor": "60+",
+       "frecuencia": 40,
+       "porcentaje": 37.04
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eje_con_rangos": "fila",
+   "columna_numerica": "Edad",
+   "rangos": ["<18", "18-39", "40-64", "65+"],
+   "otra_columna": "Servicio",
+   "v3_por_categoria": {
+    "Cirugía": {
+     "columna": "Edad",
+     "total": 38,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 3,
+       "porcentaje": 7.89
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 11,
+       "porcentaje": 28.95
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 17,
+       "porcentaje": 44.74
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 7,
+       "porcentaje": 18.42
+      }
+     ]
+    },
+    "Consulta externa": {
+     "columna": "Edad",
+     "total": 57,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 3,
+       "porcentaje": 5.26
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 19,
+       "porcentaje": 33.33
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 21,
+       "porcentaje": 36.84
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 14,
+       "porcentaje": 24.56
+      }
+     ]
+    },
+    "Hospitalización": {
+     "columna": "Edad",
+     "total": 30,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 3,
+       "porcentaje": 10.0
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 6,
+       "porcentaje": 20.0
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 12,
+       "porcentaje": 40.0
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 9,
+       "porcentaje": 30.0
+      }
+     ]
+    },
+    "Pediatría": {
+     "columna": "Edad",
+     "total": 30,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 7,
+       "porcentaje": 23.33
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 8,
+       "porcentaje": 26.67
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 11,
+       "porcentaje": 36.67
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 4,
+       "porcentaje": 13.33
+      }
+     ]
+    },
+    "Urgencias": {
+     "columna": "Edad",
+     "total": 78,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<18",
+       "frecuencia": 5,
+       "porcentaje": 6.41
+      },
+      {
+       "valor": "18-39",
+       "frecuencia": 19,
+       "porcentaje": 24.36
+      },
+      {
+       "valor": "40-64",
+       "frecuencia": 31,
+       "porcentaje": 39.74
+      },
+      {
+       "valor": "65+",
+       "frecuencia": 23,
+       "porcentaje": 29.49
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eje_con_rangos": "fila",
+   "columna_numerica": "Peso",
+   "rangos": ["<60", "60-79.9", "80+"],
+   "otra_columna": "Sexo",
+   "v3_por_categoria": {
+    "Femenino": {
+     "columna": "Peso",
+     "total": 125,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<60",
+       "frecuencia": 24,
+       "porcentaje": 19.2
+      },
+      {
+       "valor": "60-79.9",
+       "frecuencia": 68,
+       "porcentaje": 54.4
+      },
+      {
+       "valor": "80+",
+       "frecuencia": 33,
+       "porcentaje": 26.4
+      }
+     ]
+    },
+    "Masculino": {
+     "columna": "Peso",
+     "total": 110,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<60",
+       "frecuencia": 20,
+       "porcentaje": 18.18
+      },
+      {
+       "valor": "60-79.9",
+       "frecuencia": 52,
+       "porcentaje": 47.27
+      },
+      {
+       "valor": "80+",
+       "frecuencia": 38,
+       "porcentaje": 34.55
+      }
+     ]
+    }
+   }
+  },
+  {
+   "eje_con_rangos": "columna",
+   "columna_numerica": "Hijos",
+   "rangos": ["<1", "1-3", "4+"],
+   "otra_columna": "Diagnostico",
+   "v3_por_categoria": {
+    "Asma": {
+     "columna": "Hijos",
+     "total": 44,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 2,
+       "porcentaje": 4.55
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 19,
+       "porcentaje": 43.18
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 23,
+       "porcentaje": 52.27
+      }
+     ]
+    },
+    "Diabetes": {
+     "columna": "Hijos",
+     "total": 52,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 7,
+       "porcentaje": 13.46
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 26,
+       "porcentaje": 50.0
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 19,
+       "porcentaje": 36.54
+      }
+     ]
+    },
+    "EPOC": {
+     "columna": "Hijos",
+     "total": 26,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 7,
+       "porcentaje": 26.92
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 8,
+       "porcentaje": 30.77
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 11,
+       "porcentaje": 42.31
+      }
+     ]
+    },
+    "HTA": {
+     "columna": "Hijos",
+     "total": 73,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 10,
+       "porcentaje": 13.7
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 29,
+       "porcentaje": 39.73
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 34,
+       "porcentaje": 46.58
+      }
+     ]
+    },
+    "Migraña": {
+     "columna": "Hijos",
+     "total": 25,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 4,
+       "porcentaje": 16.0
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 13,
+       "porcentaje": 52.0
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 8,
+       "porcentaje": 32.0
+      }
+     ]
+    },
+    "Otro": {
+     "columna": "Hijos",
+     "total": 20,
+     "es_numerica": true,
+     "frecuencias": [
+      {
+       "valor": "<1",
+       "frecuencia": 4,
+       "porcentaje": 20.0
+      },
+      {
+       "valor": "1-3",
+       "frecuencia": 10,
+       "porcentaje": 50.0
+      },
+      {
+       "valor": "4+",
+       "frecuencia": 6,
+       "porcentaje": 30.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

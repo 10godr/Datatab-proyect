@@ -1,0 +1,61 @@
+Código;Sexo;Edad;Peso (kg);Talla (m);Municipio de residencia;Diagnóstico;Fecha de ingreso
+C-001;Masculino;41;76,8;1,7;Monte Sombrío;Asma bronquial;2024-05-23
+C-002;Masculino;24;79,4;1,46;Río Manso;Diabetes tipo 2;2024-03-18
+C-003;Masculino;23;80,5;1,62;Piedra Añeja;Anemia ferropénica;2024-04-05
+C-004;Femenino;45;79,5;1,58;Cañada Verde;Anemia ferropénica;2024-06-15
+C-005;Femenino;75;64,3;1,66;Cañada Verde;Hipertensión arterial;2024-06-19
+C-006;Femenino;83;67,5;1,7;Piedra Añeja;Anemia ferropénica;2024-05-04
+C-007;Femenino;41;59,5;1,66;Valle Alto;Hipertensión arterial;2024-06-06
+C-008;Masculino;71;52,8;1,68;Cañada Verde;Asma bronquial;2024-06-22
+C-009;Masculino;28;69,5;1,68;Río Manso;Anemia ferropénica;2024-03-28
+C-010;Masculino;19;75,7;1,66;Valle Alto;Diabetes tipo 2;2024-01-12
+C-011;Femenino;29;56,5;1,64;Cañada Verde;Hipertensión arterial;2024-06-15
+C-012;Masculino;89;81,3;1,51;Río Manso;Anemia ferropénica;2024-03-11
+C-013;Femenino;87;66,0;1,76;Monte Sombrío;Hipertensión arterial;2024-02-25
+C-014;Femenino;29;56,5;1,5;Cañada Verde;Diabetes tipo 2;2024-02-24
+C-015;Masculino;27;86,0;1,6;Monte Sombrío;Hipertensión arterial;2024-06-27
+C-016;Masculino;57;84,9;1,64;Valle Alto;Hipertensión arterial;2024-04-04
+C-017;Masculino;64;55,2;1,55;Piedra Añeja;Anemia ferropénica;2024-06-24
+C-018;Femenino;50;80,4;1,57;Monte Sombrío;Hipertensión arterial;2024-03-18
+C-019;Masculino;82;69,8;1,71;Monte Sombrío;Diabetes tipo 2;2024-01-08
+C-020;Femenino;22;68,9;1,64;Monte Sombrío;Diabetes tipo 2;2024-05-14
+C-021;Femenino;87;96,8;1,49;Río Manso;Anemia ferropénica;2024-02-08
+C-022;Masculino;81;59,4;1,7;Río Manso;Asma bronquial;2024-01-20
+C-023;Masculino;70;57,6;1,57;Monte Sombrío;Diabetes tipo 2;2024-04-03
+C-024;Masculino;85;57,8;1,52;Río Manso;Gastritis crónica;2024-04-13
+C-025;Masculino;58;65,2;1,72;Monte Sombrío;Anemia ferropénica;2024-05-14
+C-026;Masculino;43;84,2;1,77;Cañada Verde;Hipertensión arterial;2024-03-30
+C-027;Femenino;38;66,5;1,79;Piedra Añeja;Hipertensión arterial;2024-04-10
+C-028;Masculino;37;59,9;1,7;Piedra Añeja;Diabetes tipo 2;2024-04-11
+C-029;Femenino;83;64,7;1,71;Piedra Añeja;Asma bronquial;2024-05-14
+C-030;Masculino;72;90,6;1,55;Piedra Añeja;Hipertensión arterial;2024-03-18
+C-031;Masculino;45;106,0;1,71;Valle Alto;Diabetes tipo 2;2024-01-30
+C-032;Masculino;26;71,3;1,81;Valle Alto;Gastritis crónica;2024-06-20
+C-033;Masculino;29;69,8;1,6;Cañada Verde;Asma bronquial;2024-05-08
+C-034;Masculino;45;77,0;1,56;Piedra Añeja;Anemia ferropénica;2024-02-22
+C-035;Masculino;66;70,1;1,71;Piedra Añeja;Hipertensión arterial;2024-05-13
+C-036;Femenino;63;68,1;1,54;Valle Alto;Gastritis crónica;2024-01-18
+C-037;Masculino;54;65,7;1,65;Río Manso;Hipertensión arterial;2024-01-28
+C-038;Femenino;45;63,1;1,66;Cañada Verde;Anemia ferropénica;2024-06-16
+C-039;Masculino;68;73,5;1,56;Valle Alto;Gastritis crónica;2024-06-08
+C-040;Masculino;66;85,4;1,66;Monte Sombrío;Diabetes tipo 2;2024-03-07
+C-041;Femenino;21;58,1;1,63;Valle Alto;Gastritis crónica;2024-02-29
+C-042;Femenino;83;69,0;1,66;Valle Alto;Hipertensión arterial;2024-01-22
+C-043;Femenino;38;89,8;1,48;Río Manso;Diabetes tipo 2;2024-02-28
+C-044;Femenino;31;76,7;1,54;Monte Sombrío;Diabetes tipo 2;2024-04-15
+C-045;Femenino;42;55,5;1,72;Cañada Verde;Asma bronquial;2024-05-14
+C-046;Femenino;82;52,7;1,72;Valle Alto;Gastritis crónica;2024-04-15
+C-047;Femenino;35;70,7;1,66;Cañada Verde;Anemia ferropénica;2024-04-25
+C-048;Femenino;79;58,4;1,78;Piedra Añeja;Anemia ferropénica;2024-04-18
+C-049;Masculino;58;67,5;1,63;Río Manso;Hipertensión arterial;2024-04-23
+C-050;Femenino;60;67,9;1,74;Cañada Verde;Diabetes tipo 2;2024-03-26
+C-051;Masculino;60;72,3;1,64;Valle Alto;Asma bronquial;2024-04-23
+C-052;Masculino;47;87,1;1,65;Monte Sombrío;Hipertensión arterial;2024-01-12
+C-053;Femenino;58;60,5;1,61;Río Manso;Asma bronquial;2024-01-24
+C-054;Femenino;63;79,4;1,75;Cañada Verde;Asma bronquial;2024-05-11
+C-055;Masculino;60;70,5;1,8;Cañada Verde;Gastritis crónica;2024-02-20
+C-056;Masculino;88;72,6;1,7;Río Manso;Anemia ferropénica;2024-03-03
+C-057;Masculino;57;72,8;1,66;Valle Alto;Diabetes tipo 2;2024-04-25
+C-058;Femenino;69;95,2;1,67;Valle Alto;Anemia ferropénica;2024-06-18
+C-059;Masculino;57;84,4;1,7;Piedra Añeja;Gastritis crónica;2024-05-31
+C-060;Femenino;40;72,8;1,72;Valle Alto;Hipertensión arterial;2024-05-22

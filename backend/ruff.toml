@@ -1,0 +1,7 @@
+# Revisión del backend: cd backend && ruff check
+[lint]
+select = ["F", "B"]
+
+[lint.flake8-bugbear]
+# FastAPI espera `Depends(...)` como valor por defecto de un parámetro
+extend-immutable-calls = ["fastapi.Depends"]

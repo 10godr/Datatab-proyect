@@ -1,0 +1,168 @@
+/* Composición de las pantallas: contenedor, cabecera, pestañas, carga y análisis.
+   Puntos de corte: 640 px (teléfono), 960 px (una columna). Margen lateral: --margen. */
+
+.contenedor {
+  width: 100%;
+  max-width: calc(var(--page) + 2 * var(--margen));
+  margin-inline: auto;
+  padding-inline:
+    max(var(--margen), env(safe-area-inset-left, 0px))
+    max(var(--margen), env(safe-area-inset-right, 0px));
+}
+
+main { flex: 1 0 auto; }
+
+/* ---------- Cabecera ---------- */
+
+.cabecera { border-bottom: 1px solid var(--line); }
+
+.cabecera__interior {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "marca datos cerrar";
+  align-items: center;
+  column-gap: var(--s-5);
+  min-height: calc(var(--alto-control) + 2 * var(--s-3));
+  padding-block: var(--s-3);
+}
+
+.marca {
+  grid-area: marca;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  max-width: none;
+}
+.marca__logo { width: 22px; height: 22px; flex: none; color: var(--signal); }
+.marca__nombre { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+
+/* La barra de archivo reparte sus hijos en la rejilla de la cabecera */
+.archivo-actual { display: contents; }
+
+.archivo-actual__datos {
+  grid-area: datos;
+  justify-self: end;
+  display: flex;
+  gap: 0.5ch;
+  min-width: 0;
+  max-width: 100%;
+  font-size: var(--t-sm);
+  color: var(--text-2);
+}
+.archivo-actual__nombre {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.archivo-actual__medidas { flex: none; white-space: nowrap; }
+.archivo-actual__cerrar { grid-area: cerrar; }
+
+/* ---------- Pestañas ---------- */
+
+.pestanas-barra { border-bottom: 1px solid var(--line); }
+
+.pestanas {
+  display: flex;
+  gap: var(--s-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Holgura para el anillo de foco, que va fuera del texto: overflow lo recortaría sin ella */
+  padding: var(--s-1);
+  margin: calc(-1 * var(--s-1));
+}
+.pestanas::-webkit-scrollbar { display: none; }
+
+/* ---------- Vista de carga ---------- */
+
+.vista-carga { padding-block: var(--s-8) var(--s-9); }
+
+.carga {
+  display: grid;
+  gap: var(--s-7);
+  align-items: start;
+}
+
+.carga__presentacion { display: grid; gap: var(--s-5); align-content: start; }
+.carga__accion { display: grid; gap: var(--s-4); justify-items: start; align-content: start; min-width: 0; }
+.carga__accion > * { max-width: 100%; }
+
+.capacidades {
+  margin-top: var(--s-9);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+.capacidades__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s-6) var(--s-7);
+  padding: 0;
+}
+.capacidades__lista li { display: grid; gap: var(--s-2); align-content: start; }
+.capacidades__lista h3 { font-size: var(--t-md); }
+.capacidades__lista p { font-size: var(--t-sm); color: var(--text-2); }
+
+@media (min-width: 961px) {
+  .carga { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8); }
+}
+
+/* ---------- Vista de análisis ---------- */
+
+.panel { padding-block: var(--s-6) var(--s-9); }
+
+.analisis {
+  display: grid;
+  grid-template-columns: var(--ancho-controles) minmax(0, 1fr);
+  gap: var(--s-6) var(--s-7);
+  align-items: start;
+}
+
+/* El resultado es un contenedor: la tabla y el gráfico se colocan según su ancho, no el de la ventana */
+.salida {
+  min-width: 0;
+  container-type: inline-size;
+  display: grid;
+  gap: var(--s-6);
+}
+
+.datos { display: grid; gap: var(--s-4); min-width: 0; }
+.datos__contenido { display: grid; gap: var(--s-4); min-width: 0; }
+
+/* ---------- Pie ---------- */
+
+.pie {
+  border-top: 1px solid var(--line);
+  padding-block: var(--s-5);
+  font-size: var(--t-xs);
+  color: var(--text-3);
+}
+
+.pie p { max-width: none; }
+
+.sin-javascript { padding-block: var(--s-5); }
+
+/* ---------- Una columna ---------- */
+
+@media (max-width: 960px) {
+  .analisis { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Teléfono ---------- */
+
+@media (max-width: 640px) {
+  h1 { font-size: 2.125rem; }
+
+  .cabecera__interior {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "marca cerrar"
+      "datos datos";
+    row-gap: 0;
+  }
+  .archivo-actual__datos { justify-self: start; padding-bottom: var(--s-2); }
+
+  .vista-carga { padding-block: var(--s-7) var(--s-8); }
+  .capacidades { margin-top: var(--s-8); }
+
+  .panel { padding-block: var(--s-5) var(--s-8); }
+}
