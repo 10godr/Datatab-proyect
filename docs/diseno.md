@@ -24,7 +24,7 @@ Los de la maqueta aprobada (18/10/2026) están copiados tal cual en `tokens.css`
 
 | Grupo | Variables |
 |---|---|
-| Superficies | `--ink-0 #0A0C0B` fondo · `--ink-1 #101412` superficie (panel de controles, zona de carga) · `--ink-2 #151B18` campos y elementos elevados |
+| Superficies | Ajustadas el 18/10 a un verde oscuro más claro: `--ink-0 #17271F` fondo · `--ink-1 #1E3328` superficie · `--ink-2 #274236` campos y botones. Texto y bordes se aclararon en proporción (ver `frontend/css/tokens.css`). |
 | Separadores | `--line #222A26` decorativo · `--line-strong #34403A` · `--line-control #5F6C66` borde de controles |
 | Texto | `--text #ECF1EE` · `--text-2 #A7B2AC` · `--text-3 #808C86` |
 | Musgo y señal | `--moss-900 #13261C` · `--moss-700 #1E3B2C` · `--moss-500 #4E7F64` · `--moss-300 #8DB89E` · `--signal #63D68F` (solo acción principal y estado relevante) · `--signal-ink #052012` |
@@ -349,3 +349,8 @@ Pequeños ajustes a `index.html` y a los CSS que salieron al conectar el JavaScr
 | `components.css`, teléfono: en el cruce, la primera columna fija pasa de `max-width: 16rem` a `9rem`. | Con categorías largas ("Colecistitis crónica litiásica") ocupaba unos 225 de los 358 px útiles y dejaba a la vista solo media columna de datos. Ahora el texto se parte en dos líneas y se ve la siguiente columna cortada por el borde. |
 | `layout.css`: `.pestanas` lleva `padding: var(--s-1)` con el mismo margen negativo; `components.css`: `.pestana:focus-visible` pasa de `outline-offset: -2px` a `2px`. | El anillo de foco iba dentro de la pestaña, justo encima de la primera y la última letra (las pestañas no llevan relleno horizontal). La holgura evita que `overflow-x: auto` lo recorte; el diseño no se mueve porque el margen negativo la compensa. |
 | `frontend/package.json` (`"type": "module"`, script `test`) y `frontend/tests/index.js`. | `node --test tests/` en Node 22 trata el directorio como un módulo y falla; `tests/index.js` importa los `*.test.mjs`. No afecta al servidor ni al navegador. |
+
+## Cambios del 18/10 (a petición de Seven)
+- Pantalla de carga mínima: título, una línea, zona de carga. Sin lista de capacidades.
+- "Datos del archivo" ya no es pestaña: va siempre debajo del análisis.
+- Fondo verde más claro y botones secundarios con fondo y borde visibles.

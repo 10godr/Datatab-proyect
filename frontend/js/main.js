@@ -68,6 +68,7 @@ function abrirAnalisis(dataset, { recuperado = false } = {}) {
   reiniciarVistas(dataset);
   pestanas.activar('frecuencias');
   mostrarVista('analisis');
+  alAbrirDatos();
   if (recuperado) return; // al recargar la página no se mueve el foco ni se anuncia nada
 
   porId('tab-frecuencias').focus();
@@ -145,9 +146,7 @@ async function arrancar() {
   iniciarFrecuencias(contexto);
   iniciarCruce(contexto);
   iniciarDatos(contexto);
-  pestanas = iniciarPestanas(document.querySelector('[role="tablist"]'), (nombre) => {
-    if (nombre === 'datos') alAbrirDatos();
-  });
+  pestanas = iniciarPestanas(document.querySelector('[role="tablist"]'), () => {});
   conectarCierre();
 
   if (falloDeConfiguracion) mostrarErrorDeCarga(falloDeConfiguracion);

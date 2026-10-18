@@ -6,23 +6,23 @@
   color-scheme: dark;
 
   /* Superficies y separadores */
-  --ink-0: #0A0C0B;      /* fondo */
-  --ink-1: #101412;      /* superficie */
-  --ink-2: #151B18;      /* campos, zonas elevadas */
-  --line: #222A26;       /* separadores */
-  --line-strong: #34403A;
-  --line-control: #5F6C66; /* bordes de controles, 3:1 */
+  --ink-0: #17271F;      /* fondo */
+  --ink-1: #1E3328;      /* superficie */
+  --ink-2: #274236;      /* campos, zonas elevadas */
+  --line: #355142;       /* separadores */
+  --line-strong: #476A57;
+  --line-control: #86A593; /* bordes de controles, 3:1 */
 
   /* Texto */
-  --text: #ECF1EE;
-  --text-2: #A7B2AC;
-  --text-3: #808C86;
+  --text: #F2F8F4;
+  --text-2: #C4D3CA;
+  --text-3: #A0B4A8;
 
   /* Musgo y señal */
-  --moss-900: #13261C;
-  --moss-700: #1E3B2C;
-  --moss-500: #4E7F64;
-  --moss-300: #8DB89E;
+  --moss-900: #1B3727;
+  --moss-700: #2A5139;
+  --moss-500: #5C9774;
+  --moss-300: #9FCBB0;
   --signal: #63D68F;     /* solo acción principal y estado relevante */
   --signal-ink: #052012;
 
@@ -57,7 +57,7 @@
   --alto-control: 40px;             /* botones, campos y zonas táctiles */
   --ancho-controles: 19rem;         /* panel de controles en escritorio */
   --margen: 16px;                   /* margen lateral: 16 px en teléfono, 32 px desde tableta */
-  --velo: rgb(10 12 11 / 0.74);     /* fondo del diálogo modal */
+  --velo: rgb(8 18 13 / 0.74);     /* fondo del diálogo modal */
 }
 
 @media (min-width: 641px) {

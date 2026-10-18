@@ -21,7 +21,8 @@
   white-space: nowrap;
   cursor: pointer;
 }
-.boton:hover { background: var(--ink-2); }
+.boton { background: var(--ink-2); border-color: var(--line-control); }
+.boton:hover { background: var(--moss-700); border-color: var(--moss-300); }
 
 .boton--primario {
   background: var(--signal);
@@ -31,10 +32,10 @@
 }
 .boton--primario:hover { background: var(--signal-hover); border-color: var(--signal-hover); }
 
-.boton--tenue { border-color: transparent; color: var(--text-2); padding: 0 var(--s-2); }
-.boton--tenue:hover { color: var(--text); }
+.boton--tenue { background: transparent; border-color: var(--line-strong); color: var(--text); padding: 0 var(--s-3); }
+.boton--tenue:hover { background: var(--ink-2); border-color: var(--moss-300); }
 /* El texto de un botón tenue queda alineado con el borde del bloque, no con su relleno */
-.carga__accion > .boton--tenue { margin-left: calc(-1 * var(--s-2)); }
+
 
 .boton--peligro { border-color: var(--error); color: var(--error); }
 .boton--peligro:hover { background: rgb(238 129 112 / 0.12); }
@@ -609,3 +610,7 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
     background: var(--signal);
   }
 }
+
+/* ---------- Datos del archivo (siempre debajo del análisis) ---------- */
+.seccion-datos { margin-top: var(--s-8); padding-top: var(--s-6); border-top: 1px solid var(--line); }
+.seccion-datos__titulo { font-size: var(--t-lg); margin-bottom: var(--s-4); }

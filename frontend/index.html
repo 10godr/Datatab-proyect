@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0A0C0B">
+  <meta name="theme-color" content="#17271F">
   <meta name="description" content="DataTab tabula datos de Excel o CSV en español: frecuencias, rangos numéricos y cruce de dos variables.">
   <title>DataTab · Tabula tus datos</title>
 
@@ -53,12 +53,7 @@
         <div class="carga">
           <div class="carga__presentacion">
             <h1 id="carga-titulo" tabindex="-1">Tabula los datos de tu archivo</h1>
-            <p class="entradilla">Cuenta cuántas veces aparece cada valor de una columna, agrupa números en rangos como 30-39 y cruza dos variables en una tabla. Sin fórmulas.</p>
-            <ul class="limites" role="list" aria-label="Límites del archivo">
-              <li>Formatos: <span data-config="formatos">.xlsx, .xls y .csv</span></li>
-              <li>Tamaño: hasta <span class="num" data-config="max-mb">5</span> MB</li>
-              <li>Se lee la primera hoja; los nombres de columna van en la primera fila.</li>
-            </ul>
+            <p class="entradilla">Sube un Excel o CSV de hasta <span class="num" data-config="max-mb">5</span> MB.</p>
           </div>
 
           <div class="carga__accion">
@@ -70,7 +65,7 @@
               </p>
               <input class="visualmente-oculto entrada-archivo" type="file" id="archivo-input" name="archivo" accept=".xlsx,.xls,.csv">
               <label class="boton boton--primario" for="archivo-input">Elegir archivo</label>
-              <p class="pista">Tu archivo se usa solo mientras trabajas: se elimina al cerrarlo o tras <span class="num" data-config="minutos-inactividad">30</span> minutos sin uso.</p>
+              <p class="pista">Formatos: <span data-config="formatos">.xlsx, .xls y .csv</span>. Se borra al cerrarlo o tras <span class="num" data-config="minutos-inactividad">30</span> min sin uso.</p>
             </div>
 
             <div id="carga-estado" role="status">
@@ -99,23 +94,6 @@
           </div>
         </div>
 
-        <section class="capacidades" aria-labelledby="capacidades-titulo">
-          <h2 class="visualmente-oculto" id="capacidades-titulo">Qué puedes hacer</h2>
-          <ul class="capacidades__lista" role="list">
-            <li>
-              <h3>Frecuencias</h3>
-              <p>Cuántas veces aparece cada valor de una columna y qué porcentaje representa.</p>
-            </li>
-            <li>
-              <h3>Rangos numéricos</h3>
-              <p>Agrupa edades u otras cifras en tramos: <code>30-39</code>, <code>&lt;30</code>, <code>&gt;=60</code>, <code>40+</code>.</p>
-            </li>
-            <li>
-              <h3>Cruce de variables</h3>
-              <p>Cuenta los casos de cada combinación de dos columnas, por ejemplo edad por sexo.</p>
-            </li>
-          </ul>
-        </section>
       </div>
     </div>
 
@@ -128,7 +106,6 @@
           <div class="pestanas" role="tablist" aria-label="Tipo de análisis">
             <button type="button" role="tab" class="pestana" id="tab-frecuencias" aria-selected="true" aria-controls="panel-frecuencias">Frecuencias</button>
             <button type="button" role="tab" class="pestana" id="tab-cruce" aria-selected="false" aria-controls="panel-cruce" tabindex="-1">Cruce de variables</button>
-            <button type="button" role="tab" class="pestana" id="tab-datos" aria-selected="false" aria-controls="panel-datos" tabindex="-1">Ver datos</button>
           </div>
         </div>
       </div>
@@ -357,9 +334,9 @@
         </div>
 
         <!-- ---------- Ver datos ---------- -->
-        <div role="tabpanel" class="panel" id="panel-datos" aria-labelledby="tab-datos" hidden>
+        <div class="seccion-datos" id="panel-datos" aria-labelledby="datos-titulo">
           <div class="datos">
-            <h2 class="visualmente-oculto">Datos del archivo</h2>
+            <h2 class="seccion-datos__titulo" id="datos-titulo">Datos del archivo</h2>
             <p class="visualmente-oculto" id="datos-anuncio" role="status"></p>
 
             <div class="mensaje" data-nivel="error" id="datos-error" tabindex="-1" hidden>
