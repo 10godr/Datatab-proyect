@@ -753,3 +753,37 @@ body::before {
   .deco__tarjeta--tabla b:nth-of-type(3) { width: 85%; }
   .deco__tarjeta--tabla b:nth-of-type(4) { width: 50%; }
 }
+
+/* ---------- Gráfico con vida (18/10) ---------- */
+.grafico {
+  padding: var(--s-5);
+  background: linear-gradient(160deg, #FFFFFF 0%, #F1FAF4 55%, #E3F4E9 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgb(20 122 63 / 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.grafico:hover { transform: translateY(-2px); box-shadow: 0 22px 48px rgb(20 122 63 / 0.18); }
+.grafico figcaption { font-size: var(--t-md); font-weight: 600; }
+
+/* Animación de carga: cinco barras que suben y bajan */
+.estado__carga { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
+.cargador { display: flex; align-items: flex-end; gap: 6px; height: 44px; }
+.cargador i { display: block; width: 10px; height: 100%; border-radius: 5px; background: var(--c-green); transform-origin: bottom; animation: sube 0.9s ease-in-out infinite; }
+.cargador i:nth-child(2) { background: var(--c-rose); animation-delay: 0.12s; }
+.cargador i:nth-child(3) { background: var(--c-blue); animation-delay: 0.24s; }
+.cargador i:nth-child(4) { background: var(--c-ochre); animation-delay: 0.36s; }
+.cargador i:nth-child(5) { background: var(--c-violet); animation-delay: 0.48s; }
+@keyframes sube { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }
+
+/* El resultado de otra columna se atenúa mientras se elige y entra con movimiento al calcular */
+.resultado { transition: opacity 0.3s ease, filter 0.3s ease; }
+.resultado--obsoleto { opacity: 0.4; filter: blur(1.5px) saturate(0.7); }
+.resultado:not([hidden]) { animation: aparecer 0.5s ease both; }
+.tabla--frecuencias tbody tr { animation: aparecer 0.45s ease both; }
+.tabla--frecuencias tbody tr:nth-child(2) { animation-delay: 0.06s; }
+.tabla--frecuencias tbody tr:nth-child(3) { animation-delay: 0.12s; }
+.tabla--frecuencias tbody tr:nth-child(4) { animation-delay: 0.18s; }
+.tabla--frecuencias tbody tr:nth-child(5) { animation-delay: 0.24s; }
+.tabla--frecuencias tbody tr:nth-child(6) { animation-delay: 0.30s; }
+.tabla--frecuencias tbody tr:nth-child(n+7) { animation-delay: 0.36s; }

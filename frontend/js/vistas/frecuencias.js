@@ -8,7 +8,7 @@ import { pintarAvisos } from '../ui/avisos.js';
 import { mostrarGrafico, vaciarGrafico } from '../ui/grafico.js';
 import { describirFrecuencias } from '../ui/lectura.js';
 import {
-  anunciar, columnaElegida, llenarColumnas, mostrarEstado, plegarSegunPantalla, rellenarError, vigilarPantalla,
+  anunciar, columnaElegida, conPausaMinima, llenarColumnas, mostrarEstado, plegarSegunPantalla, rellenarError, vigilarPantalla,
 } from '../ui/panel.js';
 import { montarRangos } from '../ui/rangos.js';
 
@@ -97,6 +97,8 @@ function alCambiarColumna() {
     generacion += 1;
     mostrarEstado(PREFIJO, 'vacio');
   }
+  // Un resultado de otra columna sigue en pantalla pero atenuado: aún no corresponde a lo elegido
+  el.resultado.classList.toggle('resultado--obsoleto', !el.resultado.hidden && ultimoResultado('frecuencias')?.respuesta.columna !== columna?.nombre);
   el.pista.textContent = columna ? pistaColumna(columna) : 'Elige una columna para poder calcular.';
   el.calcular.disabled = !columna;
   rangos.reiniciar(columna ? columna.tipo : null);
@@ -116,9 +118,10 @@ async function calcular() {
   }
 
   const mio = ++generacion;
+  el.resultado.classList.remove('resultado--obsoleto');
   mostrarEstado(PREFIJO, 'cargando');
   try {
-    const respuesta = await calcularFrecuencias(datasetActual().dataset_id, columna.nombre, lista);
+    const respuesta = await conPausaMinima(calcularFrecuencias(datasetActual().dataset_id, columna.nombre, lista));
     if (mio !== generacion) return;
     pintar(respuesta);
     guardarResultado('frecuencias', clave, respuesta);

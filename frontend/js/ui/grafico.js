@@ -7,6 +7,7 @@ const MAX_VALORES_DIBUJABLES = 60;
 const MAX_CATEGORIAS_VERTICAL = 5; // con más categorías las barras van en horizontal
 const LARGO_MAXIMO_ETIQUETA = 28;
 // Orden de colores de las categorías: rosa suave primero. Una sola serie va en --signal.
+const COLORES_BARRAS = ['--c-green', '--c-rose', '--c-blue', '--c-ochre', '--c-violet', '--c-teal', '--c-coral', '--c-lime'];
 const COLORES_CATEGORIAS = ['--c-rose', '--c-white', '--c-blue', '--c-ochre', '--c-violet', '--c-gray'];
 
 let instancia = null;
@@ -101,8 +102,9 @@ function crearGrafico(lienzo, tipo, r) {
   Chart.defaults.color = color('--text-2');
 
   const tooltip = {
-    backgroundColor: color('--ink-2'),
-    borderColor: color('--line-control'),
+    backgroundColor: color('--ink-1'),
+    borderColor: color('--moss-500'),
+    cornerRadius: 10,
     borderWidth: 1,
     titleColor: color('--text'),
     bodyColor: color('--text'),
@@ -116,7 +118,8 @@ function crearGrafico(lienzo, tipo, r) {
       },
     },
   };
-  const base = { responsive: true, maintainAspectRatio: false, animation: false };
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const base = { responsive: true, maintainAspectRatio: false, animation: quieto ? false : { duration: 1100, easing: 'easeOutQuart' } };
 
   if (tipo === 'circular') {
     return new Chart(lienzo, {
@@ -126,13 +129,15 @@ function crearGrafico(lienzo, tipo, r) {
         datasets: [{
           data: valores,
           backgroundColor: COLORES_CATEGORIAS.slice(0, filas.length).map(color),
-          borderColor: color('--ink-0'),
-          borderWidth: 2,
+          borderColor: color('--ink-1'),
+          borderWidth: 3,
+          hoverOffset: 10,
         }],
       },
       options: {
         ...base,
-        cutout: '55%',
+        cutout: '58%',
+        animation: quieto ? false : { duration: 1200, easing: 'easeOutQuart', animateRotate: true, animateScale: true },
         plugins: {
           tooltip,
           legend: {
@@ -179,7 +184,15 @@ function crearGrafico(lienzo, tipo, r) {
     plugins: [etiquetasDeValor],
     data: {
       labels: etiquetas,
-      datasets: [{ data: valores, backgroundColor: color('--signal'), borderRadius: 2, barPercentage: 0.6, categoryPercentage: 1 }],
+      datasets: [{
+        data: valores,
+        backgroundColor: valores.map((_, i) => color(COLORES_BARRAS[i % COLORES_BARRAS.length])),
+        borderRadius: 8,
+        borderSkipped: false,
+        barPercentage: 0.68,
+        categoryPercentage: 1,
+        animation: quieto ? false : { delay: (contexto) => contexto.dataIndex * 110 },
+      }],
     },
     options: {
       ...base,

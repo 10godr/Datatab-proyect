@@ -52,6 +52,7 @@
   --page: 72rem;
 
   /* Extensiones (no están en la maqueta; no alteran ningún valor aprobado) */
+  --c-green: #2FA866; --c-teal: #2A9D8F; --c-coral: #E07A5F; --c-lime: #7CB342;
   --c-gray: var(--text-3);          /* sexta categoría de gráfico */
   --signal-hover: #0F6633;          /* hover del botón principal (valor de la maqueta) */
   --alto-control: 40px;             /* botones, campos y zonas táctiles */

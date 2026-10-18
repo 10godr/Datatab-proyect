@@ -369,3 +369,7 @@ Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el 
 - Fondo con malla de degradados verdes, rejilla de puntos y tarjetas decorativas flotantes en la pantalla de carga (solo ≥1100 px, `aria-hidden`).
 - Cabecera de cristal (desenfoque) fija arriba, con cinta de color animada; botones principales con degradado suave.
 - Rangos: en el campo se pueden escribir varios a la vez separados por `;`, por «coma y espacio», por salto de línea o por « y » (`separarRangos` en `js/ui/rangos.js`).
+
+## Gráfico y carga (18/10)
+- Gráfico en una tarjeta con degradado propio; cada barra tiene un color distinto (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`, en ese orden y repitiendo) y crece con retardo escalonado. Con `prefers-reduced-motion` no se anima.
+- Al elegir otra columna el resultado anterior se atenúa; al calcular se ve un cargador de cinco barras (mínimo 600 ms, `conPausaMinima` en `ui/panel.js`) y la tabla entra fila a fila.

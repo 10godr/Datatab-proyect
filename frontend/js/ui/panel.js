@@ -57,3 +57,9 @@ export function llenarColumnas(select, columnas, textoInicial) {
 
 /** La columna elegida en el select (o undefined si sigue la opción inicial). */
 export const columnaElegida = (select, columnas) => columnas[select.selectedIndex - 1];
+
+/** Espera a la promesa y, como mínimo, `ms`: así la animación de carga se alcanza a ver aunque el servidor responda al instante. */
+export async function conPausaMinima(promesa, ms = 600) {
+  const [resultado] = await Promise.all([promesa, new Promise((resolver) => setTimeout(resolver, ms))]);
+  return resultado;
+}

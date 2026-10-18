@@ -7,7 +7,7 @@ import { campo, clonar, rellenar } from '../plantillas.js';
 import { pintarAvisos } from '../ui/avisos.js';
 import { describirCruce } from '../ui/lectura.js';
 import {
-  anunciar, columnaElegida, llenarColumnas, mostrarEstado, plegarSegunPantalla, rellenarError, vigilarDesborde, vigilarPantalla,
+  anunciar, columnaElegida, conPausaMinima, llenarColumnas, mostrarEstado, plegarSegunPantalla, rellenarError, vigilarDesborde, vigilarPantalla,
 } from '../ui/panel.js';
 import { montarRangos } from '../ui/rangos.js';
 
@@ -141,11 +141,11 @@ async function calcular() {
   const mio = ++generacion;
   mostrarEstado(PREFIJO, 'cargando');
   try {
-    const respuesta = await calcularCruce(
+    const respuesta = await conPausaMinima(calcularCruce(
       datasetActual().dataset_id,
       { columna: fila.nombre, rangos: rangosFila },
       { columna: columna.nombre, rangos: rangosColumna },
-    );
+    ));
     if (mio !== generacion) return;
     pintar(respuesta);
     guardarResultado('cruce', clave, respuesta);
