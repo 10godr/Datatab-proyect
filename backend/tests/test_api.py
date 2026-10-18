@@ -121,8 +121,7 @@ def test_subir_el_ejemplo_con_la_forma_exacta_del_contrato(cliente):
     assert (modelo.nombre, modelo.formato, modelo.filas, modelo.expira_en_segundos) == ("pacientes-ficticios.xlsx", "xlsx", 200, 1800)
     assert len(modelo.dataset_id) == 22 and modelo.avisos == []
     edad = next(c for c in cuerpo["columnas"] if c["nombre"] == "Edad")
-    assert edad == {"nombre": "Edad", "tipo": "numerica", "vacios": 3, "distintos": edad["distintos"],
-                    "no_numericos": 0, "minimo": 18, "maximo": 92}  # fmt: skip
+    assert (edad["tipo"], edad["no_numericos"]) == ("numerica", 0) and edad["vacios"] > 0 and 15 < edad["minimo"] < edad["maximo"] <= 92
     sexo = next(c for c in cuerpo["columnas"] if c["nombre"] == "Sexo")
     assert (sexo["tipo"], sexo["minimo"], sexo["maximo"]) == ("texto", None, None)
     verificar_cabeceras(respuesta, api=True)

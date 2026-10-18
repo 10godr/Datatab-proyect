@@ -29,4 +29,4 @@ cd ..\frontend; node --test tests/
 
 - `backend/` FastAPI + pandas (API JSON, contrato en `docs/api.md`).
 - `frontend/` HTML + CSS + JS sin build (diseño en `docs/diseno.md`).
-- `datos-de-prueba/` archivos ficticios; los reales van en `datos-de-prueba/privados/` (ignorada por git).
+- `datos-de-prueba/` 3 archivos ficticios; los reales van en `datos-de-prueba/privados/` (ignorada por git).

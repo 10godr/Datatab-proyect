@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 from app.config import Configuracion
 from app.main import crear_app
 
-DATOS_DE_PRUEBA = Path(__file__).resolve().parents[2] / "datos-de-prueba"
+DATOS_DE_PRUEBA = Path(__file__).resolve().parent / "fixtures" / "datos"
 
 
 class RelojFalso:
@@ -26,7 +26,8 @@ class RelojFalso:
 
 @pytest.fixture
 def config() -> Configuracion:
-    return Configuracion()
+    # El ejemplo de las pruebas es un archivo fijo de tests/fixtures, para que cambiar los datos de prueba del usuario no rompa nada
+    return Configuracion(ejemplo=DATOS_DE_PRUEBA / "pacientes-ficticios.xlsx")
 
 
 @pytest.fixture

@@ -85,13 +85,13 @@ def test_valores_falsos(valor):
 
 
 def test_el_archivo_de_ejemplo_relativo_se_cuenta_desde_la_raiz_del_repositorio(tmp_path):
-    assert cargar_configuracion({"DATATAB_EJEMPLO": "datos-de-prueba/ficticio-antiguo.xls"}).ejemplo == RAIZ / "datos-de-prueba" / "ficticio-antiguo.xls"
+    assert cargar_configuracion({"DATATAB_EJEMPLO": "backend/tests/fixtures/datos/ficticio-antiguo.xls"}).ejemplo == RAIZ / "backend" / "tests" / "fixtures" / "datos" / "ficticio-antiguo.xls"
     absoluta = tmp_path / "mio.xlsx"
     assert cargar_configuracion({"DATATAB_EJEMPLO": str(absoluta)}).ejemplo == absoluta
 
 
 def test_el_archivo_de_ejemplo_configurado_es_el_que_carga_el_endpoint(tmp_path):
-    ejemplo = Path(__file__).resolve().parents[2] / "datos-de-prueba" / "ficticio-punto-y-coma.csv"
+    ejemplo = Path(__file__).resolve().parents[2] / "backend" / "tests" / "fixtures" / "datos" / "ficticio-punto-y-coma.csv"
     config = cargar_configuracion({"DATATAB_EJEMPLO": str(ejemplo)})
     cliente = TestClient(crear_app(config), raise_server_exceptions=False)
     respuesta = cliente.post("/api/datasets/ejemplo")

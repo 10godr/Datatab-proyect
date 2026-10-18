@@ -1,0 +1,121 @@
+Estudiante;Curso;Edad;Materia favorita;Horas de estudio por semana;Transporte;Nota final;Usa celular en clase
+1;2do;14;Historia;4;Bus;8.2;A veces
+2;2do;15;Educación física;0;A pie;7.6;No
+3;4to;15;Inglés;6;Auto familiar;6.0;Sí
+4;3ro;16;Historia;15;Auto familiar;8.4;No
+5;1ro;17;Ciencias;3;Moto;9.3;No
+6;1ro;17;Matemáticas;10;Bus;8.2;Sí
+7;4to;17;Inglés;6;A pie;7.7;Sí
+8;4to;17;Lengua;4;Auto familiar;7.8;A veces
+9;4to;17;Inglés;14;Bus;5.5;Sí
+10;2do;18;Inglés;3;A pie;9.8;No
+11;3ro;17;Arte;15;A pie;7.7;A veces
+12;3ro;16;Educación física;2;Auto familiar;8.2;A veces
+13;5to;13;Ciencias;7;Auto familiar;7.1;Sí
+14;4to;14;Historia;9;Auto familiar;8.4;No
+15;2do;17;Historia;3;Bus;5.3;Sí
+16;2do;14;Matemáticas;0;Auto familiar;3.9;No
+17;3ro;18;Lengua;18;A pie;7.6;No
+18;4to;15;Matemáticas;18;Bus;8.9;A veces
+19;1ro;12;Matemáticas;3;Auto familiar;6.5;A veces
+20;4to;17;Lengua;19;Bus;7.3;Sí
+21;2do;14;Historia;18;Bus;7.0;No
+22;1ro;17;Arte;15;Bus;8.7;A veces
+23;1ro;18;Arte;18;Bus;6.6;Sí
+24;1ro;13;Inglés;7;A pie;8.8;No
+25;2do;15;Matemáticas;3;A pie;6.7;No
+26;5to;17;Matemáticas;15;A pie;7.6;No
+27;4to;13;Matemáticas;6;Bus;8.2;Sí
+28;5to;16;Matemáticas;20;Bus;8.1;No
+29;5to;12;Educación física;19;A pie;7.1;Sí
+30;3ro;16;Historia;16;A pie;6.4;Sí
+31;3ro;16;Ciencias;2;Auto familiar;10;Sí
+32;3ro;12;Inglés;13;Moto;5.5;No
+33;3ro;16;Ciencias;20;Auto familiar;5.4;A veces
+34;1ro;13;Historia;11;Bus;9.9;A veces
+35;3ro;13;Ciencias;12;A pie;8.7;A veces
+36;3ro;18;Educación física;19;A pie;5.5;A veces
+37;4to;13;Historia;16;A pie;8.2;No
+38;3ro;15;Arte;3;A pie;7.8;No
+39;3ro;14;Arte;16;Bus;9.5;Sí
+40;3ro;13;Lengua;16;Auto familiar;7.3;Sí
+41;2do;18;Arte;19;A pie;8.0;Sí
+42;1ro;15;Matemáticas;20;Bus;9.1;A veces
+43;4to;12;Arte;4;Bus;7.8;Sí
+44;4to;15;Arte;9;Auto familiar;8.5;Sí
+45;2do;16;Ciencias;20;Bus;8.1;Sí
+46;2do;17;Arte;11;Moto;4.6;Sí
+47;2do;17;Matemáticas;19;Auto familiar;7.8;No
+48;1ro;16;Matemáticas;19;Bus;9.8;Sí
+49;2do;14;Historia;4;A pie;7.5;Sí
+50;1ro;14;Lengua;10;Auto familiar;6.7;Sí
+51;1ro;12;Inglés;5;Auto familiar;6.2;Sí
+52;5to;15;Matemáticas;18;Bicicleta;6.9;Sí
+53;2do;17;Lengua;7;Bus;6.6;No
+54;1ro;17;Historia;18;Bicicleta;7.9;No
+55;4to;18;Historia;18;Bicicleta;7.3;A veces
+56;4to;18;Ciencias;16;Bus;6.0;No
+57;4to;18;Lengua;8;A pie;9.2;A veces
+58;3ro;18;Lengua;18;A pie;7.1;Sí
+59;4to;17;Historia;3;Bus;10;A veces
+60;3ro;14;Historia;0;A pie;8.0;Sí
+61;1ro;12;Arte;5;A pie;9.8;No
+62;5to;17;Inglés;3;Bus;6.6;A veces
+63;1ro;16;Educación física;20;Bus;8.1;No
+64;1ro;15;Arte;5;A pie;7.3;No
+65;3ro;16;Ciencias;11;Auto familiar;5.2;A veces
+66;1ro;17;Lengua;20;Bus;8.5;Sí
+67;2do;16;Ciencias;15;Bus;6.2;A veces
+68;3ro;18;Matemáticas;14;Auto familiar;6.9;A veces
+69;3ro;15;Arte;9;Bus;8.4;A veces
+70;1ro;15;Educación física;14;Bus;6.1;A veces
+71;1ro;14;Educación física;19;Bicicleta;6.1;Sí
+72;5to;16;Educación física;18;Bus;8.9;Sí
+73;5to;18;Matemáticas;2;A pie;6.7;Sí
+74;4to;14;Arte;6;Moto;6.3;Sí
+75;1ro;15;Educación física;6;Bus;7.6;Sí
+76;2do;16;Ciencias;20;Bus;7.4;Sí
+77;2do;14;Ciencias;2;A pie;7.4;A veces
+78;1ro;16;Inglés;6;A pie;7.4;A veces
+79;4to;12;Historia;16;Bus;8.8;A veces
+80;3ro;16;Historia;1;Bus;9.3;A veces
+81;2do;12;Ciencias;2;Auto familiar;7.0;Sí
+82;4to;18;Educación física;9;Bus;8.2;A veces
+83;3ro;16;Matemáticas;12;Auto familiar;6.7;Sí
+84;2do;12;Arte;20;Moto;5.2;No
+85;2do;17;Arte;10;Bus;8.7;A veces
+86;5to;17;Historia;14;Auto familiar;6.5;No
+87;5to;13;Inglés;5;A pie;7.9;A veces
+88;2do;16;Lengua;7;A pie;10;A veces
+89;5to;13;Ciencias;4;A pie;7.2;A veces
+90;2do;17;Lengua;19;Bus;9.0;Sí
+91;3ro;15;Ciencias;9;Bus;5.2;A veces
+92;4to;15;Inglés;0;A pie;9.3;A veces
+93;2do;12;Arte;0;Auto familiar;6.0;No
+94;4to;16;Matemáticas;19;Bus;6.3;Sí
+95;4to;14;Matemáticas;17;Bus;7.4;Sí
+96;3ro;14;Historia;10;Auto familiar;10;A veces
+97;2do;15;Educación física;8;A pie;10;No
+98;4to;16;Arte;7;Auto familiar;6.7;A veces
+99;1ro;16;Arte;16;Bicicleta;9.1;A veces
+100;2do;12;Inglés;19;A pie;6.7;A veces
+101;2do;14;Educación física;9;A pie;9.4;No
+102;5to;13;Ciencias;5;Auto familiar;6.8;No
+103;3ro;16;Matemáticas;12;A pie;6.9;A veces
+104;4to;15;Ciencias;6;A pie;10;Sí
+105;1ro;17;Arte;9;Bus;5.9;Sí
+106;2do;17;Historia;10;A pie;8.6;A veces
+107;2do;15;Lengua;12;Bus;7.0;A veces
+108;4to;16;Matemáticas;18;Bus;8.0;A veces
+109;3ro;14;Ciencias;3;Bus;8.5;No
+110;1ro;17;Arte;4;Bus;6.3;Sí
+111;4to;15;Ciencias;16;Auto familiar;6.8;No
+112;4to;17;Educación física;13;Auto familiar;7.7;Sí
+113;2do;13;Historia;6;Bus;5.3;Sí
+114;2do;16;Matemáticas;10;Moto;6.6;No
+115;1ro;18;Lengua;16;Bus;8.1;A veces
+116;3ro;13;Lengua;12;Auto familiar;6.0;A veces
+117;1ro;13;Lengua;2;Auto familiar;7.9;No
+118;5to;15;Matemáticas;14;Bicicleta;8.1;Sí
+119;4to;15;Historia;13;Bus;7.2;Sí
+120;5to;17;Matemáticas;0;A pie;6.1;A veces
