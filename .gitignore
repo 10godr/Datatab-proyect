@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Entorno local
+.env
+
+# Datos: nunca se suben archivos cargados ni datos reales
+uploads/
+datos-de-prueba/privados/
+
+# Pruebas del navegador (capturas temporales)
+.playwright/
+test-results/
+
+# Editor y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
