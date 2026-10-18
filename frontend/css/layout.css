@@ -122,9 +122,10 @@ main { flex: 1 0 auto; }
   padding-block: var(--s-5);
   font-size: var(--t-xs);
   color: var(--text-3);
+  text-align: center;
 }
 
-.pie p { max-width: none; }
+.pie p { max-width: none; margin-inline: auto; }
 
 .sin-javascript { padding-block: var(--s-5); }
 

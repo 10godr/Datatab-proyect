@@ -357,3 +357,6 @@ Pequeños ajustes a `index.html` y a los CSS que salieron al conectar el JavaScr
 
 ## Cambio de tema (18/10, a petición de Seven)
 El tema único pasó de oscuro a claro (fondo menta `#E8F5EC`, tarjetas blancas, verde `#147A3F` para la acción principal). Los tokens están en `frontend/css/tokens.css`; la pantalla de carga va centrada. Los colores de las categorías del gráfico se ajustaron para fondo claro.
+
+## Gráfico (18/10)
+Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el gráfico es circular; en cualquier otro caso, barras.

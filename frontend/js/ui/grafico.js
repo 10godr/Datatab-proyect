@@ -4,7 +4,6 @@
 import { cantidad, citar, entero, porcentajeConSigno } from '../formato.js';
 
 const MAX_VALORES_DIBUJABLES = 60;
-const MAX_CATEGORIAS_CIRCULAR = 6;
 const MAX_CATEGORIAS_VERTICAL = 5; // con más categorías las barras van en horizontal
 const LARGO_MAXIMO_ETIQUETA = 28;
 // Orden de colores de las categorías: rosa suave primero. Una sola serie va en --signal.
@@ -60,13 +59,6 @@ export function vaciarGrafico() {
 }
 
 const acortar = (texto) => (texto.length > LARGO_MAXIMO_ETIQUETA ? `${texto.slice(0, LARGO_MAXIMO_ETIQUETA - 1)}…` : texto);
-
-/** Por qué no hay gráfico circular (texto para la pista) o null si se puede. */
-function motivoSinCircular(r) {
-  if (r.filas.length > MAX_CATEGORIAS_CIRCULAR) return textoPistaOriginal;
-  if (r.solapados > 0) return 'El gráfico circular no está disponible con rangos solapados: sus partes sumarían más del 100 %.';
-  return null;
-}
 
 function descripcion(r, tipo) {
   const mayor = r.filas.reduce((a, fila) => (fila.frecuencia > a.frecuencia ? fila : a));
@@ -216,20 +208,14 @@ export async function mostrarGrafico(r) {
 
   const demasiados = r.filas.length > MAX_VALORES_DIBUJABLES;
   el.figura.hidden = demasiados;
-  el.selector.hidden = demasiados;
+  el.selector.hidden = true; // el tipo no se elige: 2 categorías = circular, el resto = barras
   el.muchas.hidden = !demasiados;
   if (demasiados) {
     el.cantidad.textContent = entero(r.filas.length);
     return;
   }
 
-  const motivo = motivoSinCircular(r);
-  el.circular.disabled = motivo !== null;
-  if (motivo !== null) {
-    el.pista.textContent = motivo;
-    el.barras.checked = true;
-  }
-  const tipo = el.circular.checked ? 'circular' : 'barras';
+  const tipo = r.filas.length === 2 && r.solapados === 0 ? 'circular' : 'barras';
 
   el.titulo.textContent = `Registros por ${r.agrupado ? 'rango' : 'valor'} de ${r.columna}`;
   el.lienzo.setAttribute('aria-label', descripcion(r, tipo));

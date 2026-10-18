@@ -612,7 +612,9 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 }
 
 /* ---------- Datos del archivo (siempre debajo del análisis) ---------- */
-.seccion-datos { margin-top: var(--s-8); padding-top: var(--s-6); border-top: 1px solid var(--line); }
+.seccion-datos { margin-top: var(--s-8); padding: var(--s-5); background: #D3EBDB; border: 1px solid var(--line-strong); border-radius: var(--r-2); }
+.seccion-datos .tabla--datos thead th { background: var(--moss-700); }
+.seccion-datos .tabla--datos tbody tr:nth-child(even) { background: var(--ink-2); }
 .seccion-datos__titulo { font-size: var(--t-lg); margin-bottom: var(--s-4); }
 
 /* ---------- Pantalla de carga: etiqueta y formatos ---------- */
