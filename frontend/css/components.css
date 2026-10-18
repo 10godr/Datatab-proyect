@@ -236,7 +236,7 @@
   position: relative;
   display: grid;
   gap: var(--s-4);
-  justify-items: start;
+  justify-items: center;
   width: 100%;
   padding: var(--s-6) var(--s-5);
   background: var(--ink-1);
@@ -614,3 +614,15 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 /* ---------- Datos del archivo (siempre debajo del análisis) ---------- */
 .seccion-datos { margin-top: var(--s-8); padding-top: var(--s-6); border-top: 1px solid var(--line); }
 .seccion-datos__titulo { font-size: var(--t-lg); margin-bottom: var(--s-4); }
+
+/* ---------- Pantalla de carga: etiqueta y formatos ---------- */
+.etiqueta {
+  padding: var(--s-1) var(--s-3);
+  background: var(--moss-700);
+  border-radius: 999px;
+  color: var(--moss-300);
+  font-size: var(--t-xs);
+  font-weight: 600;
+}
+.formatos { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.formatos li { padding: var(--s-1) var(--s-3); background: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text-2); font-size: var(--t-xs); font-weight: 600; }

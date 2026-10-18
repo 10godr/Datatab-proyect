@@ -33,7 +33,7 @@ main { flex: 1 0 auto; }
   gap: var(--s-3);
   max-width: none;
 }
-.marca__logo { width: 22px; height: 22px; flex: none; color: var(--signal); }
+.marca__logo { width: 32px; height: 32px; padding: 6px; flex: none; color: var(--signal-ink); background: var(--signal); border-radius: var(--r-2); }
 .marca__nombre { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
 
 /* La barra de archivo reparte sus hijos en la rejilla de la cabecera */
@@ -84,8 +84,11 @@ main { flex: 1 0 auto; }
   margin-inline: auto;
 }
 
-.carga__presentacion { display: grid; gap: var(--s-5); align-content: start; }
-.carga__accion { display: grid; gap: var(--s-4); justify-items: start; align-content: start; min-width: 0; }
+.carga {
+  text-align: center;
+}
+.carga__presentacion { display: grid; gap: var(--s-4); justify-items: center; align-content: start; }
+.carga__accion { display: grid; gap: var(--s-4); justify-items: center; align-content: start; min-width: 0; }
 .carga__accion > * { max-width: 100%; }
 
 

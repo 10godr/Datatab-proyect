@@ -1,38 +1,38 @@
-/* Tokens de diseño de DataTab. Solo tema oscuro.
+/* Tokens de diseño de DataTab. Un solo tema, claro (cambio pedido el 18/10: fondo menta).
    Los valores de la primera parte son los aprobados en la maqueta (18/10/2026) y no se cambian.
    Las extensiones están al final y solo añaden nombres nuevos. Contrastes y justificación: docs/diseno.md */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* Superficies y separadores */
-  --ink-0: #17271F;      /* fondo */
-  --ink-1: #1E3328;      /* superficie */
-  --ink-2: #274236;      /* campos, zonas elevadas */
-  --line: #355142;       /* separadores */
-  --line-strong: #476A57;
-  --line-control: #86A593; /* bordes de controles, 3:1 */
+  --ink-0: #E8F5EC;      /* fondo */
+  --ink-1: #FFFFFF;      /* superficie */
+  --ink-2: #F2FAF5;      /* campos, zonas elevadas */
+  --line: #CDE3D4;       /* separadores */
+  --line-strong: #B3D1BE;
+  --line-control: #6C9A80; /* bordes de controles, 3:1 */
 
   /* Texto */
-  --text: #F2F8F4;
-  --text-2: #C4D3CA;
-  --text-3: #A0B4A8;
+  --text: #10261A;
+  --text-2: #3D5847;
+  --text-3: #54705F;
 
   /* Musgo y señal */
-  --moss-900: #1B3727;
-  --moss-700: #2A5139;
-  --moss-500: #5C9774;
-  --moss-300: #9FCBB0;
-  --signal: #63D68F;     /* solo acción principal y estado relevante */
-  --signal-ink: #052012;
+  --moss-900: #DDF0E4;
+  --moss-700: #C4E4CF;
+  --moss-500: #3C8A5C;
+  --moss-300: #1F6B43;
+  --signal: #147A3F;     /* solo acción principal y estado relevante */
+  --signal-ink: #FFFFFF;
 
   /* Estados */
-  --error: #EE8170;
-  --warn: #DDB662;
+  --error: #B3392B;
+  --warn: #8A5A00;
 
   /* Gráficos: una serie = --signal; varias categorías, en este orden:
      --c-rose, --c-white, --c-blue, --c-ochre, --c-violet, --c-gray */
-  --c-rose: #E8A0B4; --c-blue: #7FA9C4; --c-ochre: #D7A65E; --c-violet: #A88BC4; --c-white: #E6ECE8;
+  --c-rose: #D9708F; --c-blue: #3F82B0; --c-ochre: #C58A2B; --c-violet: #8C68B8; --c-white: #2F4A3B;
 
   /* Tipografía */
   --font-ui: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
@@ -53,11 +53,11 @@
 
   /* Extensiones (no están en la maqueta; no alteran ningún valor aprobado) */
   --c-gray: var(--text-3);          /* sexta categoría de gráfico */
-  --signal-hover: #7BE0A2;          /* hover del botón principal (valor de la maqueta) */
+  --signal-hover: #0F6633;          /* hover del botón principal (valor de la maqueta) */
   --alto-control: 40px;             /* botones, campos y zonas táctiles */
   --ancho-controles: 19rem;         /* panel de controles en escritorio */
   --margen: 16px;                   /* margen lateral: 16 px en teléfono, 32 px desde tableta */
-  --velo: rgb(8 18 13 / 0.74);     /* fondo del diálogo modal */
+  --velo: rgb(16 38 26 / 0.45);     /* fondo del diálogo modal */
 }
 
 @media (min-width: 641px) {
