@@ -51,6 +51,20 @@
 
     <!-- ============ VISTA 1: CARGA ============ -->
     <div id="vista-carga" class="vista-carga">
+      <div class="deco" aria-hidden="true">
+        <div class="deco__tarjeta deco__tarjeta--barras">
+          <span class="deco__titulo">Edad</span>
+          <svg viewBox="0 0 120 64"><rect x="6" y="34" width="16" height="26" rx="3"/><rect x="30" y="14" width="16" height="46" rx="3"/><rect x="54" y="4" width="16" height="56" rx="3"/><rect x="78" y="24" width="16" height="36" rx="3"/><rect x="102" y="42" width="12" height="18" rx="3"/></svg>
+        </div>
+        <div class="deco__tarjeta deco__tarjeta--circulo">
+          <span class="deco__titulo">Sexo</span>
+          <i class="deco__donut"></i>
+        </div>
+        <div class="deco__tarjeta deco__tarjeta--tabla">
+          <span class="deco__titulo">30-39 · 24,5 %</span>
+          <b></b><b></b><b></b><b></b>
+        </div>
+      </div>
       <div class="contenedor">
         <div class="carga">
           <div class="carga__presentacion">
@@ -407,11 +421,11 @@
   <template id="tpl-rangos">
     <fieldset class="rangos" data-rangos>
       <legend class="campo__titulo">Agrupar en rangos <span class="visualmente-oculto" data-rangos-contexto></span></legend>
-      <p class="pista" id="PREFIJO-rangos-ayuda">Opcional. Escribe un rango como <code>30-39</code>, <code>&lt;30</code>, <code>&gt;=60</code> o <code>40+</code>. Los extremos se incluyen.</p>
+      <p class="pista" id="PREFIJO-rangos-ayuda">Opcional. Puedes poner varios a la vez, separados por punto y coma. Ejemplos: <code>30-39</code>, <code>&lt;30</code>, <code>&gt;=60</code> o <code>40+</code>. Los extremos se incluyen.</p>
       <p class="pista rangos__solo-numericas" data-rangos-aviso-tipo hidden>Los rangos solo están disponibles en columnas numéricas.</p>
       <ul class="rangos__lista" role="list" aria-label="Rangos añadidos" data-rangos-lista></ul>
       <div class="rangos__nuevo">
-        <input class="entrada" type="text" id="PREFIJO-rangos-entrada" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ej.: 60-69" aria-label="Nuevo rango" aria-describedby="PREFIJO-rangos-ayuda PREFIJO-rangos-mensaje" data-rangos-entrada>
+        <input class="entrada" type="text" id="PREFIJO-rangos-entrada" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ej.: <30; 30-39; 40-49" aria-label="Nuevo rango" aria-describedby="PREFIJO-rangos-ayuda PREFIJO-rangos-mensaje" data-rangos-entrada>
         <button type="button" class="boton" data-rangos-anadir>Añadir</button>
       </div>
       <p class="mensaje mensaje--linea" id="PREFIJO-rangos-mensaje" aria-live="polite" data-rangos-mensaje></p>

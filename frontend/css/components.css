@@ -675,3 +675,81 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 @keyframes deriva { to { transform: translate(4rem, 3rem) scale(1.15); } }
 .boton { transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
 .boton:active { transform: scale(0.97); }
+
+/* ---------- Fondo y barra superior con carácter (18/10) ---------- */
+body {
+  background-color: var(--ink-0);
+  background-image:
+    radial-gradient(60rem 38rem at 8% -8%, #B5E6C8 0%, transparent 62%),
+    radial-gradient(48rem 34rem at 96% 6%, #D5EFC2 0%, transparent 58%),
+    radial-gradient(52rem 36rem at 72% 104%, #BDE7E0 0%, transparent 62%),
+    radial-gradient(40rem 30rem at 0% 90%, #CFEBD6 0%, transparent 60%);
+  background-attachment: fixed;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(20 122 63 / 0.18) 1.2px, transparent 1.6px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 55%, #000 100%);
+  animation: rejilla 40s linear infinite;
+}
+@keyframes rejilla { to { background-position: 26px 52px; } }
+
+.cabecera { position: sticky; top: 0; }
+.cabecera__interior {
+  position: relative;
+  background: rgb(255 255 255 / 0.66);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 10px 30px rgb(16 38 26 / 0.10), inset 0 -2px 0 rgb(20 122 63 / 0.0);
+  overflow: hidden;
+}
+.cabecera__interior::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, #147A3F, #5FD08C 40%, #9BDFC9 70%, #147A3F);
+  background-size: 200% 100%;
+  animation: cinta 8s linear infinite;
+}
+@keyframes cinta { to { background-position: 200% 0; } }
+.marca__logo { background: linear-gradient(140deg, #22B366, #0F6633); box-shadow: 0 6px 16px rgb(20 122 63 / 0.4); }
+.pestanas { background: rgb(255 255 255 / 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.boton--primario:not(:disabled) { background: linear-gradient(140deg, #1B9552, #0F6633); border-color: #0F6633; box-shadow: 0 6px 16px rgb(20 122 63 / 0.28); }
+.boton--primario:not(:disabled):hover { background: linear-gradient(140deg, #22A85D, #137A3F); transform: translateY(-1px); }
+.pestana[aria-selected="true"] { background: linear-gradient(140deg, #1B9552, #0F6633); box-shadow: 0 4px 12px rgb(20 122 63 / 0.3); }
+.controles { box-shadow: 0 10px 30px rgb(16 38 26 / 0.07); }
+
+/* Tarjetas decorativas de la pantalla de carga */
+.deco { display: none; }
+@media (min-width: 1100px) {
+  .deco { display: block; position: absolute; inset: 0; pointer-events: none; }
+  .deco__tarjeta {
+    position: absolute;
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--s-4);
+    background: rgb(255 255 255 / 0.78);
+    border: 1px solid rgb(255 255 255 / 0.95);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgb(16 38 26 / 0.12);
+    animation: flotar 6s ease-in-out infinite;
+  }
+  .deco__titulo { font-size: var(--t-xs); font-weight: 600; color: var(--text-2); }
+  .deco__tarjeta svg { width: 120px; height: 64px; fill: var(--signal); }
+  .deco__tarjeta svg rect:nth-child(odd) { fill: #5FD08C; }
+  .deco__tarjeta--barras { top: 8rem; left: 6%; transform: rotate(-4deg); }
+  .deco__tarjeta--circulo { top: 24rem; right: 7%; animation-delay: -2s; }
+  .deco__tarjeta--tabla { bottom: 9rem; left: 12%; width: 11rem; animation-delay: -4s; }
+  .deco__donut { width: 76px; height: 76px; border-radius: 50%; background: conic-gradient(var(--c-rose) 0 59.5%, var(--c-white) 0); -webkit-mask: radial-gradient(circle, transparent 46%, #000 47%); mask: radial-gradient(circle, transparent 46%, #000 47%); }
+  .deco__tarjeta--tabla b { display: block; height: 8px; border-radius: 4px; background: var(--moss-700); }
+  .deco__tarjeta--tabla b:nth-of-type(2) { width: 70%; }
+  .deco__tarjeta--tabla b:nth-of-type(3) { width: 85%; }
+  .deco__tarjeta--tabla b:nth-of-type(4) { width: 50%; }
+}

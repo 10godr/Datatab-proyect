@@ -89,6 +89,21 @@ export function validarRango(entrada, existentes) {
 }
 
 /**
+ * Separa lo escrito en varios rangos: por ; , salto de línea, «coma y espacio» o « y ».
+ * Una coma sin espacio puede ser un decimal (1,5), así que solo separa si el trozo no se entiende entero.
+ */
+export function separarRangos(entrada) {
+  const trozos = entrada.split(/[;\n]+|,\s+|\s+y\s+/).map((t) => t.trim()).filter((t) => t !== '');
+  return trozos.flatMap((trozo) => {
+    if (trozo.includes(',') && !interpretarRango(trozo).ok) {
+      const partes = trozo.split(',').map((t) => t.trim()).filter((t) => t !== '');
+      if (partes.every((parte) => interpretarRango(parte).ok)) return partes;
+    }
+    return [trozo];
+  });
+}
+
+/**
  * Monta la pieza de rangos en un elemento [data-montaje-rangos] y devuelve su controlador:
  * valores(), reiniciar(tipo), confirmarPendiente(), mostrarError(texto), contiene(texto), enfocar().
  */
@@ -124,21 +139,36 @@ export function montarRangos(punto) {
 
   function anadir() {
     clearTimeout(pausa);
-    const resultado = validarRango(entrada.value, rangos);
-    if (!resultado.ok) {
-      rechazar(resultado.mensaje);
+    const trozos = separarRangos(entrada.value);
+    if (trozos.length === 0) trozos.push('');
+    const rechazados = [];
+    let primerError = null;
+    let ultimo = null;
+    let anadidos = 0;
+    for (const trozo of trozos) {
+      const resultado = validarRango(trozo, rangos);
+      if (!resultado.ok) {
+        rechazados.push(trozo);
+        primerError ??= resultado.mensaje;
+        continue;
+      }
+      const { texto, etiqueta } = resultado.rango;
+      rangos.push(texto);
+      const item = clonar('tpl-rango-item');
+      rellenar(item, { rango: texto });
+      item.querySelector('[data-accion="quitar"]').setAttribute('aria-label', `Quitar el rango ${texto}`);
+      lista.append(item);
+      ultimo = etiqueta;
+      anadidos += 1;
+    }
+    entrada.value = rechazados.join('; ');
+    limpiarMensaje();
+    if (primerError) {
+      rechazar(anadidos > 0 ? `Se añadieron ${anadidos}; el resto no. ${primerError}` : primerError);
       entrada.focus();
       return false;
     }
-    const { texto, etiqueta } = resultado.rango;
-    rangos.push(texto);
-    const item = clonar('tpl-rango-item');
-    rellenar(item, { rango: texto });
-    item.querySelector('[data-accion="quitar"]').setAttribute('aria-label', `Quitar el rango ${texto}`);
-    lista.append(item);
-    entrada.value = '';
-    limpiarMensaje();
-    mostrar(`Añadido: ${etiqueta}. Rangos en total: ${rangos.length}.`, 'info');
+    mostrar(anadidos === 1 ? `Añadido: ${ultimo}. Rangos en total: ${rangos.length}.` : `Añadidos ${anadidos} rangos. Rangos en total: ${rangos.length}.`, 'info');
     entrada.focus();
     return true;
   }
@@ -155,9 +185,12 @@ export function montarRangos(punto) {
   }
 
   function validarEnVivo() {
-    const resultado = validarRango(entrada.value, rangos);
-    if (resultado.ok) mostrar(`Se entiende como: ${resultado.rango.etiqueta}. Pulsa Añadir o Intro.`, 'info');
-    else rechazar(resultado.mensaje);
+    const trozos = separarRangos(entrada.value);
+    const resultados = trozos.map((trozo) => validarRango(trozo, rangos));
+    const fallo = resultados.find((r) => !r.ok);
+    if (fallo) rechazar(fallo.mensaje);
+    else if (resultados.length === 1) mostrar(`Se entiende como: ${resultados[0].rango.etiqueta}. Pulsa Añadir o Intro.`, 'info');
+    else mostrar(`Se entienden ${resultados.length} rangos. Pulsa Añadir o Intro.`, 'info');
   }
 
   entrada.addEventListener('input', () => {

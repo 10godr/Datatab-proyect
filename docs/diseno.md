@@ -364,3 +364,8 @@ Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el 
 ## Cabecera y movimiento (18/10)
 - La cabecera es una tarjeta blanca flotante (sin línea inferior); las pestañas son píldoras.
 - Zona de carga: tarjeta grande con icono flotante, elevación al pasar el ratón y pulso al arrastrar. Entradas suaves y manchas verdes lentas de fondo. Todo se desactiva con `prefers-reduced-motion` (regla en `base.css`).
+
+## Fondo, cabecera y rangos múltiples (18/10)
+- Fondo con malla de degradados verdes, rejilla de puntos y tarjetas decorativas flotantes en la pantalla de carga (solo ≥1100 px, `aria-hidden`).
+- Cabecera de cristal (desenfoque) fija arriba, con cinta de color animada; botones principales con degradado suave.
+- Rangos: en el campo se pueden escribir varios a la vez separados por `;`, por «coma y espacio», por salto de línea o por « y » (`separarRangos` en `js/ui/rangos.js`).
