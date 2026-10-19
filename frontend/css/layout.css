@@ -133,11 +133,14 @@ main { flex: 1 0 auto; }
   padding-block: var(--s-5);
   font-size: var(--t-xs);
   color: var(--text-3);
+  text-align: center;
 }
 
-.pie .contenedor { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); }
-.pie p { max-width: none; margin: 0; }
-.pie__autor a { color: var(--signal); font-weight: 600; }
+.pie p { max-width: none; margin: 0; font-size: var(--t-sm); color: var(--text-2); }
+.pie__corazon { color: #D6406A; }
+/* El enlace se confunde con el texto: sin color, subrayado ni puntero de mano */
+.pie__autor a { color: inherit; text-decoration: none; cursor: text; }
+.pie__autor a:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 
 .sin-javascript { padding-block: var(--s-5); }
 

@@ -651,6 +651,9 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 .formatos { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
 .formatos li { padding: var(--s-1) var(--s-3); background: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text-2); font-size: var(--t-xs); font-weight: 600; }
 
+/* Nota bajo la zona de carga */
+.nota-carga { margin: var(--s-4) auto 0; max-width: 48rem; text-align: center; font-size: var(--t-sm); color: var(--text-2); }
+
 /* Solo en la bienvenida; se desvanecen hacia el centro para no pasar detrás del texto ni de la zona de carga */
 .vista-carga { position: relative; overflow-x: clip; }
 .vista-carga::before {
