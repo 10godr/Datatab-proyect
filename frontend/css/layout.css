@@ -81,7 +81,14 @@ body:has(#vista-carga:not([hidden])) .cabecera { display: none; }
 
 /* ---------- Vista de carga ---------- */
 
-.vista-carga { padding-block: var(--s-8) var(--s-9); }
+.vista-carga {
+  padding-block: var(--s-7);
+  /* El inicio ocupa la pantalla (menos el pie) y su contenido queda centrado */
+  min-height: calc(100dvh - 5.75rem);
+  display: flex;
+  align-items: center;
+}
+.vista-carga > .contenedor { width: 100%; }
 
 .carga {
   display: grid;
@@ -163,7 +170,6 @@ body:has(#vista-carga:not([hidden])) .cabecera { display: none; }
   }
   .archivo-actual__datos { justify-self: start; padding-bottom: var(--s-2); }
 
-  .vista-carga { padding-block: var(--s-7) var(--s-8); }
 
   .panel { padding-block: var(--s-5) var(--s-8); }
 }
