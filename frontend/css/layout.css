@@ -133,10 +133,11 @@ main { flex: 1 0 auto; }
   padding-block: var(--s-5);
   font-size: var(--t-xs);
   color: var(--text-3);
-  text-align: center;
 }
 
-.pie p { max-width: none; margin-inline: auto; }
+.pie .contenedor { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); }
+.pie p { max-width: none; margin: 0; }
+.pie__autor a { color: var(--signal); font-weight: 600; }
 
 .sin-javascript { padding-block: var(--s-5); }
 
