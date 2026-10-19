@@ -3,7 +3,7 @@
 import { calcularCruce, comoErrorApi } from '../api.js';
 import { datasetActual, guardarResultado, ultimoResultado } from '../estado.js';
 import { cantidad, citar, entero, pistaColumna, porcentaje } from '../formato.js';
-import { campo, clonar, rellenar } from '../plantillas.js';
+import { clonar, rellenar } from '../plantillas.js';
 import { pintarAvisos } from '../ui/avisos.js';
 import { describirCruce } from '../ui/lectura.js';
 import {
@@ -42,9 +42,9 @@ export function iniciarCruce({ alCaducar: alCaducarArchivo }) {
     variableFila: porId('cruce-variable-fila'),
     variableColumna: porId('cruce-variable-columna'),
     encabezado: porId('cruce-encabezado'),
+    subencabezado: porId('cruce-subencabezado'),
     cuerpo: porId('cruce-cuerpo'),
     pie: porId('cruce-pie'),
-    totalGeneral: porId('cruce-total-general'),
     lecturaMuestra: porId('cruce-lectura-muestra'),
     lecturaLectura: porId('cruce-lectura-lectura'),
     lecturaLimites: porId('cruce-lectura-limites'),
@@ -81,18 +81,19 @@ export function mostrarArchivo(dataset) {
 /** Borra del DOM lo que quedó del archivo anterior. */
 function limpiarResultado() {
   const textos = [
-    el.titulo, el.n, el.excluidas, el.caption, el.resumen, el.variableFila, el.variableColumna, el.totalGeneral,
+    el.titulo, el.n, el.excluidas, el.caption, el.resumen, el.variableFila, el.variableColumna,
     el.lecturaMuestra, el.lecturaLectura, el.lecturaLimites,
   ];
   for (const elemento of textos) elemento.textContent = '';
   el.encabezado.replaceChildren();
+  el.subencabezado.replaceChildren();
   el.cuerpo.replaceChildren();
   quitarCeldasDelPie();
   pintarAvisos(el.avisos, []);
 }
 
 function quitarCeldasDelPie() {
-  for (const celda of el.pie.querySelectorAll('td')) if (celda !== el.totalGeneral) celda.remove();
+  for (const celda of el.pie.querySelectorAll('td')) celda.remove();
 }
 
 function actualizarEje(eje) {
@@ -173,41 +174,49 @@ function mostrarFallo(error) {
   el.error.focus();
 }
 
-function crearCelda(celda) {
-  const td = clonar('tpl-cruce-celda');
-  rellenar(td, { frecuencia: entero(celda.frecuencia), porcentaje: porcentaje(celda.porcentaje) });
+function celda(texto, clase = 'n') {
+  const td = document.createElement('td');
+  td.className = clase;
+  td.textContent = texto;
   return td;
+}
+
+function cabecera(texto, { colSpan = 1, tipo, clase = 'n' } = {}) {
+  const th = document.createElement('th');
+  th.scope = colSpan > 1 ? 'colgroup' : 'col';
+  th.className = clase;
+  th.colSpan = colSpan;
+  if (tipo) th.dataset.tipo = tipo;
+  th.textContent = texto;
+  return th;
+}
+
+/** Frecuencia y porcentaje en celdas separadas, como en una tabla de tesis. */
+function celdasFrPct(celdaDatos) {
+  return [celda(entero(celdaDatos.frecuencia)), celda(porcentaje(celdaDatos.porcentaje), 'n n--pct')];
 }
 
 function pintarTabla(r) {
   el.variableFila.textContent = r.fila.columna;
   el.variableColumna.textContent = r.columna.columna;
-  el.variableColumna.colSpan = r.columnas.length;
+  el.variableColumna.colSpan = (r.columnas.length + 1) * 2;
 
-  const cabeceras = document.createDocumentFragment();
-  for (const categoria of r.columnas) {
-    const th = clonar('tpl-cruce-columna');
-    th.dataset.tipo = categoria.tipo;
-    th.textContent = categoria.etiqueta;
-    cabeceras.append(th);
-  }
-  el.encabezado.replaceChildren(cabeceras);
+  const categorias = [...r.columnas.map((c) => ({ texto: c.etiqueta, tipo: c.tipo })), { texto: 'Total' }];
+  el.encabezado.replaceChildren(...categorias.map((c) => cabecera(c.texto, { colSpan: 2, tipo: c.tipo })));
+  el.subencabezado.replaceChildren(...categorias.flatMap(() => [cabecera('Fr'), cabecera('%')]));
 
   const filas = document.createDocumentFragment();
   for (const fila of r.filas) {
     const tr = clonar('tpl-cruce-fila');
     tr.dataset.tipo = fila.tipo;
-    rellenar(tr, { etiqueta: fila.etiqueta, total: entero(fila.total) });
-    const total = campo(tr, 'total');
-    for (const celda of fila.celdas) total.before(crearCelda(celda));
+    rellenar(tr, { etiqueta: fila.etiqueta });
+    tr.append(...fila.celdas.flatMap(celdasFrPct), celda(entero(fila.total)), celda('100,0', 'n n--pct'));
     filas.append(tr);
   }
   el.cuerpo.replaceChildren(filas);
 
-  // Pie: se quitan las celdas del cálculo anterior (todas menos el total general) y se ponen las nuevas
   quitarCeldasDelPie();
-  for (const total of r.totales_columna) el.totalGeneral.before(crearCelda(total));
-  el.totalGeneral.textContent = entero(r.n);
+  el.pie.append(...r.totales_columna.flatMap(celdasFrPct), celda(entero(r.n)), celda('100,0', 'n n--pct'));
 }
 
 function pintar(r) {
@@ -219,7 +228,7 @@ function pintar(r) {
     : '';
   pintarAvisos(el.avisos, r.avisos);
   el.caption.textContent = `Registros según ${citar(r.fila.columna)} (filas) y ${citar(r.columna.columna)} (columnas). `
-    + `Cada porcentaje es la parte de su fila. n = ${total}.`;
+    + `Cada porcentaje es la parte de su fila; en el total, del conjunto. n = ${total}.`;
   pintarTabla(r);
 
   const lectura = describirCruce(r);

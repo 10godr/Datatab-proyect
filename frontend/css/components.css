@@ -360,7 +360,10 @@
 /* Las etiquetas de columna son texto (nombres de categoría), no cifras: van en la fuente de la interfaz */
 .tabla--cruce thead th,
 .tabla--cruce thead th.n { color: var(--text); font-family: var(--font-ui); font-weight: 500; vertical-align: bottom; }
-.tabla--cruce .tabla__grupo { text-align: left; padding-left: var(--s-3); border-bottom: 1px solid var(--line-strong); }
+.tabla--cruce .tabla__grupo { text-align: center; border-bottom: 1px solid var(--line-strong); }
+.tabla--cruce thead tr:nth-child(2) th { text-align: center; border-bottom: 1px solid var(--line); }
+.tabla--cruce thead tr:nth-child(3) th { font-size: var(--t-xs); color: var(--text-2); }
+.tabla--cruce .n--pct { color: var(--text-2); }
 .tabla--cruce .tabla__esquina { vertical-align: bottom; }
 .tabla--cruce tbody th[scope="row"],
 .tabla--cruce tfoot th[scope="row"] { min-width: 7rem; max-width: 16rem; }

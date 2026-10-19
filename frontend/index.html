@@ -319,17 +319,16 @@
                     <caption id="cruce-caption"></caption>
                     <thead>
                       <tr>
-                        <th scope="col" rowspan="2" class="tabla__esquina" id="cruce-variable-fila"></th>
-                        <th scope="colgroup" colspan="1" class="tabla__grupo" id="cruce-variable-columna"></th>
-                        <th scope="col" rowspan="2" class="n">Total</th>
+                        <th scope="col" rowspan="3" class="tabla__esquina" id="cruce-variable-fila"></th>
+                        <th scope="colgroup" colspan="2" class="tabla__grupo" id="cruce-variable-columna"></th>
                       </tr>
                       <tr id="cruce-encabezado"></tr>
+                      <tr id="cruce-subencabezado"></tr>
                     </thead>
                     <tbody id="cruce-cuerpo"></tbody>
                     <tfoot>
                       <tr id="cruce-pie">
                         <th scope="row">Total</th>
-                        <td class="n" id="cruce-total-general"></td>
                       </tr>
                     </tfoot>
                   </table>
@@ -447,20 +446,11 @@
   <!-- Convención: si una plantilla tiene un solo texto variable, la raíz (th o td) recibe el texto directamente;
        si tiene varios, se rellenan los descendientes marcados con data-campo. -->
 
-  <!-- Cruce: cabecera de columna, fila, celda (frecuencia y % de la fila). -->
-  <template id="tpl-cruce-columna">
-    <th scope="col" class="n"></th>
-  </template>
-
+  <!-- Cruce: fila de la tabla; sus celdas (Fr y %) las crea JS. -->
   <template id="tpl-cruce-fila">
     <tr>
       <th scope="row" data-campo="etiqueta"></th>
-      <td class="n" data-campo="total"></td>
     </tr>
-  </template>
-
-  <template id="tpl-cruce-celda">
-    <td class="n"><span data-campo="frecuencia"></span><span class="tenue"> · <span data-campo="porcentaje"></span> %</span></td>
   </template>
 
   <!-- Ver datos -->
