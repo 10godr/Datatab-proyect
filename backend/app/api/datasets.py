@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
 from starlette.concurrency import run_in_threadpool
 
 from ..config import Configuracion
-from ..errors import ErrorDataTab, archivo_demasiado_grande
+from ..errors import archivo_demasiado_grande
 from ..schemas import ConfiguracionRespuesta, DatasetRespuesta, FilasRespuesta, SaludRespuesta
 from ..services.avisos import Aviso
 from ..services.dataset_store import AlmacenDatasets, Dataset
@@ -51,7 +51,6 @@ def configuracion(config: Configuracion = Depends(obtener_config)) -> dict[str, 
         "max_filas": config.max_filas,
         "max_columnas": config.max_columnas,
         "max_celdas": config.max_celdas,
-        "ejemplo_disponible": config.ejemplo.is_file(),
     }
 
 
@@ -65,16 +64,6 @@ async def subir_dataset(
         raise archivo_demasiado_grande(config.max_mb, archivo.size)
     contenido = await archivo.read()
     return await run_in_threadpool(_registrar, archivo.filename, contenido, config, almacen)
-
-
-@router.post("/datasets/ejemplo", status_code=201, response_model=DatasetRespuesta, summary="Cargar el archivo de ejemplo")
-def cargar_ejemplo(
-    config: Configuracion = Depends(obtener_config),
-    almacen: AlmacenDatasets = Depends(obtener_almacen),
-) -> dict[str, Any]:
-    if not config.ejemplo.is_file():
-        raise ErrorDataTab("ARCHIVO_NO_ENCONTRADO", "No hay un archivo de ejemplo disponible.")
-    return _registrar(config.ejemplo.name, config.ejemplo.read_bytes(), config, almacen)
 
 
 @router.get("/datasets/{dataset_id}", response_model=DatasetRespuesta, summary="Recuperar un archivo cargado")

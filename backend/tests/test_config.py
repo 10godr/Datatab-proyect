@@ -18,11 +18,6 @@ def test_sin_variables_se_usan_los_valores_del_contrato():
     assert (config.max_filas, config.max_columnas, config.max_celdas) == (100_000, 200, 2_000_000)
     assert config.max_valores_distintos == 1000
     assert config.servir_frontend is True and config.docs is True
-    assert config.ejemplo == RAIZ / "datos-de-prueba" / "pacientes-ficticios.xlsx"
-
-
-def test_el_archivo_de_ejemplo_por_defecto_existe():
-    assert Configuracion().ejemplo.is_file()
 
 
 def test_las_variables_sustituyen_a_los_valores_por_defecto():
@@ -82,29 +77,6 @@ def test_valores_verdaderos(valor):
 @pytest.mark.parametrize("valor", ["0", "false", "No", "off"])
 def test_valores_falsos(valor):
     assert cargar_configuracion({"DATATAB_SERVIR_FRONTEND": valor}).servir_frontend is False
-
-
-def test_el_archivo_de_ejemplo_relativo_se_cuenta_desde_la_raiz_del_repositorio(tmp_path):
-    assert cargar_configuracion({"DATATAB_EJEMPLO": "backend/tests/fixtures/datos/ficticio-antiguo.xls"}).ejemplo == RAIZ / "backend" / "tests" / "fixtures" / "datos" / "ficticio-antiguo.xls"
-    absoluta = tmp_path / "mio.xlsx"
-    assert cargar_configuracion({"DATATAB_EJEMPLO": str(absoluta)}).ejemplo == absoluta
-
-
-def test_el_archivo_de_ejemplo_configurado_es_el_que_carga_el_endpoint(tmp_path):
-    ejemplo = Path(__file__).resolve().parents[2] / "backend" / "tests" / "fixtures" / "datos" / "ficticio-punto-y-coma.csv"
-    config = cargar_configuracion({"DATATAB_EJEMPLO": str(ejemplo)})
-    cliente = TestClient(crear_app(config), raise_server_exceptions=False)
-    respuesta = cliente.post("/api/datasets/ejemplo")
-    assert respuesta.status_code == 201 and respuesta.json()["nombre"] == "ficticio-punto-y-coma.csv"
-
-
-def test_sin_archivo_de_ejemplo_el_endpoint_responde_404_y_la_configuracion_lo_indica(tmp_path):
-    config = cargar_configuracion({"DATATAB_EJEMPLO": str(tmp_path / "no-existe.xlsx")})
-    cliente = TestClient(crear_app(config), raise_server_exceptions=False)
-    assert cliente.get("/api/configuracion").json()["ejemplo_disponible"] is False
-    respuesta = cliente.post("/api/datasets/ejemplo")
-    assert respuesta.status_code == 404 and respuesta.json()["error"]["codigo"] == "ARCHIVO_NO_ENCONTRADO"
-    assert str(tmp_path) not in respuesta.text
 
 
 def test_la_configuracion_es_inmutable():

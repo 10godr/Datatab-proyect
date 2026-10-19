@@ -242,12 +242,11 @@
   width: 100%;
   padding: var(--s-7) var(--s-5);
   background: var(--ink-1);
-  border: 2px dashed var(--moss-500);
-  border-radius: 20px;
-  box-shadow: 0 14px 40px rgb(20 122 63 / 0.14);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  border: 1px dashed var(--line-control);
+  border-radius: 12px;
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
-.zona-carga:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgb(20 122 63 / 0.22); border-color: var(--signal); }
+.zona-carga:hover { border-color: var(--signal); }
 .zona-carga__icono {
   display: grid;
   place-items: center;
@@ -256,10 +255,8 @@
   background: var(--moss-700);
   border-radius: 50%;
   color: var(--signal);
-  animation: flotar 3.2s ease-in-out infinite;
 }
 .zona-carga__icono svg { width: 34px; height: 34px; }
-@keyframes flotar { 50% { transform: translateY(-8px); } }
 .zona-carga__texto { font-size: var(--t-md); }
 
 /* Arrastrar solo tiene sentido con ratón; en pantallas táctiles se habla de elegir */
@@ -634,12 +631,12 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 }
 
 /* ---------- Datos del archivo (siempre debajo del análisis) ---------- */
-.seccion-datos { margin-top: var(--s-8); padding: var(--s-5); background: #D3EBDB; border: 1px solid var(--line-strong); border-radius: var(--r-2); }
+.seccion-datos { margin-top: var(--s-8); padding: var(--s-5); background: var(--moss-900); border: 1px solid var(--line-strong); border-radius: 12px; }
 .seccion-datos .tabla--datos thead th { background: var(--moss-700); }
 .seccion-datos .tabla--datos tbody tr:nth-child(even) { background: var(--ink-2); }
 .seccion-datos__titulo { font-size: var(--t-lg); margin-bottom: var(--s-4); }
 
-/* ---------- Pantalla de carga: etiqueta y formatos ---------- */
+/* ---------- Pantalla de carga: etiqueta, formatos y líneas topográficas ---------- */
 .etiqueta {
   padding: var(--s-1) var(--s-3);
   background: var(--moss-700);
@@ -651,125 +648,43 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 .formatos { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
 .formatos li { padding: var(--s-1) var(--s-3); background: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text-2); font-size: var(--t-xs); font-weight: 600; }
 
+/* Solo en la bienvenida; se desvanecen hacia el centro para no pasar detrás del texto ni de la zona de carga */
+.vista-carga { position: relative; overflow-x: clip; }
+.vista-carga::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("../assets/topografia.svg") center / cover no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse 48% 60% at 50% 50%, transparent 58%, #000 100%);
+  mask-image: radial-gradient(ellipse 48% 60% at 50% 50%, transparent 58%, #000 100%);
+}
+@media (max-width: 640px) { .vista-carga::before { opacity: 0.55; } }
+
+/* ---------- Gráfico ---------- */
+.grafico { padding: var(--s-5); background: var(--ink-1); border: 1px solid var(--line); border-radius: 12px; }
+.grafico figcaption { font-size: var(--t-md); font-weight: 600; }
+
 /* ---------- Movimiento (se desactiva con prefers-reduced-motion, ver base.css) ---------- */
 @keyframes aparecer { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-.carga__presentacion > *, .carga__accion > *, .vista-analisis .analisis, .vista-analisis .pestanas-barra, .seccion-datos {
-  animation: aparecer 0.55s ease both;
+.carga__presentacion > *, .carga__accion > *, .vista-analisis .analisis, .vista-analisis .pestanas-barra, .seccion-datos,
+.panel:not([hidden]), .resultado:not([hidden]), .tabla--frecuencias tbody tr {
+  animation: aparecer 0.5s ease both;
 }
 .carga__presentacion > :nth-child(2) { animation-delay: 0.08s; }
 .carga__presentacion > :nth-child(3) { animation-delay: 0.16s; }
 .carga__accion > :first-child { animation-delay: 0.24s; }
-.panel:not([hidden]) { animation: aparecer 0.35s ease both; }
-.vista-carga { position: relative; overflow-x: clip; }
-.vista-carga::before, .vista-carga::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: 26rem;
-  height: 26rem;
-  border-radius: 50%;
-  background: var(--moss-700);
-  opacity: 0.55;
-  filter: blur(60px);
-  animation: deriva 14s ease-in-out infinite alternate;
-}
-.vista-carga::before { top: 1rem; left: -8rem; }
-.vista-carga::after { bottom: 1rem; right: -8rem; background: #BDE6CB; animation-delay: -7s; }
-@keyframes deriva { to { transform: translate(4rem, 3rem) scale(1.15); } }
+.tabla--frecuencias tbody tr:nth-child(2) { animation-delay: 0.06s; }
+.tabla--frecuencias tbody tr:nth-child(3) { animation-delay: 0.12s; }
+.tabla--frecuencias tbody tr:nth-child(4) { animation-delay: 0.18s; }
+.tabla--frecuencias tbody tr:nth-child(5) { animation-delay: 0.24s; }
+.tabla--frecuencias tbody tr:nth-child(6) { animation-delay: 0.30s; }
+.tabla--frecuencias tbody tr:nth-child(n+7) { animation-delay: 0.36s; }
+
 .boton { transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
 .boton:active { transform: scale(0.97); }
 
-/* ---------- Fondo y barra superior con carácter (18/10) ---------- */
-body {
-  background-color: var(--ink-0);
-  background-image:
-    radial-gradient(60rem 38rem at 8% -8%, #B5E6C8 0%, transparent 62%),
-    radial-gradient(48rem 34rem at 96% 6%, #D5EFC2 0%, transparent 58%),
-    radial-gradient(52rem 36rem at 72% 104%, #BDE7E0 0%, transparent 62%),
-    radial-gradient(40rem 30rem at 0% 90%, #CFEBD6 0%, transparent 60%);
-  background-attachment: fixed;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(rgb(20 122 63 / 0.18) 1.2px, transparent 1.6px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(180deg, #000 0%, transparent 55%, #000 100%);
-  animation: rejilla 40s linear infinite;
-}
-@keyframes rejilla { to { background-position: 26px 52px; } }
-
-.cabecera { position: sticky; top: 0; }
-.cabecera__interior {
-  position: relative;
-  background: rgb(255 255 255 / 0.66);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
-  backdrop-filter: blur(16px) saturate(1.5);
-  border: 1px solid rgb(255 255 255 / 0.9);
-  box-shadow: 0 10px 30px rgb(16 38 26 / 0.10), inset 0 -2px 0 rgb(20 122 63 / 0.0);
-  overflow: hidden;
-}
-.cabecera__interior::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 3px;
-  background: linear-gradient(90deg, #147A3F, #5FD08C 40%, #9BDFC9 70%, #147A3F);
-  background-size: 200% 100%;
-  animation: cinta 8s linear infinite;
-}
-@keyframes cinta { to { background-position: 200% 0; } }
-.marca__logo { background: linear-gradient(140deg, #22B366, #0F6633); box-shadow: 0 6px 16px rgb(20 122 63 / 0.4); }
-.pestanas { background: rgb(255 255 255 / 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-.boton--primario:not(:disabled) { background: linear-gradient(140deg, #1B9552, #0F6633); border-color: #0F6633; box-shadow: 0 6px 16px rgb(20 122 63 / 0.28); }
-.boton--primario:not(:disabled):hover { background: linear-gradient(140deg, #22A85D, #137A3F); transform: translateY(-1px); }
-.pestana[aria-selected="true"] { background: linear-gradient(140deg, #1B9552, #0F6633); box-shadow: 0 4px 12px rgb(20 122 63 / 0.3); }
-.controles { box-shadow: 0 10px 30px rgb(16 38 26 / 0.07); }
-
-/* Tarjetas decorativas de la pantalla de carga */
-.deco { display: none; }
-@media (min-width: 1100px) {
-  .deco { display: block; position: absolute; inset: 0; pointer-events: none; }
-  .deco__tarjeta {
-    position: absolute;
-    display: grid;
-    gap: var(--s-2);
-    padding: var(--s-3) var(--s-4);
-    background: rgb(255 255 255 / 0.78);
-    border: 1px solid rgb(255 255 255 / 0.95);
-    border-radius: 16px;
-    box-shadow: 0 18px 40px rgb(16 38 26 / 0.12);
-    animation: flotar 6s ease-in-out infinite;
-  }
-  .deco__titulo { font-size: var(--t-xs); font-weight: 600; color: var(--text-2); }
-  .deco__tarjeta svg { width: 120px; height: 64px; fill: var(--signal); }
-  .deco__tarjeta svg rect:nth-child(odd) { fill: #5FD08C; }
-  .deco__tarjeta--barras { top: 8rem; left: 6%; transform: rotate(-4deg); }
-  .deco__tarjeta--circulo { top: 24rem; right: 7%; animation-delay: -2s; }
-  .deco__tarjeta--tabla { bottom: 9rem; left: 12%; width: 11rem; animation-delay: -4s; }
-  .deco__donut { width: 76px; height: 76px; border-radius: 50%; background: conic-gradient(var(--c-rose) 0 59.5%, var(--c-white) 0); -webkit-mask: radial-gradient(circle, transparent 46%, #000 47%); mask: radial-gradient(circle, transparent 46%, #000 47%); }
-  .deco__tarjeta--tabla b { display: block; height: 8px; border-radius: 4px; background: var(--moss-700); }
-  .deco__tarjeta--tabla b:nth-of-type(2) { width: 70%; }
-  .deco__tarjeta--tabla b:nth-of-type(3) { width: 85%; }
-  .deco__tarjeta--tabla b:nth-of-type(4) { width: 50%; }
-}
-
-/* ---------- Gráfico con vida (18/10) ---------- */
-.grafico {
-  padding: var(--s-5);
-  background: linear-gradient(160deg, #FFFFFF 0%, #F1FAF4 55%, #E3F4E9 100%);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgb(20 122 63 / 0.12);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.grafico:hover { transform: translateY(-2px); box-shadow: 0 22px 48px rgb(20 122 63 / 0.18); }
-.grafico figcaption { font-size: var(--t-md); font-weight: 600; }
-
-/* Animación de carga: cinco barras que suben y bajan */
+/* Cargador al calcular: cinco barras que suben y bajan */
 .estado__carga { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
 .cargador { display: flex; align-items: flex-end; gap: 6px; height: 44px; }
 .cargador i { display: block; width: 10px; height: 100%; border-radius: 5px; background: var(--c-green); transform-origin: bottom; animation: sube 0.9s ease-in-out infinite; }
@@ -779,14 +694,6 @@ body::before {
 .cargador i:nth-child(5) { background: var(--c-violet); animation-delay: 0.48s; }
 @keyframes sube { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }
 
-/* El resultado de otra columna se atenúa mientras se elige y entra con movimiento al calcular */
+/* El resultado de otra columna se atenúa mientras se elige otra */
 .resultado { transition: opacity 0.3s ease, filter 0.3s ease; }
-.resultado--obsoleto { opacity: 0.4; filter: blur(1.5px) saturate(0.7); }
-.resultado:not([hidden]) { animation: aparecer 0.5s ease both; }
-.tabla--frecuencias tbody tr { animation: aparecer 0.45s ease both; }
-.tabla--frecuencias tbody tr:nth-child(2) { animation-delay: 0.06s; }
-.tabla--frecuencias tbody tr:nth-child(3) { animation-delay: 0.12s; }
-.tabla--frecuencias tbody tr:nth-child(4) { animation-delay: 0.18s; }
-.tabla--frecuencias tbody tr:nth-child(5) { animation-delay: 0.24s; }
-.tabla--frecuencias tbody tr:nth-child(6) { animation-delay: 0.30s; }
-.tabla--frecuencias tbody tr:nth-child(n+7) { animation-delay: 0.36s; }
+.resultado--obsoleto { opacity: 0.4; filter: saturate(0.6); }

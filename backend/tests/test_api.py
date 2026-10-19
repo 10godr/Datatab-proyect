@@ -39,8 +39,8 @@ def subir(cliente: TestClient, nombre: str, contenido: bytes, tipo: str = "appli
     return cliente.post("/api/datasets", files={"archivo": (nombre, contenido, tipo)})
 
 
-def subir_ejemplo(cliente: TestClient) -> dict:
-    respuesta = cliente.post("/api/datasets/ejemplo")
+def subir_pacientes(cliente: TestClient) -> dict:
+    respuesta = subir(cliente, "pacientes-ficticios.xlsx", (DATOS_DE_PRUEBA / "pacientes-ficticios.xlsx").read_bytes())
     assert respuesta.status_code == 201, respuesta.text
     return respuesta.json()
 
@@ -98,23 +98,22 @@ def test_configuracion_con_los_valores_del_contrato(cliente):
     assert respuesta.status_code == 200
     assert respuesta.json() == {
         "max_mb": 5, "max_bytes": 5242880, "formatos": ["xlsx", "xls", "csv"], "minutos_inactividad": 30,
-        "max_filas": 100000, "max_columnas": 200, "max_celdas": 2000000, "ejemplo_disponible": True,
+        "max_filas": 100000, "max_columnas": 200, "max_celdas": 2000000,
     }  # fmt: skip
     schemas.ConfiguracionRespuesta.model_validate(respuesta.json())
 
 
-def test_configuracion_refleja_la_configuracion_real(crear, tmp_path):
-    cliente = crear(max_mb=2, ttl_min=10, max_filas=50, ejemplo=tmp_path / "no-existe.xlsx")
+def test_configuracion_refleja_la_configuracion_real(crear):
+    cliente = crear(max_mb=2, ttl_min=10, max_filas=50)
     cuerpo = cliente.get("/api/configuracion").json()
     assert (cuerpo["max_mb"], cuerpo["max_bytes"], cuerpo["minutos_inactividad"], cuerpo["max_filas"]) == (2, 2097152, 10, 50)
-    assert cuerpo["ejemplo_disponible"] is False
 
 
 # --- Subida ------------------------------------------------------------------------------------------------------------
 
 
-def test_subir_el_ejemplo_con_la_forma_exacta_del_contrato(cliente):
-    respuesta = cliente.post("/api/datasets/ejemplo")
+def test_subir_un_archivo_con_la_forma_exacta_del_contrato(cliente, pacientes_bytes):
+    respuesta = subir(cliente, "pacientes-ficticios.xlsx", pacientes_bytes)
     assert respuesta.status_code == 201
     cuerpo = respuesta.json()
     modelo = schemas.DatasetRespuesta.model_validate(cuerpo)  # cualquier campo de más o de menos falla
@@ -127,8 +126,8 @@ def test_subir_el_ejemplo_con_la_forma_exacta_del_contrato(cliente):
     verificar_cabeceras(respuesta, api=True)
 
 
-def test_subir_un_archivo_xlsx(cliente, ejemplo_bytes):
-    respuesta = subir(cliente, "mis datos.xlsx", ejemplo_bytes)
+def test_subir_un_archivo_xlsx(cliente, pacientes_bytes):
+    respuesta = subir(cliente, "mis datos.xlsx", pacientes_bytes)
     assert respuesta.status_code == 201
     assert respuesta.json()["nombre"] == "mis datos.xlsx"
 
@@ -205,7 +204,7 @@ def test_obtener_el_archivo_devuelve_lo_mismo_sin_avisos(cliente):
 
 
 def test_filas_paginadas_con_la_forma_del_contrato(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     respuesta = cliente.get(f"/api/datasets/{dataset_id}/filas")
     modelo = schemas.FilasRespuesta.model_validate(respuesta.json())
     assert (modelo.total, modelo.desde, modelo.cantidad, len(modelo.filas)) == (200, 0, 50, 50)
@@ -225,18 +224,18 @@ def test_las_celdas_vacias_son_cadenas_vacias(cliente):
 
 @pytest.mark.parametrize("parametros", [{"cantidad": 0}, {"cantidad": 201}, {"desde": -1}, {"desde": "abc"}, {"cantidad": "x"}, {"desde": 1.5}])
 def test_filas_con_parametros_no_validos(cliente, parametros):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     verificar_error(cliente.get(f"/api/datasets/{dataset_id}/filas", params=parametros), "PETICION_NO_VALIDA")
 
 
 def test_filas_con_desde_enorme(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     respuesta = cliente.get(f"/api/datasets/{dataset_id}/filas", params={"desde": 10**30})
     assert respuesta.status_code == 200 and respuesta.json()["filas"] == []
 
 
 def test_borrar_es_idempotente(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     primero = cliente.delete(f"/api/datasets/{dataset_id}")
     assert primero.status_code == 204 and primero.content == b""
     assert cliente.delete(f"/api/datasets/{dataset_id}").status_code == 204
@@ -267,7 +266,7 @@ def test_dataset_id_con_barras_codificadas_no_sale_de_la_api(cliente):
 
 
 def test_caducidad_por_inactividad(cliente, reloj):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     reloj.avanzar(29 * 60)
     assert cliente.get(f"/api/datasets/{dataset_id}").json()["expira_en_segundos"] == 1800  # renovado
     reloj.avanzar(29 * 60)
@@ -284,9 +283,9 @@ def test_caducidad_por_inactividad(cliente, reloj):
 
 def test_el_tope_de_archivos_expulsa_el_menos_usado(crear):
     cliente = crear(max_datasets=2)
-    primero, segundo = (subir_ejemplo(cliente)["dataset_id"] for _ in range(2))
+    primero, segundo = (subir_pacientes(cliente)["dataset_id"] for _ in range(2))
     cliente.get(f"/api/datasets/{primero}")
-    tercero = subir_ejemplo(cliente)["dataset_id"]
+    tercero = subir_pacientes(cliente)["dataset_id"]
     assert cliente.get(f"/api/datasets/{primero}").status_code == 200
     assert cliente.get(f"/api/datasets/{tercero}").status_code == 200
     verificar_error(cliente.get(f"/api/datasets/{segundo}"), "ARCHIVO_NO_ENCONTRADO")
@@ -296,7 +295,7 @@ def test_el_tope_de_archivos_expulsa_el_menos_usado(crear):
 
 
 def test_frecuencias_sin_y_con_rangos(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     sin = frecuencias(cliente, dataset_id, "Sexo")
     modelo = schemas.FrecuenciasRespuesta.model_validate(sin.json())
     assert (modelo.tipo, modelo.agrupado, modelo.n, modelo.vacios_excluidos, modelo.solapados) == ("texto", False, 200, 0, 0)
@@ -313,7 +312,7 @@ def test_frecuencias_sin_y_con_rangos(cliente):
 
 def test_frecuencias_de_una_columna_con_demasiados_valores_distintos(crear):
     cliente = crear(max_valores_distintos=50)
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]  # «No.» va de 1 a 200
+    dataset_id = subir_pacientes(cliente)["dataset_id"]  # «No.» va de 1 a 200
     error = verificar_error(frecuencias(cliente, dataset_id, "No."), "DEMASIADAS_CATEGORIAS")
     assert error.mensaje == "«No.» tiene 200 valores distintos; son demasiados para una tabla de frecuencias."
     assert error.sugerencia == "Agrúpalos en rangos, por ejemplo 0-9, 10-19…"
@@ -338,14 +337,14 @@ def test_el_tope_de_fabrica_son_1000_valores_distintos(cliente, distintos, estad
 
 
 def test_frecuencias_con_rangos_solapados_avisan(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     cuerpo = frecuencias(cliente, dataset_id, "Edad", ["30-39", "35-45"]).json()
     assert cuerpo["solapados"] > 0 and cuerpo["avisos"][0]["codigo"] == "RANGOS_SOLAPADOS"
     schemas.FrecuenciasRespuesta.model_validate(cuerpo)
 
 
 def test_tabla_cruzada_con_la_forma_del_contrato(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     respuesta = cruce(cliente, dataset_id, {"columna": "Edad", "rangos": ["<30", "30-39", "40+"]}, {"columna": "Sexo"})
     modelo = schemas.TablaCruzadaRespuesta.model_validate(respuesta.json())
     assert modelo.fila.agrupado is True and modelo.columna.agrupado is False
@@ -356,7 +355,7 @@ def test_tabla_cruzada_con_la_forma_del_contrato(cliente):
 
 
 def test_tabla_cruzada_sin_rangos_y_cuerpo_con_campos_de_mas(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     respuesta = cliente.post(
         f"/api/datasets/{dataset_id}/tabla-cruzada",
         json={"fila": {"columna": "Diagnóstico"}, "columna": {"columna": "Tipo de cirugía", "otro": 1}, "extra": True},
@@ -368,13 +367,13 @@ def test_tabla_cruzada_sin_rangos_y_cuerpo_con_campos_de_mas(cliente):
 # --- Cada código de error del contrato ---------------------------------------------------------------------------------------------
 
 
-def _ejemplo(crear, **config):
+def _pacientes(crear, **config):
     cliente = crear(**config)
-    return cliente, subir_ejemplo(cliente)["dataset_id"]
+    return cliente, subir_pacientes(cliente)["dataset_id"]
 
 
 def _error_interno(crear, monkeypatch):
-    cliente, dataset_id = _ejemplo(crear)
+    cliente, dataset_id = _pacientes(crear)
 
     def falla(*_args, **_kwargs):
         raise RuntimeError(f"fallo interno con {SECRETO} en /home/usuario/secreto.py")
@@ -394,19 +393,19 @@ PROVOCAR = {
     "ARCHIVO_ILEGIBLE": lambda crear, mp: subir(crear(), "roto.xlsx", b"PK\x03\x04" + bytes(500)),
     "ARCHIVO_VACIO": lambda crear, mp: subir(crear(), "vacio.csv", b""),
     "TABLA_DEMASIADO_GRANDE": lambda crear, mp: subir(crear(max_filas=1), "a.csv", b"a\n1\n2\n"),
-    "COLUMNA_NO_ENCONTRADA": lambda crear, mp: frecuencias(*_ejemplo(crear), "No existe"),
-    "COLUMNAS_IGUALES": lambda crear, mp: cruce(*_ejemplo(crear), {"columna": "Sexo"}, {"columna": "Sexo"}),
-    "RANGO_NO_VALIDO": lambda crear, mp: frecuencias(*_ejemplo(crear), "Edad", ["<30", "esto no es un rango"]),
-    "RANGO_REPETIDO": lambda crear, mp: frecuencias(*_ejemplo(crear), "Edad", ["40+", ">=40"]),
-    "DEMASIADOS_RANGOS": lambda crear, mp: frecuencias(*_ejemplo(crear), "Edad", [f"{i}-{i}" for i in range(51)]),
-    "RANGOS_EN_COLUMNA_NO_NUMERICA": lambda crear, mp: frecuencias(*_ejemplo(crear), "Sexo", ["<30"]),
+    "COLUMNA_NO_ENCONTRADA": lambda crear, mp: frecuencias(*_pacientes(crear), "No existe"),
+    "COLUMNAS_IGUALES": lambda crear, mp: cruce(*_pacientes(crear), {"columna": "Sexo"}, {"columna": "Sexo"}),
+    "RANGO_NO_VALIDO": lambda crear, mp: frecuencias(*_pacientes(crear), "Edad", ["<30", "esto no es un rango"]),
+    "RANGO_REPETIDO": lambda crear, mp: frecuencias(*_pacientes(crear), "Edad", ["40+", ">=40"]),
+    "DEMASIADOS_RANGOS": lambda crear, mp: frecuencias(*_pacientes(crear), "Edad", [f"{i}-{i}" for i in range(51)]),
+    "RANGOS_EN_COLUMNA_NO_NUMERICA": lambda crear, mp: frecuencias(*_pacientes(crear), "Sexo", ["<30"]),
     "RANGOS_SOLAPADOS_EN_CRUCE": lambda crear, mp: cruce(
-        *_ejemplo(crear), {"columna": "Edad", "rangos": ["30-39", "35-45"]}, {"columna": "Sexo"}
+        *_pacientes(crear), {"columna": "Edad", "rangos": ["30-39", "35-45"]}, {"columna": "Sexo"}
     ),
     "SIN_DATOS": lambda crear, mp: frecuencias(
         (c := crear()), c.post("/api/datasets", files={"archivo": ("a.csv", b"A,B\n1,\n2,\n")}).json()["dataset_id"], "B"
     ),
-    "DEMASIADAS_CATEGORIAS": lambda crear, mp: cruce(*_ejemplo(crear), {"columna": "No."}, {"columna": "Edad"}),
+    "DEMASIADAS_CATEGORIAS": lambda crear, mp: cruce(*_pacientes(crear), {"columna": "No."}, {"columna": "Edad"}),
     "ERROR_INTERNO": _error_interno,
 }
 
@@ -430,7 +429,7 @@ def test_cada_codigo_de_error_del_contrato(codigo, crear, monkeypatch):
 
 
 def test_peticiones_mal_formadas(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     url = f"/api/datasets/{dataset_id}/frecuencias"
     for kwargs in (
         {"content": b"{no es json", "headers": {"content-type": "application/json"}},
@@ -446,7 +445,7 @@ def test_peticiones_mal_formadas(cliente):
 
 
 def test_la_validacion_nombra_los_campos_sin_repetir_los_valores(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     cuerpo = cliente.post(f"/api/datasets/{dataset_id}/frecuencias", json={"columna": SECRETO * 0 + "Edad", "rangos": [SECRETO]}).json()
     assert cuerpo["error"]["codigo"] == "RANGO_NO_VALIDO"
     cuerpo = cliente.post(f"/api/datasets/{dataset_id}/frecuencias", json={"columna": {"x": SECRETO}}).json()
@@ -454,7 +453,7 @@ def test_la_validacion_nombra_los_campos_sin_repetir_los_valores(cliente):
 
 
 def test_rangos_con_texto_malicioso(cliente):
-    dataset_id = subir_ejemplo(cliente)["dataset_id"]
+    dataset_id = subir_pacientes(cliente)["dataset_id"]
     for malo in ("<script>alert(1)</script>", "'; DROP TABLE datos;--", "{{7*7}}", "${jndi:ldap://x}", "A" * 100_000, "‮30-39", "30-39\x00"):
         respuesta = frecuencias(cliente, dataset_id, "Edad", ["<30", malo])
         error = verificar_error(respuesta, "RANGO_NO_VALIDO")
@@ -473,7 +472,7 @@ def test_metodo_no_permitido_indica_los_permitidos(cliente):
     respuesta = cliente.delete("/api/salud")
     verificar_error(respuesta, "METODO_NO_PERMITIDO")
     assert "GET" in respuesta.headers["allow"]
-    verificar_error(cliente.get("/api/datasets/ejemplo/frecuencias"), "METODO_NO_PERMITIDO")
+    verificar_error(cliente.get("/api/datasets/x/frecuencias"), "METODO_NO_PERMITIDO")
     verificar_error(cliente.put("/api/datasets/x"), "METODO_NO_PERMITIDO")
 
 
@@ -481,7 +480,7 @@ def test_metodo_no_permitido_indica_los_permitidos(cliente):
 
 
 def test_un_error_inesperado_es_500_generico_y_solo_registra_el_tipo_y_la_ruta(crear, monkeypatch, caplog):
-    cliente, dataset_id = _ejemplo(crear)
+    cliente, dataset_id = _pacientes(crear)
 
     def falla(*_args, **_kwargs):
         raise ValueError(f"valor raro: {SECRETO}, archivo /home/usuario/datos.xlsx")
@@ -501,7 +500,7 @@ def test_un_error_inesperado_es_500_generico_y_solo_registra_el_tipo_y_la_ruta(c
 
 
 def test_el_registro_escapa_los_caracteres_de_control_de_la_ruta(crear, monkeypatch, caplog):
-    cliente, _ = _ejemplo(crear)
+    cliente, _ = _pacientes(crear)
     monkeypatch.setattr("app.services.dataset_store.AlmacenDatasets.obtener", lambda *a, **k: 1 / 0)
     with caplog.at_level(logging.DEBUG):
         respuesta = cliente.get("/api/datasets/falso%0AINFO%20linea%20falsa")
@@ -514,7 +513,7 @@ def test_el_registro_escapa_los_caracteres_de_control_de_la_ruta(crear, monkeypa
 
 
 def test_un_error_de_respuesta_con_forma_incorrecta_tambien_es_500_generico(crear, monkeypatch):
-    cliente, dataset_id = _ejemplo(crear)
+    cliente, dataset_id = _pacientes(crear)
     monkeypatch.setattr("app.api.analisis.calcular_frecuencias", lambda *a, **k: {"columna": SECRETO})
     respuesta = frecuencias(cliente, dataset_id, "Sexo")
     verificar_error(respuesta, "ERROR_INTERNO")
@@ -531,7 +530,7 @@ CSP = (
 
 
 def test_cabeceras_de_seguridad_exactas_en_las_respuestas_de_la_api(cliente):
-    for respuesta in (cliente.get("/api/salud"), cliente.get("/api/inexistente"), cliente.post("/api/datasets/ejemplo")):
+    for respuesta in (cliente.get("/api/salud"), cliente.get("/api/inexistente"), subir(cliente, "a.csv", b"a\n1\n")):
         assert respuesta.headers["content-security-policy"] == CSP
         assert respuesta.headers["x-content-type-options"] == "nosniff"
         assert respuesta.headers["referrer-policy"] == "no-referrer"
@@ -545,7 +544,7 @@ def test_documentacion_sin_csp_estricta_y_sin_no_store(cliente):
         assert "content-security-policy" not in respuesta.headers
         assert respuesta.headers["x-content-type-options"] == "nosniff"
     rutas = cliente.get("/openapi.json").json()["paths"]
-    assert "/api/datasets/{dataset_id}/tabla-cruzada" in rutas and "/api/datasets/ejemplo" in rutas
+    assert "/api/datasets/{dataset_id}/tabla-cruzada" in rutas and "/api/datasets" in rutas
 
 
 def test_documentacion_desactivable(crear):
@@ -598,7 +597,7 @@ def test_si_no_existe_la_carpeta_del_frontend_la_api_funciona(crear, tmp_path, m
 
 def test_al_apagar_el_servidor_no_queda_nada_en_memoria(app, reloj):
     with TestClient(app) as cliente:
-        subir_ejemplo(cliente)
+        subir_pacientes(cliente)
         assert len(app.state.almacen) == 1
     assert len(app.state.almacen) == 0
 

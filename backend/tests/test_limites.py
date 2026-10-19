@@ -123,7 +123,7 @@ def test_content_length_que_no_es_un_numero_no_evita_el_limite(cliente):
 
 def test_el_limite_no_afecta_a_las_peticiones_pequenas(cliente):
     assert cliente.get("/api/salud").status_code == 200
-    assert cliente.post("/api/datasets/ejemplo").status_code == 201
+    assert cliente.post("/api/datasets", files={"archivo": ("a.csv", b"a\n1\n", "text/csv")}).status_code == 201
 
 
 # --- A nivel ASGI: se demuestra que el cuerpo enorme no se lee entero -----------------------------------------------------

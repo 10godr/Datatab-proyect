@@ -47,7 +47,6 @@ class ConfiguracionRespuesta(Respuesta):
     max_filas: int
     max_columnas: int
     max_celdas: int
-    ejemplo_disponible: bool
 
 
 class AvisoRespuesta(Respuesta):

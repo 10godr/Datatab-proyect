@@ -26,8 +26,7 @@ class RelojFalso:
 
 @pytest.fixture
 def config() -> Configuracion:
-    # El ejemplo de las pruebas es un archivo fijo de tests/fixtures, para que cambiar los datos de prueba del usuario no rompa nada
-    return Configuracion(ejemplo=DATOS_DE_PRUEBA / "pacientes-ficticios.xlsx")
+    return Configuracion()
 
 
 @pytest.fixture
@@ -47,7 +46,7 @@ def cliente(app) -> TestClient:
 
 
 @pytest.fixture
-def ejemplo_bytes() -> bytes:
+def pacientes_bytes() -> bytes:
     return (DATOS_DE_PRUEBA / "pacientes-ficticios.xlsx").read_bytes()
 
 

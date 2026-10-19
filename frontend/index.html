@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#E8F5EC">
   <meta name="description" content="DataTab tabula datos de Excel o CSV en español: frecuencias, rangos numéricos y cruce de dos variables.">
   <title>DataTab · Tabula tus datos</title>
@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/fondo.css">
   <link rel="stylesheet" href="css/print.css" media="print">
 </head>
 <body>
@@ -52,20 +51,6 @@
 
     <!-- ============ VISTA 1: CARGA ============ -->
     <div id="vista-carga" class="vista-carga">
-      <div class="deco" aria-hidden="true">
-        <div class="deco__tarjeta deco__tarjeta--barras">
-          <span class="deco__titulo">Edad</span>
-          <svg viewBox="0 0 120 64"><rect x="6" y="34" width="16" height="26" rx="3"/><rect x="30" y="14" width="16" height="46" rx="3"/><rect x="54" y="4" width="16" height="56" rx="3"/><rect x="78" y="24" width="16" height="36" rx="3"/><rect x="102" y="42" width="12" height="18" rx="3"/></svg>
-        </div>
-        <div class="deco__tarjeta deco__tarjeta--circulo">
-          <span class="deco__titulo">Sexo</span>
-          <i class="deco__donut"></i>
-        </div>
-        <div class="deco__tarjeta deco__tarjeta--tabla">
-          <span class="deco__titulo">30-39 · 24,5 %</span>
-          <b></b><b></b><b></b><b></b>
-        </div>
-      </div>
       <div class="contenedor">
         <div class="carga">
           <div class="carga__presentacion">
@@ -110,7 +95,6 @@
               </div>
             </div>
 
-            <button type="button" class="boton boton--tenue" id="btn-ejemplo" hidden>Probar con datos de ejemplo</button>
           </div>
         </div>
 

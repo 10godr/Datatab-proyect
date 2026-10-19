@@ -82,8 +82,7 @@ Límites vigentes, para que el frontend los muestre y valide antes de enviar. El
   "minutos_inactividad": 30,
   "max_filas": 100000,
   "max_columnas": 200,
-  "max_celdas": 2000000,
-  "ejemplo_disponible": true
+  "max_celdas": 2000000
 }
 ```
 
@@ -111,10 +110,6 @@ Límites vigentes, para que el frontend los muestre y valide antes de enviar. El
 - `nombre` es solo para mostrar: se reduce al nombre de archivo (sin rutas), sin caracteres de control y a un máximo de 120 caracteres. Nunca se usa para tocar el disco.
 - `tipo` es `"numerica"`, `"texto"` o `"fecha"` (ver reglas de tipos).
 - `minimo` y `maximo` solo existen en columnas `numerica`; en las demás son `null`.
-
-## `POST /api/datasets/ejemplo`
-
-Sin cuerpo. Carga el archivo de ejemplo con datos ficticios que viene con el proyecto y responde igual que la subida (`201`). Si `ejemplo_disponible` es `false`, responde `404` con `ARCHIVO_NO_ENCONTRADO`.
 
 ## `GET /api/datasets/{dataset_id}`
 

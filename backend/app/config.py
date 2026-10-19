@@ -23,7 +23,6 @@ class Configuracion:
     max_descomprimido_mb: int = 200
     max_valores_distintos: int = 1000
     max_datasets: int = 10
-    ejemplo: Path = RAIZ / "datos-de-prueba" / "pacientes-ficticios.xlsx"
     servir_frontend: bool = True
     docs: bool = True
 
@@ -68,7 +67,6 @@ def cargar_configuracion(env: Mapping[str, str] | None = None) -> Configuracion:
     """Lee la configuración; las variables ausentes usan el valor por defecto."""
     env = os.environ if env is None else env
     base = Configuracion()
-    ejemplo = env.get("DATATAB_EJEMPLO", "").strip()
     return Configuracion(
         max_mb=_entero(env, "MAX_MB", base.max_mb),
         ttl_min=_entero(env, "TTL_MIN", base.ttl_min),
@@ -80,8 +78,6 @@ def cargar_configuracion(env: Mapping[str, str] | None = None) -> Configuracion:
         max_descomprimido_mb=_entero(env, "MAX_DESCOMPRIMIDO_MB", base.max_descomprimido_mb),
         max_valores_distintos=_entero(env, "MAX_VALORES_DISTINTOS", base.max_valores_distintos),
         max_datasets=_entero(env, "MAX_DATASETS", base.max_datasets),
-        # Una ruta relativa se interpreta desde la raíz del repositorio
-        ejemplo=(RAIZ / ejemplo) if ejemplo else base.ejemplo,
         servir_frontend=_booleano(env, "SERVIR_FRONTEND", base.servir_frontend),
         docs=_booleano(env, "DOCS", base.docs),
     )

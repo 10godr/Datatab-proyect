@@ -1,6 +1,6 @@
 # Diseño de DataTab
 
-Capa visual del frontend: tokens, tipografía, paleta, espaciado, logo y la estructura del HTML con los ganchos que usa JavaScript. El contrato con el servidor está en `api.md`. Solo tema oscuro, sin selector de tema. HTML semántico, CSS con variables y JavaScript en módulos ES, sin compilación.
+Capa visual del frontend: tokens, tipografía, paleta, espaciado, logo y la estructura del HTML con los ganchos que usa JavaScript. El contrato con el servidor está en `api.md`. Un solo tema claro, sin selector de tema. HTML semántico, CSS con variables y JavaScript en módulos ES, sin compilación.
 
 Archivos (todo en `frontend/`):
 
@@ -24,17 +24,17 @@ Los de la maqueta aprobada (18/10/2026) están copiados tal cual en `tokens.css`
 
 | Grupo | Variables |
 |---|---|
-| Superficies | Ajustadas el 18/10 a un verde oscuro más claro: `--ink-0 #17271F` fondo · `--ink-1 #1E3328` superficie · `--ink-2 #274236` campos y botones. Texto y bordes se aclararon en proporción (ver `frontend/css/tokens.css`). |
-| Separadores | `--line #222A26` decorativo · `--line-strong #34403A` · `--line-control #5F6C66` borde de controles |
-| Texto | `--text #ECF1EE` · `--text-2 #A7B2AC` · `--text-3 #808C86` |
-| Musgo y señal | `--moss-900 #13261C` · `--moss-700 #1E3B2C` · `--moss-500 #4E7F64` · `--moss-300 #8DB89E` · `--signal #63D68F` (solo acción principal y estado relevante) · `--signal-ink #052012` |
-| Estados | `--error #EE8170` · `--warn #DDB662` |
-| Gráfico | `--c-rose #E8A0B4` · `--c-white #E6ECE8` · `--c-blue #7FA9C4` · `--c-ochre #D7A65E` · `--c-violet #A88BC4` · `--c-gray` (= `--text-3`) |
+| Superficies | `--ink-0 #E8F5EC` fondo · `--ink-1 #FFFFFF` superficie · `--ink-2 #F2FAF5` campos y zonas elevadas |
+| Separadores | `--line #CDE3D4` · `--line-strong #B3D1BE` · `--line-control #6C9A80` borde de controles (3:1) |
+| Texto | `--text #10261A` · `--text-2 #3D5847` · `--text-3 #54705F` |
+| Musgo y señal | Valores vigentes en `frontend/css/tokens.css` (`--signal #147A3F`, `--signal-hover #0F6633`). |
+| Estados | Valores vigentes en `frontend/css/tokens.css` (`--signal #147A3F`, `--signal-hover #0F6633`). |
+| Gráfico | Valores vigentes en `frontend/css/tokens.css` (`--signal #147A3F`, `--signal-hover #0F6633`). |
 | Tipografía | `--font-ui`, `--font-num`; escala `--t-xs` 13 px · `--t-sm` 15 · `--t-md` 17 · `--t-lg` 22 · `--t-xl` 30 · `--t-2xl` 44 |
 | Espaciado | `--s-1`…`--s-9` = 4, 8, 12, 16, 24, 32, 48, 64, 96 px |
 | Radios | `--r-1` 3 px · `--r-2` 6 px |
 | Anchos | `--measure` 64ch · `--page` 72rem |
-| Extensiones | `--signal-hover #7BE0A2` (valor de la maqueta para el hover del botón principal) · `--alto-control` 40 px · `--ancho-controles` 19rem · `--margen` 16 px (32 px desde 641 px) · `--velo` (fondo del diálogo) · `--c-gray` |
+| Extensiones | Valores vigentes en `frontend/css/tokens.css` (`--signal #147A3F`, `--signal-hover #0F6633`). |
 
 **Gráficos.** Una sola serie va en `--signal`. Con varias categorías, en este orden: rosa suave, blanco cálido, azul apagado, ocre, violeta y gris (el circular admite 6 categorías como máximo). Cada categoría también se identifica por su etiqueta y por la tabla. Más categorías no reciben colores al azar: pasan a barras de un solo color.
 
@@ -145,7 +145,6 @@ Convenciones:
 | `[data-config="minutos-inactividad"]` | Minutos de caducidad (nota de privacidad). |
 | `#zona-carga` | Zona para soltar. JS escucha `dragenter`, `dragover`, `dragleave` y `drop`. Mientras se arrastra: `data-arrastrando="true"`. Durante la lectura: `aria-busy="true"`. |
 | `#archivo-input` | `<input type="file">` nativo; su etiqueta "Elegir archivo" hace de botón y se enfoca con el teclado. Tiene `accept=".xlsx,.xls,.csv"` por defecto (JS puede ajustarlo desde `formatos`). Al cargar, `disabled = true`. |
-| `#btn-ejemplo` | "Probar con datos de ejemplo". Viene **oculto**; JS le quita `hidden` si `ejemplo_disponible` es `true`. |
 | `#carga-estado` (`role="status"`) y `#carga-leyendo` | El contenedor existe siempre; JS le quita `hidden` al hijo `#carga-leyendo` ("Leyendo el archivo…") mientras dura la lectura. |
 | `#carga-error` (`role="alert"`) y `#carga-error-contenido` | El contenedor existe siempre; JS le quita `hidden` al hijo `#carga-error-contenido` y rellena `[data-campo="mensaje"]` y `[data-campo="sugerencia"]` (opcional) con `error.mensaje` y `error.sugerencia`. Para limpiar, vuelve a ponerle `hidden`. |
 
@@ -301,7 +300,7 @@ Con `prefers-reduced-motion` o sin ella, `animation: false` evita movimiento inn
 
 ## Accesibilidad
 
-- `lang="es"`, `viewport`, `color-scheme` oscuro, `theme-color #0A0C0B`.
+- `lang="es"`, `viewport`, `color-scheme` claro.
 - Enlace "Saltar al contenido" (primer elemento enfocable), `header`, `main`, `footer` únicos. Un solo `<h1>` visible en cada vista (en la de análisis es un título oculto a la vista: "Análisis de tu archivo"); los títulos de resultado son `h2` y "Cómo leerlo" es `h3`.
 - Foco visible en todos los controles: 2 px en `--signal` con 2 px de separación (dentro de contenedores con desplazamiento, como pestañas y control segmentado, se dibuja hacia dentro para que no se recorte). Comprobado recorriendo la página con la tecla Tab.
 - Tablas con `<caption>`, `th scope="col"` y `th scope="row"`; el cruce usa además `scope="colgroup"`. Los contenedores de tablas que se desplazan son `role="region"` con nombre y `tabindex="0"`, para poder desplazarlos con el teclado.
@@ -332,7 +331,7 @@ No se verificó con un lector de pantalla real (NVDA, JAWS o VoiceOver), ni en S
 | La vista de datos añade la columna fija "Fila" (número de fila). | La primera columna de datos puede ser ancha y no cabe fija en 390 px; el número de fila es estrecho y sirve de referencia. |
 | Pie de página (`footer`, en las dos vistas) y, en la vista de carga, el bloque "Qué puedes hacer" con tres capacidades. | El pie es un punto de referencia pedido para la accesibilidad. El bloque explica la herramienta a quien no la conoce y no lleva iconos. |
 | Favicon con trazos de 4 unidades en lugar de 3 y 3,5. | Nitidez a 16 px. El símbolo del logo no cambia. |
-| El gráfico no se imprime. | Es un lienzo con colores del tema oscuro; ver "Impresión". |
+| El gráfico no se imprime. | Es un lienzo; ver "Impresión". |
 | No hay gráfico en el cruce. | La lista de entregables solo pide tabla, avisos y lectura para el cruce. La leyenda de colores de la maqueta (rosa y blanco) queda como referencia si se añade un gráfico de barras agrupadas. |
 
 ## Cambios hechos al integrar el JavaScript
@@ -355,24 +354,12 @@ Pequeños ajustes a `index.html` y a los CSS que salieron al conectar el JavaScr
 - "Datos del archivo" ya no es pestaña: va siempre debajo del análisis.
 - Fondo verde más claro y botones secundarios con fondo y borde visibles.
 
-## Cambio de tema (18/10, a petición de Seven)
-El tema único pasó de oscuro a claro (fondo menta `#E8F5EC`, tarjetas blancas, verde `#147A3F` para la acción principal). Los tokens están en `frontend/css/tokens.css`; la pantalla de carga va centrada. Los colores de las categorías del gráfico se ajustaron para fondo claro.
-
-## Gráfico (18/10)
-Sin selector de tipo: con exactamente 2 categorías (y sin rangos solapados) el gráfico es circular; en cualquier otro caso, barras.
-
-## Cabecera y movimiento (18/10)
-- La cabecera es una tarjeta blanca flotante (sin línea inferior); las pestañas son píldoras.
-- Zona de carga: tarjeta grande con icono flotante, elevación al pasar el ratón y pulso al arrastrar. Entradas suaves y manchas verdes lentas de fondo. Todo se desactiva con `prefers-reduced-motion` (regla en `base.css`).
-
-## Fondo, cabecera y rangos múltiples (18/10)
-- Fondo con malla de degradados verdes, rejilla de puntos y tarjetas decorativas flotantes en la pantalla de carga (solo ≥1100 px, `aria-hidden`).
-- Cabecera de cristal (desenfoque) fija arriba, con cinta de color animada; botones principales con degradado suave.
-- Rangos: en el campo se pueden escribir varios a la vez separados por `;`, por «coma y espacio», por salto de línea o por « y » (`separarRangos` en `js/ui/rangos.js`).
-
-## Gráfico y carga (18/10)
-- Gráfico en una tarjeta con degradado propio; cada barra tiene un color distinto (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`, en ese orden y repitiendo) y crece con retardo escalonado. Con `prefers-reduced-motion` no se anima.
-- Al elegir otra columna el resultado anterior se atenúa; al calcular se ve un cargador de cinco barras (mínimo 600 ms, `conPausaMinima` en `ui/panel.js`) y la tabla entra fila a fila.
-
-## Fondo claro con líneas topográficas (18/10, elegido por Seven)
-Se probó la variante oscura (carbón) y Seven prefirió el mismo fondo limpio en tema claro. `frontend/css/fondo.css` va al final: retira degradados, rejilla de puntos, manchas, tarjetas flotantes, cristal y cintas, y pone las líneas topográficas (`assets/topografia-claro.svg`, 26 KB, trazo de 1 px verde al 17 % de opacidad) solo en la pantalla de carga, desvanecidas hacia el centro. Los colores son los de `tokens.css` (claros). Para quitar las líneas basta quitar la regla `.vista-carga::before` de ese archivo.
+## Estado visual actual
+- **Tema único claro**: fondo menta `#E8F5EC`, tarjetas blancas, verde `#147A3F` para la acción principal. Tokens en `frontend/css/tokens.css`. Sin degradados, cristal ni elementos flotantes decorativos.
+- **Pantalla de carga**: centrada, con líneas topográficas de fondo (`assets/topografia.svg`, trazo de 1 px, desvanecido hacia el centro por `.vista-carga::before`; solo aquí). La zona de carga tiene borde discontinuo, elevación al pasar el ratón y pulso al arrastrar.
+- **Cabecera**: tarjeta blanca fija arriba, sin línea inferior; pestañas en píldora.
+- **Gráfico**: tarjeta propia, sin selector de tipo. Con exactamente 2 categorías (y sin rangos solapados) es circular; en cualquier otro caso, barras. Cada barra con un color (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`) y animación de entrada.
+- **Análisis**: «Cómo leerlo» va bajo el cuadro de controles; la tabla de datos del archivo queda siempre debajo, en un recuadro `--moss-900`.
+- **Cambio de columna**: el resultado anterior se atenúa, un cargador de cinco barras (mínimo 600 ms, `conPausaMinima` en `ui/panel.js`) cubre el cálculo y la tabla entra fila a fila.
+- **Rangos múltiples**: varios a la vez separados por `;`, coma y espacio, salto de línea o « y » (`separarRangos` en `js/ui/rangos.js`).
+- Todo el movimiento se desactiva con `prefers-reduced-motion`.

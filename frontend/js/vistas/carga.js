@@ -1,6 +1,6 @@
 // Vista de carga: validar el archivo en el navegador, enviarlo y mostrar errores o avisos.
 
-import { cargarEjemplo, comoErrorApi, subirArchivo } from '../api.js';
+import { comoErrorApi, subirArchivo } from '../api.js';
 import { listaDeFormatos, numero, tamanoEnMB } from '../formato.js';
 import { rellenar } from '../plantillas.js';
 
@@ -53,7 +53,6 @@ function ocupar(ocupado) {
   enCurso = ocupado;
   el.zona.setAttribute('aria-busy', String(ocupado));
   el.entrada.disabled = ocupado;
-  el.ejemplo.disabled = ocupado;
   el.leyendo.hidden = !ocupado;
 }
 
@@ -157,7 +156,6 @@ export function iniciarCarga(configuracion, alTerminar) {
   el = {
     zona: porId('zona-carga'),
     entrada: porId('archivo-input'),
-    ejemplo: porId('btn-ejemplo'),
     leyendo: porId('carga-leyendo'),
     error: porId('carga-error-contenido'),
     aviso: porId('carga-aviso-contenido'),
@@ -173,11 +171,9 @@ export function iniciarCarga(configuracion, alTerminar) {
     elemento.textContent = numero(config.minutos_inactividad);
   }
   el.entrada.accept = config.formatos.map((formato) => `.${formato}`).join(',');
-  el.ejemplo.hidden = !config.ejemplo_disponible;
 
   el.entrada.addEventListener('change', () => {
     if (el.entrada.files.length > 0) procesar([...el.entrada.files]);
   });
-  el.ejemplo.addEventListener('click', () => enviar(cargarEjemplo));
   conectarArrastre();
 }

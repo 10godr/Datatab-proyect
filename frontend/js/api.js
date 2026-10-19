@@ -98,8 +98,6 @@ export function subirArchivo(archivo) {
   return solicitar('POST', '/api/datasets', { formulario, tiempo: TIEMPO_SUBIDA_MS });
 }
 
-export const cargarEjemplo = () => solicitar('POST', '/api/datasets/ejemplo', { tiempo: TIEMPO_SUBIDA_MS });
-
 export const recuperarDataset = (id) => solicitar('GET', rutaDataset(id));
 
 export const obtenerFilas = (id, desde, cantidad) =>

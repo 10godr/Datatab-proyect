@@ -82,7 +82,6 @@ def calentar(cliente) -> None:
     """Primera petición de cada tipo: las importaciones diferidas y las cachés no cuentan."""
     for nombre, contenido in (("a.csv", crear_csv([["a"], [1]])), ("a.xlsx", crear_xlsx([["a"], [1]])), ("a.xls", crear_xls([["a"], [1]]))):
         assert cliente.post("/api/datasets", files={"archivo": (nombre, contenido, "application/octet-stream")}).status_code == 201
-    assert cliente.post("/api/datasets/ejemplo").status_code == 201
 
 
 def comprobar_sin_disco(desbordes, eventos, carpeta_temporal):
@@ -118,7 +117,7 @@ def test_subir_un_archivo_de_casi_5_mb_y_analizarlo_no_escribe_en_disco(formato,
         )
         assert cruce.status_code == 200
         assert cliente.delete(f"/api/datasets/{dataset_id}").status_code == 204
-        assert cliente.post("/api/datasets/ejemplo").status_code == 201
+        assert cliente.post("/api/datasets", files={"archivo": ("b.csv", crear_csv([["a"], [1]]), "text/csv")}).status_code == 201
 
     comprobar_sin_disco(desbordes, eventos, carpeta_temporal)
 

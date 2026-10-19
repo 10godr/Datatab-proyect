@@ -19,7 +19,6 @@ const CONFIGURACION_POR_DEFECTO = {
   max_bytes: 5 * 1024 * 1024,
   formatos: ['xlsx', 'xls', 'csv'],
   minutos_inactividad: 30,
-  ejemplo_disponible: false,
 };
 
 const TITULO_CARGA = document.title;
