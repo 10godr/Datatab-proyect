@@ -83,7 +83,7 @@ Calculado con la fórmula de luminancia relativa de WCAG 2.2. Mínimos: 4,5:1 en
 
 ### Teléfono (≤ 640 px)
 
-- La cabecera pasa a dos filas: logo y "Cerrar archivo", y debajo nombre del archivo (se recorta con puntos suspensivos), filas y columnas.
+- La cabecera pasa a dos filas: «DataTab» y "Cerrar archivo", y debajo nombre del archivo (se recorta con puntos suspensivos), filas y columnas.
 - Los controles van arriba, dentro de un `<details>` (`#frec-controles`, `#cruce-controles`) que JS cierra tras calcular. Su resumen muestra el título y un texto de apoyo (`#frec-controles-resumen`).
 - La tabla de frecuencias se muestra como lista: etiqueta, frecuencia y porcentaje en una línea y, debajo, una barra proporcional que empieza en cero. Se hace con `display: grid` sobre los propios elementos de tabla y con roles ARIA repetidos en el marcado (`role="table"`, `row`, `cell`…) para que los lectores de pantalla no pierdan la semántica de tabla. La barra la dibujan `tr::before` (pista) y `tr::after` (relleno, ancho `var(--ancho)`).
 - El gráfico queda en `<details id="frec-grafico-detalles">` con el resumen "Ver gráfico".
@@ -103,7 +103,7 @@ Símbolo "A · Tabulador": un trazo horizontal que termina en una barra vertical
 
 - `assets/logo.svg`: usa `currentColor`; el color lo da el contexto (`--signal` en la cabecera).
 - `assets/logo-claro.svg`: musgo oscuro `#13261C`, para fondos claros.
-- En la cabecera va **en línea** en el HTML (un `<svg>` con `fill="currentColor"` y `aria-hidden`), junto al nombre "datatab" en minúsculas, 22 px, peso 600. Un `<img>` no hereda `currentColor`. El nombre va siempre al lado: solo, el símbolo puede leerse como "ir al final".
+- El logo ya no aparece en la interfaz (la cabecera solo lleva el nombre «DataTab»); los SVG de `assets/` se usan como icono de la pestaña.
 - `assets/favicon.svg`: símbolo verde `#63D68F` sobre transparente. Para que sea nítido a 16 px, los trazos se redondearon a medidas pares (`x4 y14 w18 h4` y `x24 y6 w4 h20`), de modo que a 16 y 32 px caen en píxeles enteros. Es el único ajuste respecto al símbolo de la maqueta.
 - `assets/favicon-32.png` (32 px, transparente) y `assets/apple-touch-icon.png` (180 px, símbolo con la geometría de la maqueta en verde sobre `#0A0C0B`) se generaron desde los SVG con Chromium.
 - Espacio libre alrededor: al menos la altura de la barra horizontal del símbolo (3 unidades de 32). No se deforma, no se gira y no se le añaden contornos ni efectos.
@@ -130,6 +130,7 @@ Convenciones:
 |---|---|
 | `#vista-carga`, `#vista-analisis` | Vistas. Se muestra una y se oculta la otra. Empieza visible la de carga. |
 | `#archivo-barra` | Zona de la cabecera con datos del archivo. Oculta (`hidden`) en la vista de carga; JS la muestra en la de análisis. |
+| `.cabecera` | Se oculta por CSS (`body:has(#vista-carga:not([hidden]))`) en la vista de carga. |
 | `#archivo-nombre`, `#archivo-filas`, `#archivo-columnas` | Nombre, filas y columnas. |
 | `#archivo-filas-unidad`, `#archivo-columnas-unidad` | "filas" y "columnas"; cambiar a singular si la cifra es 1. |
 | `#btn-cerrar-archivo` | Abre el diálogo de confirmación. |
@@ -354,8 +355,9 @@ Pequeños ajustes a `index.html` y a los CSS que salieron al conectar el JavaScr
 
 ## Estado visual actual
 - **Tema único claro**: fondo menta `#E8F5EC`, tarjetas blancas, verde `#147A3F` para la acción principal. Tokens en `frontend/css/tokens.css`. Sin degradados, cristal ni elementos flotantes decorativos.
-- **Pantalla de carga**: centrada, con líneas topográficas de fondo (`assets/topografia.svg`, trazo de 1 px, desvanecido hacia el centro por `.vista-carga::before`; solo aquí). La zona de carga tiene borde discontinuo, elevación al pasar el ratón y pulso al arrastrar.
-- **Cabecera**: tarjeta blanca fija arriba, sin línea inferior; pestañas en píldora.
+- **Pantalla de carga**: sin cabecera, con el contenido centrado en la pantalla (`.vista-carga` ocupa el alto menos el pie). Líneas topográficas de fondo (`assets/topografia.svg`, trazo de 1 px al 30 %, desvanecido hacia el centro por `.vista-carga::before`), que bajan hasta el pie. La zona de carga tiene borde discontinuo, elevación al pasar el ratón y pulso al arrastrar. Bajo ella va la nota «DataTab describe lo que hay en tu archivo…» (`.nota-carga`).
+- **Cabecera** (solo con un archivo abierto): sin tarjeta ni logo; el texto «DataTab» a la izquierda, y a la derecha nombre del archivo, filas, columnas y «Cerrar archivo». No es fija al hacer scroll. Pestañas en píldora.
+- **Pie**: sin línea superior, centrado: «Creado por Diego R. ♥» en negro; el nombre enlaza a github.com/10godr sin estilo de enlace.
 - **Gráfico**: tarjeta propia, sin selector de tipo. Con exactamente 2 categorías (y sin rangos solapados) es circular; en cualquier otro caso, barras. Cada barra con un color (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`) y animación de entrada.
 - **Cruce**: tabla con encabezado doble (Fr y %) y, debajo, barras agrupadas (`ui/grafico-cruce.js`): una serie por valor de la columna; se oculta con más de 12 filas u 8 columnas y la tabla sigue completa.
 - **Análisis**: «Cómo leerlo» va bajo el cuadro de controles; la tabla de datos del archivo queda siempre debajo, en un recuadro `--moss-900`.
