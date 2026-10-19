@@ -654,12 +654,12 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 /* Nota bajo la zona de carga */
 .nota-carga { margin: var(--s-4) auto 0; max-width: 48rem; text-align: center; font-size: var(--t-sm); color: var(--text-2); }
 
-/* Solo en la bienvenida; se desvanecen hacia el centro para no pasar detrás del texto ni de la zona de carga */
+/* Solo en la bienvenida (y bajo el pie); se desvanecen hacia el centro para no pasar detrás del texto ni de la zona de carga */
 .vista-carga { position: relative; overflow-x: clip; }
 .vista-carga::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 0 -6rem; /* baja hasta cubrir el pie */
   z-index: -1;
   background: url("../assets/topografia.svg") center / cover no-repeat;
   -webkit-mask-image: radial-gradient(ellipse 48% 60% at 50% 50%, transparent 58%, #000 100%);

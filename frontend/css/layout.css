@@ -125,7 +125,6 @@ main { flex: 1 0 auto; }
 /* ---------- Pie ---------- */
 
 .pie {
-  border-top: 1px solid var(--line);
   padding-block: var(--s-5);
   font-size: var(--t-xs);
   color: var(--text-3);
