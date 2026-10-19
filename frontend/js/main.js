@@ -22,7 +22,7 @@ const CONFIGURACION_POR_DEFECTO = {
 };
 
 const TITULO_CARGA = document.title;
-const TITULO_ANALISIS = 'DataTab · Análisis de tu archivo';
+const TITULO_ANALISIS = 'DataTab - Analizando archivo';
 
 const porId = (id) => document.getElementById(id);
 const el = {
