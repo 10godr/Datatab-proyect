@@ -7,7 +7,7 @@ const MAX_VALORES_DIBUJABLES = 60;
 const MAX_CATEGORIAS_VERTICAL = 5; // con más categorías las barras van en horizontal
 const LARGO_MAXIMO_ETIQUETA = 28;
 // Orden de colores de las categorías: rosa suave primero. Una sola serie va en --signal.
-const COLORES_BARRAS = ['--c-green', '--c-rose', '--c-blue', '--c-ochre', '--c-violet', '--c-teal', '--c-coral', '--c-lime'];
+export const COLORES_BARRAS = ['--c-green', '--c-rose', '--c-blue', '--c-ochre', '--c-violet', '--c-teal', '--c-coral', '--c-lime'];
 const COLORES_CATEGORIAS = ['--c-rose', '--c-white', '--c-blue', '--c-ochre', '--c-violet', '--c-gray'];
 
 let instancia = null;
@@ -37,7 +37,7 @@ function buscarElementos() {
 }
 
 /** Espera a que estén cargadas las fuentes Atkinson: el canvas no repinta solo cuando llegan. */
-function esperarFuentes() {
+export function esperarFuentes() {
   fuentes ??= Promise.all([
     document.fonts.load('400 12px "Atkinson Hyperlegible Next"'),
     document.fonts.load('500 12px "Atkinson Hyperlegible Mono"'),
@@ -59,7 +59,7 @@ export function vaciarGrafico() {
   el.lienzo.setAttribute('aria-label', 'Gráfico con los mismos datos que la tabla');
 }
 
-const acortar = (texto) => (texto.length > LARGO_MAXIMO_ETIQUETA ? `${texto.slice(0, LARGO_MAXIMO_ETIQUETA - 1)}…` : texto);
+export const acortar = (texto) => (texto.length > LARGO_MAXIMO_ETIQUETA ? `${texto.slice(0, LARGO_MAXIMO_ETIQUETA - 1)}…` : texto);
 
 function descripcion(r, tipo) {
   const mayor = r.filas.reduce((a, fila) => (fila.frecuencia > a.frecuencia ? fila : a));

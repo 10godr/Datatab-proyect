@@ -4,6 +4,7 @@ import { calcularCruce, comoErrorApi } from '../api.js';
 import { datasetActual, guardarResultado, ultimoResultado } from '../estado.js';
 import { cantidad, citar, entero, pistaColumna, porcentaje } from '../formato.js';
 import { clonar, rellenar } from '../plantillas.js';
+import { mostrarGraficoCruce, vaciarGraficoCruce } from '../ui/grafico-cruce.js';
 import { pintarAvisos } from '../ui/avisos.js';
 import { describirCruce } from '../ui/lectura.js';
 import {
@@ -89,6 +90,7 @@ function limpiarResultado() {
   el.subencabezado.replaceChildren();
   el.cuerpo.replaceChildren();
   quitarCeldasDelPie();
+  vaciarGraficoCruce();
   pintarAvisos(el.avisos, []);
 }
 
@@ -230,6 +232,7 @@ function pintar(r) {
   el.caption.textContent = `Registros según ${citar(r.fila.columna)} (filas) y ${citar(r.columna.columna)} (columnas). `
     + `Cada porcentaje es la parte de su fila; en el total, del conjunto. n = ${total}.`;
   pintarTabla(r);
+  mostrarGraficoCruce(r);
 
   const lectura = describirCruce(r);
   el.lecturaMuestra.textContent = lectura.muestra;

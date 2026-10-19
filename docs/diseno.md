@@ -357,6 +357,7 @@ Pequeños ajustes a `index.html` y a los CSS que salieron al conectar el JavaScr
 - **Pantalla de carga**: centrada, con líneas topográficas de fondo (`assets/topografia.svg`, trazo de 1 px, desvanecido hacia el centro por `.vista-carga::before`; solo aquí). La zona de carga tiene borde discontinuo, elevación al pasar el ratón y pulso al arrastrar.
 - **Cabecera**: tarjeta blanca fija arriba, sin línea inferior; pestañas en píldora.
 - **Gráfico**: tarjeta propia, sin selector de tipo. Con exactamente 2 categorías (y sin rangos solapados) es circular; en cualquier otro caso, barras. Cada barra con un color (`--c-green`, `--c-rose`, `--c-blue`, `--c-ochre`, `--c-violet`, `--c-teal`, `--c-coral`, `--c-lime`) y animación de entrada.
+- **Cruce**: tabla con encabezado doble (Fr y %) y, debajo, barras agrupadas (`ui/grafico-cruce.js`): una serie por valor de la columna; se oculta con más de 12 filas u 8 columnas y la tabla sigue completa.
 - **Análisis**: «Cómo leerlo» va bajo el cuadro de controles; la tabla de datos del archivo queda siempre debajo, en un recuadro `--moss-900`.
 - **Cambio de columna**: el resultado anterior se atenúa, un cargador de cinco barras (mínimo 600 ms, `conPausaMinima` en `ui/panel.js`) cubre el cálculo y la tabla entra fila a fila.
 - **Rangos múltiples**: varios a la vez separados por `;`, coma y espacio, salto de línea o « y » (`separarRangos` en `js/ui/rangos.js`).

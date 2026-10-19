@@ -429,6 +429,7 @@
 
 .grafico-bloque { display: grid; gap: var(--s-4); min-width: 0; }
 .grafico { display: grid; gap: var(--s-3); min-width: 0; }
+.tabla-scroll + .grafico { margin-top: var(--s-5); }
 .grafico figcaption { font-size: var(--t-sm); font-weight: 500; }
 .grafico__lienzo { position: relative; width: 100%; height: var(--alto-grafico, 18rem); }
 .grafico__lienzo canvas { display: block; }
@@ -669,6 +670,7 @@ details[open] > .plegable__resumen::after { transform: translateY(2px) rotate(-1
 
 /* ---------- Gráfico ---------- */
 .grafico { padding: var(--s-5); background: var(--ink-1); border: 1px solid var(--line); border-radius: 12px; }
+.tabla-scroll + .grafico { margin-top: var(--s-5); }
 .grafico figcaption { font-size: var(--t-md); font-weight: 600; }
 
 /* ---------- Movimiento (se desactiva con prefers-reduced-motion, ver base.css) ---------- */
